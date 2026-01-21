@@ -1,83 +1,80 @@
-# Hyperion Tech Hub - Next.js Frontend
+# Hyperion Tech Hub
 
-Modern frontend for Hyperion Tech Hub built with Next.js, TypeScript, and Tailwind CSS.
+Modern marketing website for Hyperion Tech Hub built with Next.js, TypeScript, and Tailwind CSS.  
+Live site: https://www.hyperiontechhub.com/
 
-## 🚀 Getting Started
+## Tech Stack
+
+- Next.js (App Router)
+- React
+- TypeScript
+- Tailwind CSS
+- shadcn/ui (customized components)
+- Axios (WordPress REST API)
+
+## Data Source (Headless WordPress)
+
+WordPress REST API base:
+`https://cms.hyperiontechhub.com/wp-json/wp/v2`
+
+Common endpoints:
+- `/services`
+- `/team`
+- `/portfolio`
+- `/posts`
+- `/pages`
+
+## Getting Started
 
 ### Prerequisites
 
-- Node.js 18+ installed
-- WordPress running at `http://localhost/testhub.com`
-- WordPress headless theme activated
+- Node.js 18+
+- Access to the WordPress API
 
-### Installation
+### Install & Run
 
-1. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-
-2. **Configure environment:**
-   - Check `.env.local` file
-   - Update WordPress API URL if needed
-
-3. **Run development server:**
-   ```bash
-   npm run dev
-   ```
-
-4. **Open browser:**
-   - Visit: http://localhost:3000
-
-## 📁 Project Structure
-
-```
-hyperiontechhub/
-├── app/                 # Next.js App Router
-│   ├── layout.tsx      # Root layout
-│   ├── page.tsx        # Homepage
-│   └── globals.css     # Global styles
-├── components/          # React components
-│   ├── Header.tsx
-│   ├── Hero.tsx
-│   ├── Services.tsx
-│   ├── Purpose.tsx
-│   ├── Contact.tsx
-│   └── Footer.tsx
-├── lib/                # Utilities
-│   ├── wp-api.ts       # WordPress API client
-│   └── utils.ts        # Helper functions
-└── public/             # Static assets
+```bash
+npm install
+npm run dev
 ```
 
-## 🔌 WordPress API Integration
+Open `http://localhost:3000`
 
-The frontend connects to WordPress via REST API:
+## Environment Variables
 
-- **Base URL:** `http://localhost/testhub.com/wp-json/wp/v2`
-- **Endpoints:**
-  - `/services` - Services custom post type
-  - `/team` - Team members
-  - `/portfolio` - Portfolio items
-  - `/posts` - Blog posts
-  - `/pages` - Pages
+Create a `.env.local` file:
 
-## 🎨 Design Source
+```
+NEXT_PUBLIC_SITE_URL=https://www.hyperiontechhub.com
+NEXT_PUBLIC_SITE_NAME=Hyperion Tech Hub
+NEXT_PUBLIC_WP_API_URL=https://cms.hyperiontechhub.com/wp-json/wp/v2
+NEXT_PUBLIC_WP_SITE_URL=https://cms.hyperiontechhub.com
+```
 
-Figma Design: https://source-sorted-25581197.figma.site/
+If contact forms are enabled, also set:
 
-## 📝 Available Scripts
+```
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your_email
+SMTP_PASSWORD=your_password_or_app_password
+EMAIL_FROM="Hyperion Tech Hub <your_email>"
+```
+
+## Scripts
 
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint
 
-## 🚀 Deployment
+## Deployment
 
-This Next.js app can be deployed to:
-- Vercel (recommended)
-- Netlify
-- Any Node.js hosting
+Deployed on Vercel.  
+Set the same environment variables in Vercel before deploying.
 
-Make sure to update `NEXT_PUBLIC_WP_API_URL` in production environment variables.
+## Contributing
+
+1. Fork the repo
+2. Create a feature branch
+3. Open a pull request with a clear description
