@@ -6,12 +6,12 @@ import CTABanner from '@/components/CTABanner';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import BackToTop from '@/components/BackToTop';
-import { getServices } from '@/lib/wp-api';
+import { getServices, type Service } from '@/lib/wp-api';
 
 export default async function Home() {
   // Fetch services from WordPress API
   // If API fails, empty array will be passed and default services will show
-  let services = [];
+  let services: Service[] = [];
   try {
     services = await getServices();
   } catch (error) {
