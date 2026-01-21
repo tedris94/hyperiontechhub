@@ -248,15 +248,6 @@ export default function ConsultationPage() {
               ) : (
                 <div className="bg-white border border-gray-200 rounded-2xl shadow-xl p-8 md:p-12">
                   <form onSubmit={handleSubmit} className="space-y-6">
-                    {submitStatus === 'success' && (
-                      <Alert className="bg-green-50 border-green-200">
-                        <CheckCircle className="h-4 w-4 text-green-600" />
-                        <AlertTitle className="text-green-800">Success!</AlertTitle>
-                        <AlertDescription className="text-green-700">
-                          Your consultation request has been submitted successfully. We'll contact you within 24 hours.
-                        </AlertDescription>
-                      </Alert>
-                    )}
                     {submitStatus === 'error' && (
                       <Alert variant="destructive">
                         <AlertCircle className="h-4 w-4" />
