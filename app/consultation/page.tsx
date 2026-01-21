@@ -19,6 +19,7 @@ interface FormErrors {
   preferredDate?: string;
   preferredTime?: string;
   message?: string;
+  general?: string;
 }
 
 export default function ConsultationPage() {
