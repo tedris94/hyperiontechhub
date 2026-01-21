@@ -7,6 +7,7 @@
 
 # testing
 /coverage
+__tests__/
 
 # next.js
 /.next/
@@ -18,6 +19,7 @@
 # misc
 .DS_Store
 *.pem
+Cursor AI Prompts/
 
 # debug
 npm-debug.log*
