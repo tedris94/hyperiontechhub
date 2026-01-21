@@ -1,6 +1,6 @@
 # Hyperion Tech Hub
 
-Modern marketing website for Hyperion Tech Hub built with Next.js, TypeScript, and Tailwind CSS.  
+Official website for Hyperion Tech Hub, a technology company providing web, mobile, desktop, and custom application development.  
 Live site: https://www.hyperiontechhub.com/
 
 ## Tech Stack
