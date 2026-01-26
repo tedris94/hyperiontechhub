@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Send, CheckCircle, AlertCircle, Mail, Phone, MapPin } from 'lucide-react';
+import { useSiteContent } from '@/contexts/SiteContentContext';
 
 interface FormErrors {
   name?: string;
@@ -12,6 +13,9 @@ interface FormErrors {
 }
 
 export default function Contact() {
+  const siteContent = useSiteContent();
+  const contactContent = siteContent.home.contact;
+  const { form } = contactContent;
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -194,10 +198,10 @@ export default function Contact() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-4xl md:text-5xl text-[#1B1C1E] mb-4">
-            Get in Touch
+            {contactContent.heading}
           </h2>
           <p className="text-xl text-gray-600">
-            Ready to transform your technology experience? Let's start a conversation.
+            {contactContent.subheading}
           </p>
         </div>
 
@@ -209,11 +213,10 @@ export default function Contact() {
             {/* Intro Text */}
             <div>
               <h3 className="text-2xl text-[#1B1C1E] mb-4">
-                Let's Connect
+                {contactContent.introHeading}
               </h3>
               <p className="text-gray-600 mb-8">
-                Whether you have a question about our services, pricing, or anything else, 
-                our team is ready to answer all your questions.
+                {contactContent.introText}
               </p>
             </div>
 
@@ -222,13 +225,13 @@ export default function Contact() {
               {/* Email Card */}
               <div className="border-none shadow-md hover:shadow-lg transition-shadow bg-white rounded-lg">
                 <div className="p-6">
-                  <a href="mailto:info@hyperiontechhub.com" className="flex items-start space-x-4 group">
+                  <a href={`mailto:${contactContent.email}`} className="flex items-start space-x-4 group">
                     <div className="w-12 h-12 rounded-lg bg-[#1A2BC2]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#1A2BC2] transition-colors">
                       <Mail className="w-6 h-6 text-[#1A2BC2] group-hover:text-white transition-colors" />
                     </div>
                     <div>
                       <h4 className="text-[#1B1C1E] mb-1 font-semibold">Email Us</h4>
-                      <p className="text-gray-600">info@hyperiontechhub.com</p>
+                      <p className="text-gray-600">{contactContent.email}</p>
                     </div>
                   </a>
                 </div>
@@ -237,13 +240,16 @@ export default function Contact() {
               {/* Phone Card */}
               <div className="border-none shadow-md hover:shadow-lg transition-shadow bg-white rounded-lg">
                 <div className="p-6">
-                  <a href="tel:+2349064951938" className="flex items-start space-x-4 group">
+                  <a
+                    href={`tel:${contactContent.phone.replace(/\s+/g, '')}`}
+                    className="flex items-start space-x-4 group"
+                  >
                     <div className="w-12 h-12 rounded-lg bg-[#1A2BC2]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#1A2BC2] transition-colors">
                       <Phone className="w-6 h-6 text-[#1A2BC2] group-hover:text-white transition-colors" />
                     </div>
                     <div>
                       <h4 className="text-[#1B1C1E] mb-1 font-semibold">Call Us</h4>
-                      <p className="text-gray-600">(+234) 906 4951 938</p>
+                      <p className="text-gray-600">{contactContent.phone}</p>
                     </div>
                   </a>
                 </div>
@@ -259,7 +265,7 @@ export default function Contact() {
                     <div>
                       <h4 className="text-[#1B1C1E] mb-1 font-semibold">Visit Us</h4>
                       <p className="text-gray-600">
-                        Plot 624, No. 9 Clifford Omozeghian Ave., Gbazango Extension II, Arab Road, Arab Junction by Kubwa Express, Kubwa, FCT-Abuja
+                        {contactContent.address}
                       </p>
                     </div>
                   </div>
@@ -273,22 +279,12 @@ export default function Contact() {
                 Why Choose Us?
               </h4>
               <ul className="space-y-3">
-                <li className="flex items-center text-gray-700">
-                  <div className="w-2 h-2 rounded-full bg-[#1A2BC2] mr-3"></div>
-                  24/7 Customer Support
-                </li>
-                <li className="flex items-center text-gray-700">
-                  <div className="w-2 h-2 rounded-full bg-[#1A2BC2] mr-3"></div>
-                  Expert Technical Team
-                </li>
-                <li className="flex items-center text-gray-700">
-                  <div className="w-2 h-2 rounded-full bg-[#1A2BC2] mr-3"></div>
-                  Competitive Pricing
-                </li>
-                <li className="flex items-center text-gray-700">
-                  <div className="w-2 h-2 rounded-full bg-[#1A2BC2] mr-3"></div>
-                  Custom Solutions
-                </li>
+                {contactContent.whyChooseUs.map((item) => (
+                  <li key={item} className="flex items-center text-gray-700">
+                    <div className="w-2 h-2 rounded-full bg-[#1A2BC2] mr-3"></div>
+                    {item}
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -301,9 +297,9 @@ export default function Contact() {
                 <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-start space-x-3">
                   <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="text-green-800 font-semibold mb-1">Message Sent Successfully!</h4>
+                    <h4 className="text-green-800 font-semibold mb-1">{form.successTitle}</h4>
                     <p className="text-green-700 text-sm">
-                      Thank you for contacting us. We'll get back to you within 24 hours.
+                      {form.successMessage}
                     </p>
                   </div>
                 </div>
@@ -314,9 +310,9 @@ export default function Contact() {
                 <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start space-x-3">
                   <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="text-red-800 font-semibold mb-1">Failed to Send Message</h4>
+                    <h4 className="text-red-800 font-semibold mb-1">{form.errorTitle}</h4>
                     <p className="text-red-700 text-sm">
-                      Please try again later or contact us directly via email or phone.
+                      {form.errorMessage}
                     </p>
                   </div>
                 </div>
@@ -326,13 +322,13 @@ export default function Contact() {
                 {/* Full Name */}
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-[#1B1C1E] font-medium">
-                    Full Name <span className="text-red-500">*</span>
+                    {form.fields.nameLabel} <span className="text-red-500">*</span>
                   </label>
                   <input
                     id="name"
                     name="name"
                     type="text"
-                    placeholder="John Doe"
+                    placeholder={form.fields.namePlaceholder}
                     required
                     value={formData.name}
                     onChange={handleChange}
@@ -354,13 +350,13 @@ export default function Contact() {
                 {/* Email */}
                 <div className="space-y-2">
                   <label htmlFor="email" className="text-[#1B1C1E] font-medium">
-                    Email Address <span className="text-red-500">*</span>
+                    {form.fields.emailLabel} <span className="text-red-500">*</span>
                   </label>
                   <input
                     id="email"
                     name="email"
                     type="email"
-                    placeholder="john.doe@example.com"
+                    placeholder={form.fields.emailPlaceholder}
                     required
                     value={formData.email}
                     onChange={handleChange}
@@ -382,13 +378,13 @@ export default function Contact() {
                 {/* Phone */}
                 <div className="space-y-2">
                   <label htmlFor="phone" className="text-[#1B1C1E] font-medium">
-                    Phone Number
+                    {form.fields.phoneLabel}
                   </label>
                   <input
                     id="phone"
                     name="phone"
                     type="tel"
-                    placeholder="+234 906 4951938"
+                    placeholder={form.fields.phonePlaceholder}
                     value={formData.phone}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -409,7 +405,7 @@ export default function Contact() {
                 {/* Service Select */}
                 <div className="space-y-2">
                   <label htmlFor="service" className="text-[#1B1C1E] font-medium">
-                    Service Interested In <span className="text-red-500">*</span>
+                    {form.fields.serviceLabel} <span className="text-red-500">*</span>
                   </label>
                   <select
                     id="service"
@@ -423,16 +419,12 @@ export default function Contact() {
                         : 'border-gray-300 focus:border-[#1A2BC2] focus:ring-[#1A2BC2]/20'
                     }`}
                   >
-                    <option value="">Select a service</option>
-                    <option value="ai-coding">AI & Native Coding</option>
-                    <option value="wordpress">WordPress & Web Development</option>
-                    <option value="cloud">Cloud Services</option>
-                    <option value="android">Android Development</option>
-                    <option value="training">Corporate Training</option>
-                    <option value="courses">Online Courses</option>
-                    <option value="repairs">Computer & Laptop Repairs</option>
-                    <option value="design">Graphic Design & Printing</option>
-                    <option value="cybersecurity">Cybersecurity</option>
+                    <option value="">{form.fields.servicePlaceholder}</option>
+                    {form.serviceOptions.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
                   </select>
                   {errors.service && touched.service && (
                     <p className="text-sm text-red-600 flex items-center">
@@ -445,12 +437,12 @@ export default function Contact() {
                 {/* Message */}
                 <div className="space-y-2">
                   <label htmlFor="message" className="text-[#1B1C1E] font-medium">
-                    Message <span className="text-red-500">*</span>
+                    {form.fields.messageLabel} <span className="text-red-500">*</span>
                   </label>
                   <textarea
                     id="message"
                     name="message"
-                    placeholder="Tell us about your project or inquiry..."
+                    placeholder={form.fields.messagePlaceholder}
                     rows={5}
                     required
                     value={formData.message}
@@ -486,11 +478,11 @@ export default function Contact() {
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                       </svg>
-                      Sending...
+                      {form.submittingLabel}
                     </>
                   ) : (
                     <>
-                      Send Message
+                      {form.submitLabel}
                       <Send className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </>
                   )}

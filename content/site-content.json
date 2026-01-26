@@ -1,0 +1,228 @@
+{
+  "site": {
+    "name": "Hyperion Tech Hub",
+    "tagline": "Your Technology Partner",
+    "description": "A one-stop destination for tech solutions, education, and innovation.",
+    "url": "https://www.hyperiontechhub.com",
+    "logo": {
+      "src": "/assets/img/hth-logo.svg",
+      "alt": "Hyperion Tech Hub"
+    }
+  },
+  "header": {
+    "navigation": [
+      { "label": "Home", "href": "/" },
+      { "label": "Services", "href": "/services" },
+      { "label": "Team", "href": "/team" },
+      { "label": "Training", "href": "/training" },
+      { "label": "Courses", "href": "/courses" },
+      { "label": "Consultancy", "href": "/consultancy" },
+      { "label": "Portfolio", "href": "/portfolio" }
+    ],
+    "cta": {
+      "loginLabel": "Login",
+      "dashboardLabel": "Dashboard",
+      "primary": {
+        "label": "Get Started",
+        "href": "/get-started"
+      }
+    }
+  },
+  "home": {
+    "hero": {
+      "badge": "Your Technology Partner",
+      "titleLines": ["Welcome to", "Hyperion Tech Hub"],
+      "description": "A one-stop destination for tech solutions, education, and innovation.",
+      "primaryCta": { "label": "Explore Services", "href": "#services" },
+      "secondaryCta": { "label": "Get Started", "href": "/get-started" },
+      "stats": [
+        { "value": "10+", "label": "Services" },
+        { "value": "500+", "label": "Happy Clients" },
+        { "value": "100%", "label": "Satisfaction" }
+      ],
+      "image": {
+        "src": "/assets/img/hero-img.jpg",
+        "alt": "Hyperion Tech Hub - Technology Solutions"
+      }
+    },
+    "services": {
+      "heading": "Our Services",
+      "description": "Comprehensive technology solutions designed to meet all your digital needs",
+      "cta": { "label": "Get In Touch", "href": "#contact" },
+      "fallbackItems": [
+        {
+          "title": "AI & Native Coding",
+          "description": "Advanced software development with AI-powered solutions and native application development.",
+          "icon": "Code2",
+          "color": "bg-blue-50 text-[#1A2BC2]"
+        },
+        {
+          "title": "WordPress & Web Development",
+          "description": "Custom websites and WordPress solutions tailored to your business needs.",
+          "icon": "Globe",
+          "color": "bg-purple-50 text-purple-600"
+        },
+        {
+          "title": "Cloud Services",
+          "description": "Scalable cloud infrastructure and migration services for modern businesses.",
+          "icon": "Cloud",
+          "color": "bg-cyan-50 text-cyan-600"
+        },
+        {
+          "title": "Android Development",
+          "description": "Native Android applications that deliver seamless mobile experiences.",
+          "icon": "Smartphone",
+          "color": "bg-green-50 text-green-600"
+        },
+        {
+          "title": "Corporate Training",
+          "description": "Professional training programs to upskill your team in the latest technologies.",
+          "icon": "GraduationCap",
+          "color": "bg-orange-50 text-orange-600"
+        },
+        {
+          "title": "Online Courses",
+          "description": "Comprehensive online courses for continuous learning and skill development.",
+          "icon": "BookOpen",
+          "color": "bg-pink-50 text-pink-600"
+        },
+        {
+          "title": "Computer & Laptop Repairs",
+          "description": "Expert hardware repair and maintenance services for all your devices.",
+          "icon": "Wrench",
+          "color": "bg-red-50 text-red-600"
+        },
+        {
+          "title": "Graphic Design & Printing",
+          "description": "Creative design solutions and professional printing services.",
+          "icon": "Palette",
+          "color": "bg-yellow-50 text-yellow-700"
+        },
+        {
+          "title": "Cybersecurity",
+          "description": "Comprehensive security solutions to protect your digital assets and data.",
+          "icon": "Shield",
+          "color": "bg-indigo-50 text-indigo-600"
+        }
+      ]
+    },
+    "purpose": {
+      "heading": "Our Purpose",
+      "subheading": "Bridging the gap between technology and the people who use it",
+      "image": {
+        "src": "/assets/img/purpose.jpg",
+        "alt": "Hyperion Tech Hub Purpose - Bridging technology and people"
+      },
+      "paragraphs": [
+        "At Hyperion Tech Hub, our purpose is to bridge the gap between technology and the people who use it. We are driven by a commitment to empower businesses, professionals, and learners to unlock their full potential through cutting-edge technology solutions and comprehensive education.",
+        "Our mission is to make technology accessible, understandable, and impactful for everyone. Whether it's through developing intuitive software, securing digital environments, or providing training that equips individuals with the skills they need to thrive, we are dedicated to fostering growth and innovation.",
+        "We believe that technology should be a force for good—solving problems, driving progress, and creating opportunities. By providing a one-stop destination for all things tech, we aim to not only meet the immediate needs of our clients but also to inspire a future where technology and creativity work hand in hand to build a better world."
+      ],
+      "values": [
+        {
+          "title": "Our Mission",
+          "description": "To make technology accessible, understandable, and impactful for everyone.",
+          "icon": "Target"
+        },
+        {
+          "title": "Innovation",
+          "description": "Driving progress through cutting-edge solutions and creative problem-solving.",
+          "icon": "Lightbulb"
+        },
+        {
+          "title": "Partnership",
+          "description": "Building lasting relationships as your trusted technology partner.",
+          "icon": "Users"
+        },
+        {
+          "title": "Excellence",
+          "description": "Committed to delivering the highest quality in everything we do.",
+          "icon": "Award"
+        }
+      ],
+      "statement": "Hyperion Tech Hub exists to be a catalyst for change, a partner in progress, and a leader in innovation. We are here to help our clients navigate the complexities of the digital age, ensuring that technology serves as a powerful tool in their hands."
+    },
+    "contact": {
+      "heading": "Get in Touch",
+      "subheading": "Ready to transform your technology experience? Let's start a conversation.",
+      "introHeading": "Let's Connect",
+      "introText": "Whether you have a question about our services, pricing, or anything else, our team is ready to answer all your questions.",
+      "email": "info@hyperiontechhub.com",
+      "phone": "(+234) 906 4951 938",
+      "address": "Plot 624, No. 9 Clifford Omozeghian Ave., Gbazango Extension II, Arab Road, Arab Junction by Kubwa Express, Kubwa, FCT-Abuja",
+      "whyChooseUs": [
+        "24/7 Customer Support",
+        "Expert Technical Team",
+        "Competitive Pricing",
+        "Custom Solutions"
+      ],
+      "form": {
+        "successTitle": "Message Sent Successfully!",
+        "successMessage": "Thank you for contacting us. We'll get back to you within 24 hours.",
+        "errorTitle": "Failed to Send Message",
+        "errorMessage": "Please try again later or contact us directly via email or phone.",
+        "fields": {
+          "nameLabel": "Full Name",
+          "namePlaceholder": "John Doe",
+          "emailLabel": "Email Address",
+          "emailPlaceholder": "john.doe@example.com",
+          "phoneLabel": "Phone Number",
+          "phonePlaceholder": "+234 906 4951938",
+          "serviceLabel": "Service Interested In",
+          "servicePlaceholder": "Select a service",
+          "messageLabel": "Message",
+          "messagePlaceholder": "Tell us about your project or inquiry..."
+        },
+        "serviceOptions": [
+          { "value": "ai-coding", "label": "AI & Native Coding" },
+          { "value": "wordpress", "label": "WordPress & Web Development" },
+          { "value": "cloud", "label": "Cloud Services" },
+          { "value": "android", "label": "Android Development" },
+          { "value": "training", "label": "Corporate Training" },
+          { "value": "courses", "label": "Online Courses" },
+          { "value": "repairs", "label": "Computer & Laptop Repairs" },
+          { "value": "design", "label": "Graphic Design & Printing" },
+          { "value": "cybersecurity", "label": "Cybersecurity" }
+        ],
+        "submitLabel": "Send Message",
+        "submittingLabel": "Sending..."
+      }
+    }
+  },
+  "footer": {
+    "description": "A one-stop destination for tech solutions, education, and innovation. Empowering businesses and individuals through cutting-edge technology.",
+    "contact": {
+      "email": "info@hyperiontechhub.com",
+      "phone": "(+234) 906 4951 938",
+      "address": "Plot 233, Near Jethrone Eagle Academy, Gbazango Extension Kubwa Abuja"
+    },
+    "columns": {
+      "company": [
+        { "label": "About Us", "href": "/about" },
+        { "label": "Team", "href": "/team" },
+        { "label": "Services", "href": "/services" },
+        { "label": "Portfolio", "href": "/portfolio" },
+        { "label": "Careers", "href": "/careers" }
+      ],
+      "services": [
+        { "label": "Training Programs", "href": "/training" },
+        { "label": "Online Courses", "href": "/courses" },
+        { "label": "Consultancy", "href": "/consultancy" },
+        { "label": "View All Services", "href": "/services" }
+      ],
+      "support": [
+        { "label": "Help Center", "href": "/help-center" },
+        { "label": "Contact Us", "href": "/#contact" },
+        { "label": "FAQ", "href": "/faq" },
+        { "label": "Privacy Policy", "href": "/privacy" }
+      ]
+    },
+    "social": [
+      { "label": "LinkedIn", "href": "#" },
+      { "label": "Twitter", "href": "#" },
+      { "label": "Facebook", "href": "#" },
+      { "label": "Instagram", "href": "#" }
+    ],
+    "copyright": "© {{year}} Hyperion Tech Hub. All rights reserved."
+  }
+}
