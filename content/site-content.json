@@ -189,6 +189,262 @@
       }
     }
   },
+  "careers": {
+    "hero": {
+      "badge": "Join Our Team",
+      "title": "Build Your Career with Us",
+      "description": "Join a team of passionate professionals working on cutting-edge technology solutions. We're always looking for talented individuals who share our vision."
+    },
+    "whyJoin": {
+      "heading": "Why Join Hyperion Tech Hub?",
+      "subheading": "We offer more than just a job",
+      "items": [
+        { "icon": "💼", "title": "Career Growth", "description": "Opportunities for professional development" },
+        { "icon": "⚖️", "title": "Work-Life Balance", "description": "Flexible hours and remote options" },
+        { "icon": "🎓", "title": "Learning Culture", "description": "Continuous learning and training" },
+        { "icon": "🤝", "title": "Great Team", "description": "Collaborative and supportive environment" },
+        { "icon": "💰", "title": "Competitive Pay", "description": "Attractive compensation packages" },
+        { "icon": "🏆", "title": "Impact", "description": "Work on meaningful projects" }
+      ]
+    },
+    "openings": {
+      "heading": "Open Positions",
+      "subheading": "Explore current job opportunities",
+      "jobs": [
+        {
+          "id": 1,
+          "title": "Senior Full-Stack Developer",
+          "department": "Engineering",
+          "location": "Remote / Hybrid",
+          "type": "Full-time",
+          "salary": "$80,000 - $120,000",
+          "experience": "5+ years",
+          "description": "We are looking for an experienced Full-Stack Developer to join our engineering team and help build innovative solutions for our clients.",
+          "responsibilities": [
+            "Design and develop scalable web applications",
+            "Collaborate with cross-functional teams",
+            "Write clean, maintainable code",
+            "Mentor junior developers",
+            "Participate in code reviews and architecture decisions"
+          ],
+          "requirements": [
+            "Strong experience with React, Node.js, and TypeScript",
+            "Knowledge of cloud platforms (AWS, Azure, or GCP)",
+            "Experience with databases (SQL and NoSQL)",
+            "Excellent problem-solving skills",
+            "Strong communication abilities"
+          ]
+        },
+        {
+          "id": 2,
+          "title": "UI/UX Designer",
+          "department": "Design",
+          "location": "On-site",
+          "type": "Full-time",
+          "salary": "$60,000 - $90,000",
+          "experience": "3+ years",
+          "description": "Join our creative team to design intuitive and beautiful user experiences for web and mobile applications.",
+          "responsibilities": [
+            "Create wireframes, prototypes, and high-fidelity designs",
+            "Conduct user research and usability testing",
+            "Collaborate with developers to implement designs",
+            "Maintain design systems and style guides"
+          ],
+          "requirements": [
+            "Proficiency in Figma, Adobe XD, or Sketch",
+            "Strong portfolio demonstrating UX/UI skills",
+            "Understanding of user-centered design principles",
+            "Experience with responsive design"
+          ]
+        },
+        {
+          "id": 3,
+          "title": "Cloud Solutions Architect",
+          "department": "Engineering",
+          "location": "Remote",
+          "type": "Full-time",
+          "salary": "$100,000 - $150,000",
+          "experience": "7+ years",
+          "description": "Lead cloud infrastructure design and implementation for enterprise clients.",
+          "responsibilities": [
+            "Design scalable cloud architectures",
+            "Lead cloud migration projects",
+            "Provide technical guidance to teams",
+            "Optimize cloud costs and performance"
+          ],
+          "requirements": [
+            "AWS, Azure, or GCP certifications",
+            "Experience with infrastructure as code",
+            "Strong knowledge of DevOps practices",
+            "Excellent architectural design skills"
+          ]
+        }
+      ]
+    },
+    "application": {
+      "form": {
+        "namePlaceholder": "Full Name",
+        "emailPlaceholder": "Email",
+        "phonePlaceholder": "Phone Number",
+        "coverLetterPlaceholder": "Cover Letter",
+        "resumeLabel": "Upload Resume",
+        "submitLabel": "Submit Application"
+      }
+    },
+    "cta": {
+      "heading": "Don't See a Role That Fits?",
+      "description": "We're always interested in hearing from talented individuals. Send us your resume and we'll keep you in mind for future opportunities.",
+      "buttonLabel": "Send Your Resume",
+      "buttonHref": "mailto:careers@hyperiontechhub.com"
+    }
+  },
+  "getStarted": {
+    "hero": {
+      "title": "Get Started with",
+      "highlight": "Hyperion Tech Hub",
+      "description": "Your journey to digital transformation starts here. Let's work together to achieve your technology goals.",
+      "ctaLabel": "Schedule a Consultation",
+      "ctaHref": "/#contact"
+    },
+    "steps": {
+      "heading": "How It Works",
+      "subheading": "Simple steps to get started with our services",
+      "items": [
+        {
+          "number": "01",
+          "title": "Choose Your Service",
+          "description": "Browse our comprehensive range of technology solutions and select what you need.",
+          "icon": "Briefcase"
+        },
+        {
+          "number": "02",
+          "title": "Get in Touch",
+          "description": "Contact us through our form, email, or phone to discuss your requirements.",
+          "icon": "Users"
+        },
+        {
+          "number": "03",
+          "title": "Consultation",
+          "description": "We'll schedule a consultation to understand your needs and provide a tailored solution.",
+          "icon": "GraduationCap"
+        },
+        {
+          "number": "04",
+          "title": "Get Started",
+          "description": "Once we align on the solution, we'll begin working on your project or training.",
+          "icon": "Code2"
+        }
+      ]
+    },
+    "services": {
+      "heading": "What Are You Looking For?",
+      "subheading": "Select a service to get started",
+      "items": [
+        {
+          "title": "Software Development",
+          "description": "Custom software solutions for your business needs",
+          "link": "/services"
+        },
+        {
+          "title": "Training Programs",
+          "description": "Upskill your team with our comprehensive training",
+          "link": "/training"
+        },
+        {
+          "title": "Consultancy Services",
+          "description": "Expert guidance for your technology initiatives",
+          "link": "/consultancy"
+        },
+        {
+          "title": "Cloud Solutions",
+          "description": "Scalable cloud infrastructure and migration services",
+          "link": "/services"
+        }
+      ]
+    },
+    "whyChoose": {
+      "heading": "Why Choose Hyperion Tech Hub?",
+      "items": [
+        "Comprehensive technology solutions",
+        "Experienced and certified team",
+        "Customized solutions for your needs",
+        "Ongoing support and maintenance",
+        "Transparent pricing and communication",
+        "Proven track record of success"
+      ],
+      "ctaTitle": "Ready to Get Started?",
+      "ctaDescription": "Schedule a free consultation to discuss your project and discover how we can help.",
+      "ctaLabel": "Schedule Consultation",
+      "ctaHref": "/consultation"
+    },
+    "finalCta": {
+      "heading": "Let's Build Something Great Together",
+      "description": "Contact us today and take the first step towards achieving your technology goals.",
+      "primaryLabel": "Contact Us",
+      "primaryHref": "/#contact",
+      "secondaryLabel": "Schedule Consultation",
+      "secondaryHref": "/consultation"
+    }
+  },
+  "consultation": {
+    "hero": {
+      "title": "Schedule a",
+      "highlight": "Consultation",
+      "description": "Let's discuss your project and explore how we can help you achieve your technology goals. Fill out the form below and we'll get back to you within 24 hours."
+    },
+    "success": {
+      "title": "Thank You!",
+      "message": "Your consultation request has been submitted successfully. We'll contact you within 24 hours to schedule your consultation.",
+      "ctaLabel": "Return to Home",
+      "ctaHref": "/"
+    },
+    "error": {
+      "title": "Error!",
+      "message": "There was an issue submitting your request. Please try again."
+    },
+    "form": {
+      "labels": {
+        "name": "Full Name",
+        "email": "Email Address",
+        "phone": "Phone Number",
+        "company": "Company",
+        "service": "Service Interested In",
+        "preferredDate": "Preferred Date",
+        "preferredTime": "Preferred Time",
+        "message": "Message"
+      },
+      "placeholders": {
+        "name": "John Doe",
+        "email": "john@example.com",
+        "phone": "+234 906 4951938",
+        "company": "Company Name",
+        "message": "Tell us about your project or inquiry..."
+      },
+      "servicePlaceholder": "Select a service",
+      "timePlaceholder": "Select a time",
+      "submitLabel": "Schedule Consultation"
+    },
+    "services": [
+      "Software Development",
+      "WordPress & Web Development",
+      "Cloud Services",
+      "Android Development",
+      "Corporate Training",
+      "Online Courses",
+      "Consultancy",
+      "Cybersecurity",
+      "Other"
+    ],
+    "timeSlots": [
+      "9:00 AM - 10:00 AM",
+      "10:00 AM - 11:00 AM",
+      "11:00 AM - 12:00 PM",
+      "1:00 PM - 2:00 PM",
+      "2:00 PM - 3:00 PM",
+      "3:00 PM - 4:00 PM",
+      "4:00 PM - 5:00 PM"
+    ]
+  },
   "footer": {
     "description": "A one-stop destination for tech solutions, education, and innovation. Empowering businesses and individuals through cutting-edge technology.",
     "contact": {

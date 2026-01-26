@@ -6,59 +6,18 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import BackToTop from '@/components/BackToTop';
-
-const steps = [
-  {
-    number: '01',
-    title: 'Choose Your Service',
-    description: 'Browse our comprehensive range of technology solutions and select what you need.',
-    icon: Briefcase,
-  },
-  {
-    number: '02',
-    title: 'Get in Touch',
-    description: 'Contact us through our form, email, or phone to discuss your requirements.',
-    icon: Users,
-  },
-  {
-    number: '03',
-    title: 'Consultation',
-    description: 'We\'ll schedule a consultation to understand your needs and provide a tailored solution.',
-    icon: GraduationCap,
-  },
-  {
-    number: '04',
-    title: 'Get Started',
-    description: 'Once we align on the solution, we\'ll begin working on your project or training.',
-    icon: Code2,
-  },
-];
-
-const services = [
-  {
-    title: 'Software Development',
-    description: 'Custom software solutions for your business needs',
-    link: '/services',
-  },
-  {
-    title: 'Training Programs',
-    description: 'Upskill your team with our comprehensive training',
-    link: '/training',
-  },
-  {
-    title: 'Consultancy Services',
-    description: 'Expert guidance for your technology initiatives',
-    link: '/consultancy',
-  },
-  {
-    title: 'Cloud Solutions',
-    description: 'Scalable cloud infrastructure and migration services',
-    link: '/services',
-  },
-];
+import { useSiteContent } from '@/contexts/SiteContentContext';
 
 export default function GetStartedPage() {
   const [selectedService, setSelectedService] = useState('');
+  const siteContent = useSiteContent();
+  const { getStarted } = siteContent;
+  const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+    Briefcase,
+    Users,
+    GraduationCap,
+    Code2,
+  };
 
   return (
     <>
@@ -69,16 +28,17 @@ export default function GetStartedPage() {
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-4xl md:text-5xl lg:text-6xl text-[#1B1C1E] mb-6">
-                Get Started with <span className="text-[#1A2BC2]">Hyperion Tech Hub</span>
+                {getStarted.hero.title}{' '}
+                <span className="text-[#1A2BC2]">{getStarted.hero.highlight}</span>
               </h1>
               <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed mb-8">
-                Your journey to digital transformation starts here. Let's work together to achieve your technology goals.
+                {getStarted.hero.description}
               </p>
               <Link
-                href="/#contact"
+                href={getStarted.hero.ctaHref}
                 className="inline-flex items-center px-8 py-4 bg-[#1A2BC2] hover:bg-[#0D0D52] text-white rounded-lg transition-colors font-semibold group"
               >
-                Schedule a Consultation
+                {getStarted.hero.ctaLabel}
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
@@ -90,16 +50,16 @@ export default function GetStartedPage() {
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-4xl mx-auto text-center mb-16">
               <h2 className="text-4xl md:text-5xl text-[#1B1C1E] mb-6">
-                How It Works
+                {getStarted.steps.heading}
               </h2>
               <p className="text-xl text-gray-600">
-                Simple steps to get started with our services
+                {getStarted.steps.subheading}
               </p>
             </div>
             <div className="max-w-6xl mx-auto">
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {steps.map((step, index) => {
-                  const Icon = step.icon;
+                {getStarted.steps.items.map((step, index) => {
+                  const Icon = iconMap[step.icon] || Briefcase;
                   return (
                     <div key={index} className="relative">
                       <div className="bg-white border border-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-300 h-full">
@@ -134,15 +94,15 @@ export default function GetStartedPage() {
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-4xl mx-auto text-center mb-16">
               <h2 className="text-4xl md:text-5xl text-[#1B1C1E] mb-6">
-                What Are You Looking For?
+                {getStarted.services.heading}
               </h2>
               <p className="text-xl text-gray-600">
-                Select a service to get started
+                {getStarted.services.subheading}
               </p>
             </div>
             <div className="max-w-4xl mx-auto">
               <div className="grid md:grid-cols-2 gap-6">
-                {services.map((service, index) => (
+                {getStarted.services.items.map((service, index) => (
                   <Link
                     key={index}
                     href={service.link}
@@ -172,17 +132,10 @@ export default function GetStartedPage() {
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
                   <h2 className="text-4xl md:text-5xl text-[#1B1C1E] mb-6">
-                    Why Choose Hyperion Tech Hub?
+                    {getStarted.whyChoose.heading}
                   </h2>
                   <ul className="space-y-4">
-                    {[
-                      'Comprehensive technology solutions',
-                      'Experienced and certified team',
-                      'Customized solutions for your needs',
-                      'Ongoing support and maintenance',
-                      'Transparent pricing and communication',
-                      'Proven track record of success',
-                    ].map((item, index) => (
+                    {getStarted.whyChoose.items.map((item, index) => (
                       <li key={index} className="flex items-start">
                         <CheckCircle className="w-6 h-6 text-[#1A2BC2] mr-3 flex-shrink-0 mt-0.5" />
                         <span className="text-lg text-gray-700">{item}</span>
@@ -191,15 +144,15 @@ export default function GetStartedPage() {
                   </ul>
                 </div>
                 <div className="bg-gradient-to-r from-[#1A2BC2] to-[#0D0D52] rounded-2xl p-12 text-white">
-                  <h3 className="text-3xl mb-6">Ready to Get Started?</h3>
+                  <h3 className="text-3xl mb-6">{getStarted.whyChoose.ctaTitle}</h3>
                   <p className="text-lg mb-8 opacity-90">
-                    Schedule a free consultation to discuss your project and discover how we can help.
+                    {getStarted.whyChoose.ctaDescription}
                   </p>
                   <Link
-                    href="/consultation"
+                    href={getStarted.whyChoose.ctaHref}
                     className="inline-flex items-center px-6 py-3 bg-white text-[#1A2BC2] rounded-lg hover:bg-gray-100 transition-colors font-semibold group"
                   >
-                    Schedule Consultation
+                    {getStarted.whyChoose.ctaLabel}
                     <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </div>
@@ -213,24 +166,24 @@ export default function GetStartedPage() {
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-4xl md:text-5xl mb-6">
-                Let's Build Something Great Together
+                {getStarted.finalCta.heading}
               </h2>
               <p className="text-xl mb-8 opacity-90">
-                Contact us today and take the first step towards achieving your technology goals.
+                {getStarted.finalCta.description}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
-                  href="/#contact"
+                  href={getStarted.finalCta.primaryHref}
                   className="inline-flex items-center justify-center px-8 py-4 bg-white text-[#1A2BC2] rounded-lg hover:bg-gray-100 transition-colors font-semibold group"
                 >
-                  Contact Us
+                  {getStarted.finalCta.primaryLabel}
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <Link
-                  href="/consultation"
+                  href={getStarted.finalCta.secondaryHref}
                   className="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white rounded-lg hover:bg-white/10 transition-colors font-semibold"
                 >
-                  Schedule Consultation
+                  {getStarted.finalCta.secondaryLabel}
                 </Link>
               </div>
             </div>

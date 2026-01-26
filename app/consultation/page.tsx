@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { useSiteContent } from '@/contexts/SiteContentContext';
 
 interface FormErrors {
   name?: string;
@@ -23,6 +24,8 @@ interface FormErrors {
 }
 
 export default function ConsultationPage() {
+  const siteContent = useSiteContent();
+  const { consultation } = siteContent;
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -183,27 +186,8 @@ export default function ConsultationPage() {
     }
   };
 
-  const services = [
-    'Software Development',
-    'WordPress & Web Development',
-    'Cloud Services',
-    'Android Development',
-    'Corporate Training',
-    'Online Courses',
-    'Consultancy',
-    'Cybersecurity',
-    'Other',
-  ];
-
-  const timeSlots = [
-    '9:00 AM - 10:00 AM',
-    '10:00 AM - 11:00 AM',
-    '11:00 AM - 12:00 PM',
-    '1:00 PM - 2:00 PM',
-    '2:00 PM - 3:00 PM',
-    '3:00 PM - 4:00 PM',
-    '4:00 PM - 5:00 PM',
-  ];
+  const services = consultation.services;
+  const timeSlots = consultation.timeSlots;
 
   return (
     <>
@@ -217,11 +201,11 @@ export default function ConsultationPage() {
                 <Calendar className="w-8 h-8 text-[#1A2BC2]" />
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl text-[#1B1C1E] mb-6">
-                Schedule a <span className="text-[#1A2BC2]">Consultation</span>
+                {consultation.hero.title}{' '}
+                <span className="text-[#1A2BC2]">{consultation.hero.highlight}</span>
               </h1>
               <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                Let's discuss your project and explore how we can help you achieve your technology goals. 
-                Fill out the form below and we'll get back to you within 24 hours.
+                {consultation.hero.description}
               </p>
             </div>
           </div>
@@ -234,15 +218,15 @@ export default function ConsultationPage() {
               {submitStatus === 'success' ? (
                 <div className="bg-green-50 border-2 border-green-200 rounded-xl p-12 text-center">
                   <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                  <h2 className="text-3xl text-[#1B1C1E] mb-4">Thank You!</h2>
+                  <h2 className="text-3xl text-[#1B1C1E] mb-4">{consultation.success.title}</h2>
                   <p className="text-lg text-gray-600 mb-6">
-                    Your consultation request has been submitted successfully. We'll contact you within 24 hours to schedule your consultation.
+                    {consultation.success.message}
                   </p>
                   <Link
-                    href="/"
+                    href={consultation.success.ctaHref}
                     className="inline-flex items-center px-6 py-3 bg-[#1A2BC2] hover:bg-[#0D0D52] text-white rounded-lg transition-colors font-semibold"
                   >
-                    Return to Home
+                    {consultation.success.ctaLabel}
                   </Link>
                 </div>
               ) : (
@@ -251,9 +235,9 @@ export default function ConsultationPage() {
                     {submitStatus === 'error' && (
                       <Alert variant="destructive">
                         <AlertCircle className="h-4 w-4" />
-                        <AlertTitle>Error!</AlertTitle>
+                        <AlertTitle>{consultation.error.title}</AlertTitle>
                         <AlertDescription>
-                          {errors.general || 'There was an issue submitting your request. Please try again.'}
+                          {errors.general || consultation.error.message}
                         </AlertDescription>
                       </Alert>
                     )}
@@ -262,7 +246,7 @@ export default function ConsultationPage() {
                     <div className="grid md:grid-cols-2 gap-6">
                       <div className="space-y-2">
                         <Label htmlFor="name">
-                          Full Name <span className="text-red-500">*</span>
+                        {consultation.form.labels.name} <span className="text-red-500">*</span>
                         </Label>
                         <Input
                           id="name"
@@ -271,7 +255,7 @@ export default function ConsultationPage() {
                           value={formData.name}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          placeholder="John Doe"
+                        placeholder={consultation.form.placeholders.name}
                           className={errors.name ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : ''}
                           aria-invalid={!!errors.name}
                         />
@@ -284,7 +268,7 @@ export default function ConsultationPage() {
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="email">
-                          Email Address <span className="text-red-500">*</span>
+                        {consultation.form.labels.email} <span className="text-red-500">*</span>
                         </Label>
                         <Input
                           id="email"
@@ -293,7 +277,7 @@ export default function ConsultationPage() {
                           value={formData.email}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          placeholder="john@example.com"
+                        placeholder={consultation.form.placeholders.email}
                           className={
                             errors.email && touched.email
                               ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
@@ -315,7 +299,7 @@ export default function ConsultationPage() {
                     <div className="grid md:grid-cols-2 gap-6">
                       <div className="space-y-2">
                         <Label htmlFor="phone">
-                          Phone Number <span className="text-red-500">*</span>
+                          {consultation.form.labels.phone} <span className="text-red-500">*</span>
                         </Label>
                         <Input
                           id="phone"
@@ -324,7 +308,7 @@ export default function ConsultationPage() {
                           value={formData.phone}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          placeholder="+234 906 4951 938"
+                          placeholder={consultation.form.placeholders.phone}
                           className={errors.phone ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : ''}
                           aria-invalid={!!errors.phone}
                         />
@@ -336,14 +320,14 @@ export default function ConsultationPage() {
                         )}
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="company">Company/Organization</Label>
+                        <Label htmlFor="company">{consultation.form.labels.company}</Label>
                         <Input
                           id="company"
                           name="company"
                           type="text"
                           value={formData.company}
                           onChange={handleChange}
-                          placeholder="Your Company Name"
+                          placeholder={consultation.form.placeholders.company}
                         />
                       </div>
                     </div>
@@ -351,7 +335,7 @@ export default function ConsultationPage() {
                     {/* Service Selection */}
                     <div className="space-y-2">
                       <Label htmlFor="service">
-                        Service Interested In <span className="text-red-500">*</span>
+                        {consultation.form.labels.service} <span className="text-red-500">*</span>
                       </Label>
                       <select
                         id="service"
@@ -364,7 +348,7 @@ export default function ConsultationPage() {
                         }`}
                         aria-invalid={!!errors.service}
                       >
-                        <option value="">Select a service</option>
+                        <option value="">{consultation.form.servicePlaceholder}</option>
                         {services.map((service, index) => (
                           <option key={index} value={service}>
                             {service}
@@ -383,7 +367,7 @@ export default function ConsultationPage() {
                     <div className="grid md:grid-cols-2 gap-6">
                       <div className="space-y-2">
                         <Label htmlFor="preferredDate">
-                          Preferred Date <span className="text-red-500">*</span>
+                          {consultation.form.labels.preferredDate} <span className="text-red-500">*</span>
                         </Label>
                         <Input
                           id="preferredDate"
@@ -405,7 +389,7 @@ export default function ConsultationPage() {
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="preferredTime">
-                          Preferred Time <span className="text-red-500">*</span>
+                          {consultation.form.labels.preferredTime} <span className="text-red-500">*</span>
                         </Label>
                         <select
                           id="preferredTime"
@@ -418,7 +402,7 @@ export default function ConsultationPage() {
                           }`}
                           aria-invalid={!!errors.preferredTime}
                         >
-                          <option value="">Select a time</option>
+                          <option value="">{consultation.form.timePlaceholder}</option>
                           {timeSlots.map((time, index) => (
                             <option key={index} value={time}>
                               {time}
@@ -437,7 +421,7 @@ export default function ConsultationPage() {
                     {/* Message */}
                     <div className="space-y-2">
                       <Label htmlFor="message">
-                        Tell Us About Your Project <span className="text-red-500">*</span>
+                        {consultation.form.labels.message} <span className="text-red-500">*</span>
                       </Label>
                       <Textarea
                         id="message"
@@ -446,7 +430,7 @@ export default function ConsultationPage() {
                         value={formData.message}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        placeholder="Please provide details about your project, requirements, timeline, and any specific questions you have..."
+                        placeholder={consultation.form.placeholders.message}
                         className={errors.message ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : ''}
                         aria-invalid={!!errors.message}
                       />
@@ -479,7 +463,7 @@ export default function ConsultationPage() {
                       ) : (
                         <>
                           <Send className="mr-2 w-5 h-5" />
-                          Schedule Consultation
+                          {consultation.form.submitLabel}
                           <Send className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                         </>
                       )}

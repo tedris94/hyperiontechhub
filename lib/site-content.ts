@@ -89,6 +89,135 @@ export interface SiteContent {
       };
     };
   };
+  careers: {
+    hero: {
+      badge: string;
+      title: string;
+      description: string;
+    };
+    whyJoin: {
+      heading: string;
+      subheading: string;
+      items: Array<{ icon: string; title: string; description: string }>;
+    };
+    openings: {
+      heading: string;
+      subheading: string;
+      jobs: Array<{
+        id: number;
+        title: string;
+        department: string;
+        location: string;
+        type: string;
+        salary: string;
+        experience: string;
+        description: string;
+        responsibilities: string[];
+        requirements: string[];
+      }>;
+    };
+    application: {
+      form: {
+        namePlaceholder: string;
+        emailPlaceholder: string;
+        phonePlaceholder: string;
+        coverLetterPlaceholder: string;
+        resumeLabel: string;
+        submitLabel: string;
+      };
+    };
+    cta: {
+      heading: string;
+      description: string;
+      buttonLabel: string;
+      buttonHref: string;
+    };
+  };
+  getStarted: {
+    hero: {
+      title: string;
+      highlight: string;
+      description: string;
+      ctaLabel: string;
+      ctaHref: string;
+    };
+    steps: {
+      heading: string;
+      subheading: string;
+      items: Array<{
+        number: string;
+        title: string;
+        description: string;
+        icon: string;
+      }>;
+    };
+    services: {
+      heading: string;
+      subheading: string;
+      items: Array<{
+        title: string;
+        description: string;
+        link: string;
+      }>;
+    };
+    whyChoose: {
+      heading: string;
+      items: string[];
+      ctaTitle: string;
+      ctaDescription: string;
+      ctaLabel: string;
+      ctaHref: string;
+    };
+    finalCta: {
+      heading: string;
+      description: string;
+      primaryLabel: string;
+      primaryHref: string;
+      secondaryLabel: string;
+      secondaryHref: string;
+    };
+  };
+  consultation: {
+    hero: {
+      title: string;
+      highlight: string;
+      description: string;
+    };
+    success: {
+      title: string;
+      message: string;
+      ctaLabel: string;
+      ctaHref: string;
+    };
+    error: {
+      title: string;
+      message: string;
+    };
+    form: {
+      labels: {
+        name: string;
+        email: string;
+        phone: string;
+        company: string;
+        service: string;
+        preferredDate: string;
+        preferredTime: string;
+        message: string;
+      };
+      placeholders: {
+        name: string;
+        email: string;
+        phone: string;
+        company: string;
+        message: string;
+      };
+      servicePlaceholder: string;
+      timePlaceholder: string;
+      submitLabel: string;
+    };
+    services: string[];
+    timeSlots: string[];
+  };
   footer: {
     description: string;
     contact: {

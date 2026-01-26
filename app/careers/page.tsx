@@ -5,79 +5,12 @@ import { Briefcase, MapPin, Clock, DollarSign, CheckCircle, Upload, ArrowRight }
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import BackToTop from '@/components/BackToTop';
-
-const jobOpenings = [
-  {
-    id: 1,
-    title: 'Senior Full-Stack Developer',
-    department: 'Engineering',
-    location: 'Remote / Hybrid',
-    type: 'Full-time',
-    salary: '$80,000 - $120,000',
-    experience: '5+ years',
-    description: 'We are looking for an experienced Full-Stack Developer to join our engineering team and help build innovative solutions for our clients.',
-    responsibilities: [
-      'Design and develop scalable web applications',
-      'Collaborate with cross-functional teams',
-      'Write clean, maintainable code',
-      'Mentor junior developers',
-      'Participate in code reviews and architecture decisions'
-    ],
-    requirements: [
-      'Strong experience with React, Node.js, and TypeScript',
-      'Knowledge of cloud platforms (AWS, Azure, or GCP)',
-      'Experience with databases (SQL and NoSQL)',
-      'Excellent problem-solving skills',
-      'Strong communication abilities'
-    ]
-  },
-  {
-    id: 2,
-    title: 'UI/UX Designer',
-    department: 'Design',
-    location: 'On-site',
-    type: 'Full-time',
-    salary: '$60,000 - $90,000',
-    experience: '3+ years',
-    description: 'Join our creative team to design intuitive and beautiful user experiences for web and mobile applications.',
-    responsibilities: [
-      'Create wireframes, prototypes, and high-fidelity designs',
-      'Conduct user research and usability testing',
-      'Collaborate with developers to implement designs',
-      'Maintain design systems and style guides'
-    ],
-    requirements: [
-      'Proficiency in Figma, Adobe XD, or Sketch',
-      'Strong portfolio demonstrating UX/UI skills',
-      'Understanding of user-centered design principles',
-      'Experience with responsive design'
-    ]
-  },
-  {
-    id: 3,
-    title: 'Cloud Solutions Architect',
-    department: 'Engineering',
-    location: 'Remote',
-    type: 'Full-time',
-    salary: '$100,000 - $150,000',
-    experience: '7+ years',
-    description: 'Lead cloud infrastructure design and implementation for enterprise clients.',
-    responsibilities: [
-      'Design scalable cloud architectures',
-      'Lead cloud migration projects',
-      'Provide technical guidance to teams',
-      'Optimize cloud costs and performance'
-    ],
-    requirements: [
-      'AWS, Azure, or GCP certifications',
-      'Experience with infrastructure as code',
-      'Strong knowledge of DevOps practices',
-      'Excellent architectural design skills'
-    ]
-  }
-];
+import { useSiteContent } from '@/contexts/SiteContentContext';
 
 export default function CareersPage() {
+  const siteContent = useSiteContent();
+  const { careers } = siteContent;
+  const jobOpenings = careers.openings.jobs;
   const [selectedJob, setSelectedJob] = useState<number | null>(null);
   const [formData, setFormData] = useState({
     name: '',
@@ -102,14 +35,13 @@ export default function CareersPage() {
           <div className="text-center max-w-4xl mx-auto">
             <div className="inline-flex items-center space-x-2 bg-[#1A2BC2]/10 px-4 py-2 rounded-full mb-6">
               <Briefcase className="w-4 h-4 text-[#1A2BC2]" />
-              <span className="text-sm text-[#1A2BC2]">Join Our Team</span>
+                <span className="text-sm text-[#1A2BC2]">{careers.hero.badge}</span>
             </div>
             <h1 className="text-5xl md:text-6xl text-[#1B1C1E] mb-6">
-              Build Your Career with Us
+                {careers.hero.title}
             </h1>
             <p className="text-xl text-gray-600 leading-relaxed">
-              Join a team of passionate professionals working on cutting-edge technology solutions.
-              We're always looking for talented individuals who share our vision.
+                {careers.hero.description}
             </p>
           </div>
         </div>
@@ -119,22 +51,15 @@ export default function CareersPage() {
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl text-[#1B1C1E] mb-4">Why Join Hyperion Tech Hub?</h2>
-            <p className="text-xl text-gray-600">We offer more than just a job</p>
+            <h2 className="text-4xl md:text-5xl text-[#1B1C1E] mb-4">{careers.whyJoin.heading}</h2>
+            <p className="text-xl text-gray-600">{careers.whyJoin.subheading}</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {[
-              { icon: '💼', title: 'Career Growth', desc: 'Opportunities for professional development' },
-              { icon: '⚖️', title: 'Work-Life Balance', desc: 'Flexible hours and remote options' },
-              { icon: '🎓', title: 'Learning Culture', desc: 'Continuous learning and training' },
-              { icon: '🤝', title: 'Great Team', desc: 'Collaborative and supportive environment' },
-              { icon: '💰', title: 'Competitive Pay', desc: 'Attractive compensation packages' },
-              { icon: '🏆', title: 'Impact', desc: 'Work on meaningful projects' }
-            ].map((item, idx) => (
+            {careers.whyJoin.items.map((item, idx) => (
               <div key={idx} className="text-center p-6 bg-gray-50 rounded-lg">
                 <div className="text-4xl mb-4">{item.icon}</div>
                 <h3 className="text-xl text-[#1B1C1E] mb-2">{item.title}</h3>
-                <p className="text-gray-600">{item.desc}</p>
+                <p className="text-gray-600">{item.description}</p>
               </div>
             ))}
           </div>
@@ -145,8 +70,8 @@ export default function CareersPage() {
       <section className="py-24 bg-gray-50">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl text-[#1B1C1E] mb-4">Open Positions</h2>
-            <p className="text-xl text-gray-600">Explore current job opportunities</p>
+            <h2 className="text-4xl md:text-5xl text-[#1B1C1E] mb-4">{careers.openings.heading}</h2>
+            <p className="text-xl text-gray-600">{careers.openings.subheading}</p>
           </div>
           <div className="max-w-4xl mx-auto space-y-6">
             {jobOpenings.map((job) => (
@@ -203,7 +128,7 @@ export default function CareersPage() {
                       <div className="grid md:grid-cols-2 gap-4">
                         <input
                           type="text"
-                          placeholder="Full Name"
+                          placeholder={careers.application.form.namePlaceholder}
                           className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#1A2BC2]"
                           value={formData.name}
                           onChange={(e) => setFormData({...formData, name: e.target.value})}
@@ -211,7 +136,7 @@ export default function CareersPage() {
                         />
                         <input
                           type="email"
-                          placeholder="Email"
+                          placeholder={careers.application.form.emailPlaceholder}
                           className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#1A2BC2]"
                           value={formData.email}
                           onChange={(e) => setFormData({...formData, email: e.target.value})}
@@ -220,14 +145,14 @@ export default function CareersPage() {
                       </div>
                       <input
                         type="tel"
-                        placeholder="Phone Number"
+                        placeholder={careers.application.form.phonePlaceholder}
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#1A2BC2]"
                         value={formData.phone}
                         onChange={(e) => setFormData({...formData, phone: e.target.value})}
                         required
                       />
                       <textarea
-                        placeholder="Cover Letter"
+                        placeholder={careers.application.form.coverLetterPlaceholder}
                         rows={4}
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#1A2BC2]"
                         value={formData.coverLetter}
@@ -237,7 +162,7 @@ export default function CareersPage() {
                       <div className="flex items-center gap-4">
                         <label className="flex items-center cursor-pointer">
                           <Upload className="w-5 h-5 mr-2 text-[#1A2BC2]" />
-                          <span className="text-sm text-gray-600">Upload Resume</span>
+                          <span className="text-sm text-gray-600">{careers.application.form.resumeLabel}</span>
                           <input type="file" className="hidden" accept=".pdf,.doc,.docx" />
                         </label>
                       </div>
@@ -245,7 +170,7 @@ export default function CareersPage() {
                         type="submit"
                         className="w-full bg-[#1A2BC2] hover:bg-[#0D0D52] text-white px-6 py-3 rounded-lg transition-colors duration-300 font-semibold"
                       >
-                        Submit Application
+                        {careers.application.form.submitLabel}
                       </button>
                     </form>
                   </div>
@@ -260,13 +185,13 @@ export default function CareersPage() {
       <section className="py-24 bg-gradient-to-r from-[#1A2BC2] to-[#0D0D52]">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center text-white max-w-4xl mx-auto">
-            <h2 className="text-4xl md:text-5xl mb-6">Don't See a Role That Fits?</h2>
+            <h2 className="text-4xl md:text-5xl mb-6">{careers.cta.heading}</h2>
             <p className="text-xl mb-8 text-white/90">
-              We're always interested in hearing from talented individuals. Send us your resume and we'll keep you in mind for future opportunities.
+              {careers.cta.description}
             </p>
-            <a href="mailto:careers@hyperiontechhub.com">
+            <a href={careers.cta.buttonHref}>
               <button className="inline-flex items-center bg-white text-[#1A2BC2] hover:bg-gray-100 px-8 py-3 rounded-lg transition-colors duration-300 group font-semibold">
-                Send Your Resume
+                {careers.cta.buttonLabel}
                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
             </a>
