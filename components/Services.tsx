@@ -56,7 +56,17 @@ export default function Services({ services }: ServicesProps) {
   }));
 
   const displayServices: ServiceDisplayItem[] =
-    services.length > 0 ? services : fallbackServices;
+    services.length > 0
+      ? services.map((service) => ({
+          id: service.id,
+          title: service.title,
+          acf: {
+            icon: iconMap[service.acf?.icon || ''] || Code2,
+            description: service.acf?.description,
+            color: service.acf?.color,
+          },
+        }))
+      : fallbackServices;
 
   return (
     <section id="services" className="py-24 bg-gray-50">
