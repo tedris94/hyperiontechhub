@@ -76,7 +76,7 @@ export default function GetStartedPage() {
                           {step.description}
                         </p>
                       </div>
-                      {index < steps.length - 1 && (
+                      {index < getStarted.steps.items.length - 1 && (
                         <div className="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2">
                           <ArrowRight className="w-6 h-6 text-gray-300" />
                         </div>
