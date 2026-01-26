@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import { Target, Lightbulb, Users, Award } from 'lucide-react';
 import { useSiteContent } from '@/contexts/SiteContentContext';
