@@ -13,6 +13,18 @@ import {
 } from 'lucide-react';
 import { useSiteContent } from '@/contexts/SiteContentContext';
 
+type ServiceIcon = React.ComponentType<{ className?: string }>;
+
+interface ServiceDisplayItem {
+  id: number;
+  title: { rendered: string };
+  acf?: {
+    icon?: ServiceIcon;
+    description?: string;
+    color?: string;
+  };
+}
+
 interface ServicesProps {
   services: Service[];
 }
@@ -21,7 +33,7 @@ export default function Services({ services }: ServicesProps) {
   const siteContent = useSiteContent();
   const servicesContent = siteContent.home.services;
 
-  const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  const iconMap: Record<string, ServiceIcon> = {
     Code2,
     Globe,
     Cloud,
@@ -33,7 +45,7 @@ export default function Services({ services }: ServicesProps) {
     Shield,
   };
 
-  const fallbackServices: Service[] = servicesContent.fallbackItems.map((item, index) => ({
+  const fallbackServices: ServiceDisplayItem[] = servicesContent.fallbackItems.map((item, index) => ({
     id: index + 1,
     title: { rendered: item.title },
     acf: {
@@ -43,7 +55,8 @@ export default function Services({ services }: ServicesProps) {
     },
   }));
 
-  const displayServices = services.length > 0 ? services : fallbackServices;
+  const displayServices: ServiceDisplayItem[] =
+    services.length > 0 ? services : fallbackServices;
 
   return (
     <section id="services" className="py-24 bg-gray-50">
