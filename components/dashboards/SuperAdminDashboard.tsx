@@ -11,6 +11,7 @@ import { Label } from '../ui/label';
 import { Alert, AlertDescription } from '../ui/alert';
 import { getContactSubmissions, markAsRead, updateSubmissionStatus, deleteSubmission, addReply, type ContactSubmission } from '@/lib/contactSubmissions';
 import { getConsultations, markAsRead as markConsultationAsRead, updateConsultationStatus, assignConsultation, generateGoogleMeetLink, updateConsultation, deleteConsultation, type Consultation } from '@/lib/consultations';
+import { getStoredUsersCount, getActiveSessionCount, getStoredRevenueTotal } from '@/lib/adminMetrics';
 import { useAuth } from '@/contexts/AuthContext';
 
 export function SuperAdminDashboard() {
@@ -29,6 +30,10 @@ export function SuperAdminDashboard() {
   const [selectedConsultation, setSelectedConsultation] = useState<Consultation | null>(null);
   const [showAssignForm, setShowAssignForm] = useState(false);
   const [selectedConsultant, setSelectedConsultant] = useState('');
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [activeSessions, setActiveSessions] = useState(0);
+  const [revenueTotal, setRevenueTotal] = useState(0);
+  const [isOnline, setIsOnline] = useState(true);
 
   useEffect(() => {
     const loadSubmissions = () => {
@@ -40,15 +45,32 @@ export function SuperAdminDashboard() {
       const consultationList = getConsultations();
       setConsultations(consultationList);
     };
+
+    const loadMetrics = () => {
+      setTotalUsers(getStoredUsersCount());
+      setActiveSessions(getActiveSessionCount());
+      setRevenueTotal(getStoredRevenueTotal());
+      setIsOnline(typeof navigator !== 'undefined' ? navigator.onLine : true);
+    };
     
     loadSubmissions();
     loadConsultations();
+    loadMetrics();
     // Refresh every 5 seconds to catch new submissions
     const interval = setInterval(() => {
       loadSubmissions();
       loadConsultations();
+      loadMetrics();
     }, 5000);
-    return () => clearInterval(interval);
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
   }, []);
 
   const unreadCount = contactSubmissions.filter((s) => !s.read).length;
@@ -125,12 +147,46 @@ export function SuperAdminDashboard() {
   };
 
   const stats = [
-    { title: 'Total Users', value: '1,234', icon: Users, change: '+12%' },
-    { title: 'Active Sessions', value: '456', icon: Activity, change: '+5%' },
-    { title: 'Pending Consultations', value: pendingConsultations.toString(), icon: Calendar, change: `${unreadConsultations} unread` },
-    { title: 'Contact Submissions', value: contactSubmissions.length.toString(), icon: MessageSquare, change: `${unreadCount} unread` },
-    { title: 'System Health', value: '99.9%', icon: ShieldCheck, change: '+0.1%' },
-    { title: 'Revenue', value: '$45,678', icon: DollarSign, change: '+23%' },
+    {
+      title: 'Total Users',
+      value: totalUsers.toLocaleString(),
+      icon: Users,
+      change: `${activeSessions} active`,
+    },
+    {
+      title: 'Active Sessions',
+      value: activeSessions.toString(),
+      icon: Activity,
+      change: 'Active now',
+    },
+    {
+      title: 'Pending Consultations',
+      value: pendingConsultations.toString(),
+      icon: Calendar,
+      change: `${unreadConsultations} unread`,
+    },
+    {
+      title: 'Contact Submissions',
+      value: contactSubmissions.length.toString(),
+      icon: MessageSquare,
+      change: `${unreadCount} unread`,
+    },
+    {
+      title: 'System Health',
+      value: isOnline ? '100%' : '0%',
+      icon: ShieldCheck,
+      change: isOnline ? 'Online' : 'Offline',
+    },
+    {
+      title: 'Revenue',
+      value: new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        maximumFractionDigits: 0,
+      }).format(revenueTotal),
+      icon: DollarSign,
+      change: 'Local total',
+    },
   ];
 
   const recentUsers = [

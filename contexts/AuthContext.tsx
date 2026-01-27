@@ -36,6 +36,26 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
 
+  const setActiveSession = (userId: string) => {
+    if (typeof window === 'undefined') return;
+    const stored = localStorage.getItem('hyperion_active_sessions');
+    const sessions = stored ? JSON.parse(stored) : [];
+    const nextSessions = Array.isArray(sessions)
+      ? sessions.filter((session: any) => session.userId !== userId)
+      : [];
+    nextSessions.push({ userId, lastActive: new Date().toISOString() });
+    localStorage.setItem('hyperion_active_sessions', JSON.stringify(nextSessions));
+  };
+
+  const clearActiveSession = (userId: string) => {
+    if (typeof window === 'undefined') return;
+    const stored = localStorage.getItem('hyperion_active_sessions');
+    const sessions = stored ? JSON.parse(stored) : [];
+    if (!Array.isArray(sessions)) return;
+    const nextSessions = sessions.filter((session: any) => session.userId !== userId);
+    localStorage.setItem('hyperion_active_sessions', JSON.stringify(nextSessions));
+  };
+
   useEffect(() => {
     // Initialize demo users in localStorage if not exists
     if (typeof window !== 'undefined') {
@@ -47,7 +67,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // Check for stored user on mount
       const storedUser = localStorage.getItem('hyperion_user');
       if (storedUser) {
-        setUser(JSON.parse(storedUser));
+        const parsedUser = JSON.parse(storedUser);
+        setUser(parsedUser);
+        setActiveSession(parsedUser.id);
       }
     }
   }, []);
@@ -72,6 +94,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       };
       setUser(userWithoutPassword);
       localStorage.setItem('hyperion_user', JSON.stringify(userWithoutPassword));
+      setActiveSession(userWithoutPassword.id);
     } else {
       throw new Error('Invalid credentials');
     }
@@ -111,9 +134,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
     setUser(userWithoutPassword);
     localStorage.setItem('hyperion_user', JSON.stringify(userWithoutPassword));
+    setActiveSession(userWithoutPassword.id);
   };
 
   const logout = () => {
+    if (user) {
+      clearActiveSession(user.id);
+    }
     setUser(null);
     if (typeof window !== 'undefined') {
       localStorage.removeItem('hyperion_user');

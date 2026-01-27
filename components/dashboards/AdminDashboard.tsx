@@ -11,6 +11,7 @@ import { Label } from '../ui/label';
 import { Alert, AlertDescription } from '../ui/alert';
 import { getContactSubmissions, markAsRead, updateSubmissionStatus, deleteSubmission, addReply, type ContactSubmission } from '@/lib/contactSubmissions';
 import { getConsultations, markAsRead as markConsultationAsRead, updateConsultationStatus, assignConsultation, generateGoogleMeetLink, updateConsultation, deleteConsultation, type Consultation } from '@/lib/consultations';
+import { getStoredUsersCount, getActiveSessionCount } from '@/lib/adminMetrics';
 import { useAuth } from '@/contexts/AuthContext';
 
 export function AdminDashboard() {
@@ -29,6 +30,8 @@ export function AdminDashboard() {
   const [selectedConsultation, setSelectedConsultation] = useState<Consultation | null>(null);
   const [showAssignForm, setShowAssignForm] = useState(false);
   const [selectedConsultant, setSelectedConsultant] = useState('');
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [activeSessions, setActiveSessions] = useState(0);
 
   useEffect(() => {
     const loadSubmissions = () => {
@@ -40,13 +43,20 @@ export function AdminDashboard() {
       const consultationList = getConsultations();
       setConsultations(consultationList);
     };
+
+    const loadMetrics = () => {
+      setTotalUsers(getStoredUsersCount());
+      setActiveSessions(getActiveSessionCount());
+    };
     
     loadSubmissions();
     loadConsultations();
+    loadMetrics();
     // Refresh every 5 seconds to catch new submissions
     const interval = setInterval(() => {
       loadSubmissions();
       loadConsultations();
+      loadMetrics();
     }, 5000);
     return () => clearInterval(interval);
   }, []);
@@ -55,6 +65,7 @@ export function AdminDashboard() {
   const newSubmissions = contactSubmissions.filter((s) => s.status === 'new').length;
   const pendingConsultations = consultations.filter((c) => c.status === 'pending').length;
   const unreadConsultations = consultations.filter((c) => !c.read).length;
+  const scheduledConsultations = consultations.filter((c) => c.status === 'scheduled').length;
 
   // Get all consultants for assignment
   const getConsultants = () => {
@@ -65,10 +76,30 @@ export function AdminDashboard() {
   };
 
   const stats = [
-    { title: 'Active Users', value: '456', icon: Users, change: '+12% this month' },
-    { title: 'Pending Consultations', value: pendingConsultations.toString(), icon: Calendar, change: `${unreadConsultations} unread` },
-    { title: 'Contact Submissions', value: contactSubmissions.length.toString(), icon: MessageSquare, change: `${unreadCount} unread` },
-    { title: 'Scheduled Events', value: '8', icon: Calendar, change: 'This week' },
+    {
+      title: 'Active Users',
+      value: activeSessions.toString(),
+      icon: Users,
+      change: `${totalUsers} total`,
+    },
+    {
+      title: 'Pending Consultations',
+      value: pendingConsultations.toString(),
+      icon: Calendar,
+      change: `${unreadConsultations} unread`,
+    },
+    {
+      title: 'Contact Submissions',
+      value: contactSubmissions.length.toString(),
+      icon: MessageSquare,
+      change: `${unreadCount} unread`,
+    },
+    {
+      title: 'Scheduled Events',
+      value: scheduledConsultations.toString(),
+      icon: Calendar,
+      change: 'Scheduled',
+    },
   ];
 
   const handleMarkAsRead = (id: string) => {
