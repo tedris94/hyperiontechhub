@@ -12,10 +12,12 @@ import { Alert, AlertDescription } from '../ui/alert';
 import { getContactSubmissions, markAsRead, updateSubmissionStatus, deleteSubmission, addReply, type ContactSubmission } from '@/lib/contactSubmissions';
 import { getConsultations, markAsRead as markConsultationAsRead, updateConsultationStatus, assignConsultation, generateGoogleMeetLink, updateConsultation, deleteConsultation, type Consultation } from '@/lib/consultations';
 import { getStoredUsersCount, getActiveSessionCount, getStoredRevenueTotal } from '@/lib/adminMetrics';
+import { useSiteContent } from '@/contexts/SiteContentContext';
 import { useAuth } from '@/contexts/AuthContext';
 
 export function SuperAdminDashboard() {
   const { user } = useAuth();
+  const siteContent = useSiteContent();
   const [contactSubmissions, setContactSubmissions] = useState<ContactSubmission[]>([]);
   const [selectedSubmission, setSelectedSubmission] = useState<ContactSubmission | null>(null);
   const [showReplyForm, setShowReplyForm] = useState(false);
@@ -49,7 +51,12 @@ export function SuperAdminDashboard() {
     const loadMetrics = () => {
       setTotalUsers(getStoredUsersCount());
       setActiveSessions(getActiveSessionCount());
-      setRevenueTotal(getStoredRevenueTotal());
+      const cmsRevenue = siteContent.adminMetrics?.revenueTotal;
+      setRevenueTotal(
+        typeof cmsRevenue === 'number' && !Number.isNaN(cmsRevenue)
+          ? cmsRevenue
+          : getStoredRevenueTotal()
+      );
       setIsOnline(typeof navigator !== 'undefined' ? navigator.onLine : true);
     };
     
@@ -71,7 +78,7 @@ export function SuperAdminDashboard() {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
     };
-  }, []);
+  }, [siteContent.adminMetrics]);
 
   const unreadCount = contactSubmissions.filter((s) => !s.read).length;
   const pendingConsultations = consultations.filter((c) => c.status === 'pending').length;
@@ -181,7 +188,7 @@ export function SuperAdminDashboard() {
       title: 'Revenue',
       value: new Intl.NumberFormat('en-US', {
         style: 'currency',
-        currency: 'USD',
+        currency: siteContent.adminMetrics?.currency || 'USD',
         maximumFractionDigits: 0,
       }).format(revenueTotal),
       icon: DollarSign,

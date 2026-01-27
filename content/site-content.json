@@ -9,6 +9,10 @@
       "alt": "Hyperion Tech Hub"
     }
   },
+  "adminMetrics": {
+    "revenueTotal": 0,
+    "currency": "USD"
+  },
   "header": {
     "navigation": [
       { "label": "Home", "href": "/" },

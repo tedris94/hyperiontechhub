@@ -17,6 +17,10 @@ export interface SiteContent {
       alt: string;
     };
   };
+  adminMetrics: {
+    revenueTotal: number;
+    currency: string;
+  };
   header: {
     navigation: NavItem[];
     cta: {
