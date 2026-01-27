@@ -57,14 +57,18 @@ const getRoleNavigation = (role: string): NavItem[] => {
       { label: 'Documents', icon: FileText, path: '/documents' },
       { label: 'Reports & Analytics', icon: BarChart3, path: '/admin/reports' },
       { label: 'System Settings', icon: Settings, path: '/admin/system-settings' },
-      { label: 'Content Management', icon: Folder, path: '/admin/content-management' }
+      { label: 'Content Management', icon: Folder, path: '/admin/content-management' },
+      { label: 'CMS Content', icon: FileText, path: '/admin/site-content' },
+      { label: 'CMS Token', icon: Settings, path: '/admin/token' }
     ],
     'admin': [
       ...commonItems,
       { label: 'User Management', icon: Users, path: '/admin/user-management' },
       { label: 'Documents', icon: FileText, path: '/documents' },
       { label: 'Reports', icon: BarChart3, path: '/admin/reports' },
-      { label: 'Content Management', icon: Folder, path: '/admin/content-management' }
+      { label: 'Content Management', icon: Folder, path: '/admin/content-management' },
+      { label: 'CMS Content', icon: FileText, path: '/admin/site-content' },
+      { label: 'CMS Token', icon: Settings, path: '/admin/token' }
     ],
     'student': [
       ...commonItems,
