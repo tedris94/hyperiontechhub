@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { getSupabaseServer } from '@/lib/supabaseServer';
 
 interface ConsultationFormData {
   name: string;
@@ -65,21 +66,31 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create consultation object
-    const consultation = {
-      id: Date.now().toString(),
-      name,
-      email,
-      phone,
-      company: company || '',
-      service,
-      preferredDate,
-      preferredTime,
-      message,
-      status: 'pending' as const,
-      createdAt: new Date().toISOString(),
-      read: false,
-    };
+    const supabase = getSupabaseServer();
+    const { data: inserted, error: insertError } = await supabase
+      .from('consultations')
+      .insert({
+        name,
+        email,
+        phone,
+        company: company || null,
+        service,
+        preferred_date: preferredDate,
+        preferred_time: preferredTime,
+        message,
+        status: 'pending',
+        read: false,
+      })
+      .select('*')
+      .single();
+
+    if (insertError) {
+      console.error('Supabase insert error:', insertError);
+      return NextResponse.json(
+        { error: 'Failed to save consultation request' },
+        { status: 500 }
+      );
+    }
 
     // Send email notification to admins
     try {
@@ -186,7 +197,24 @@ Submitted on ${new Date().toLocaleString()}
     return NextResponse.json({
       success: true,
       message: 'Consultation request submitted successfully',
-      consultation,
+      consultation: {
+        id: inserted.id,
+        name: inserted.name,
+        email: inserted.email,
+        phone: inserted.phone,
+        company: inserted.company || '',
+        service: inserted.service,
+        preferredDate: inserted.preferred_date,
+        preferredTime: inserted.preferred_time,
+        message: inserted.message,
+        status: inserted.status,
+        createdAt: inserted.created_at,
+        read: inserted.read,
+        assignedTo: inserted.assigned_to || undefined,
+        assignedToName: inserted.assigned_to_name || undefined,
+        googleMeetLink: inserted.google_meet_link || undefined,
+        notes: inserted.notes || undefined,
+      },
     });
   } catch (error) {
     console.error('Consultation form error:', error);

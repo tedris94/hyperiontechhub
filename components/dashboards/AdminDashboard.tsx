@@ -33,15 +33,23 @@ export function AdminDashboard() {
   const [totalUsers, setTotalUsers] = useState(0);
   const [activeSessions, setActiveSessions] = useState(0);
 
+  const refreshSubmissions = async () => {
+    const submissions = await getContactSubmissions();
+    setContactSubmissions(submissions);
+  };
+
+  const refreshConsultations = async () => {
+    const consultationList = await getConsultations();
+    setConsultations(consultationList);
+  };
+
   useEffect(() => {
-    const loadSubmissions = () => {
-      const submissions = getContactSubmissions();
-      setContactSubmissions(submissions);
+    const loadSubmissions = async () => {
+      await refreshSubmissions();
     };
     
-    const loadConsultations = () => {
-      const consultationList = getConsultations();
-      setConsultations(consultationList);
+    const loadConsultations = async () => {
+      await refreshConsultations();
     };
 
     const loadMetrics = () => {
@@ -49,13 +57,13 @@ export function AdminDashboard() {
       setActiveSessions(getActiveSessionCount());
     };
     
-    loadSubmissions();
-    loadConsultations();
+    void loadSubmissions();
+    void loadConsultations();
     loadMetrics();
     // Refresh every 5 seconds to catch new submissions
     const interval = setInterval(() => {
-      loadSubmissions();
-      loadConsultations();
+      void loadSubmissions();
+      void loadConsultations();
       loadMetrics();
     }, 5000);
     return () => clearInterval(interval);
@@ -102,26 +110,26 @@ export function AdminDashboard() {
     },
   ];
 
-  const handleMarkAsRead = (id: string) => {
-    markAsRead(id);
-    setContactSubmissions(getContactSubmissions());
+  const handleMarkAsRead = async (id: string) => {
+    await markAsRead(id);
+    void refreshSubmissions();
     if (selectedSubmission?.id === id) {
       setSelectedSubmission({ ...selectedSubmission, read: true, status: 'read' });
     }
   };
 
-  const handleStatusChange = (id: string, status: ContactSubmission['status']) => {
-    updateSubmissionStatus(id, status);
-    setContactSubmissions(getContactSubmissions());
+  const handleStatusChange = async (id: string, status: ContactSubmission['status']) => {
+    await updateSubmissionStatus(id, status);
+    void refreshSubmissions();
     if (selectedSubmission?.id === id) {
       setSelectedSubmission({ ...selectedSubmission, status });
     }
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (confirm('Are you sure you want to delete this submission?')) {
-      deleteSubmission(id);
-      setContactSubmissions(getContactSubmissions());
+      await deleteSubmission(id);
+      void refreshSubmissions();
       if (selectedSubmission?.id === id) {
         setSelectedSubmission(null);
       }
@@ -164,8 +172,8 @@ export function AdminDashboard() {
         sentBy: user?.name || 'Admin',
       };
 
-      addReply(selectedSubmission.id, reply);
-      setContactSubmissions(getContactSubmissions());
+      await addReply(selectedSubmission.id, reply, selectedSubmission.replies || []);
+      void refreshSubmissions();
       
       // Update selected submission
       const updatedSubmission = {
@@ -329,11 +337,11 @@ export function AdminDashboard() {
                     className={`p-3 border rounded-lg hover:bg-gray-50 transition-colors cursor-pointer ${
                       !consultation.read ? 'bg-blue-50 border-blue-200' : ''
                     }`}
-                    onClick={() => {
+                    onClick={async () => {
                       setSelectedConsultation(consultation);
                       if (!consultation.read) {
-                        markConsultationAsRead(consultation.id);
-                        setConsultations(getConsultations());
+                        await markConsultationAsRead(consultation.id);
+                        void refreshConsultations();
                       }
                     }}
                   >
@@ -520,11 +528,11 @@ export function AdminDashboard() {
                     <div className="flex gap-2">
                       <Button
                         size="sm"
-                        onClick={() => {
+                        onClick={async () => {
                           if (selectedConsultant) {
                             const consultant = getConsultants().find((c: any) => c.id === selectedConsultant);
                             if (consultant) {
-                              assignConsultation(
+                              await assignConsultation(
                                 selectedConsultation.id,
                                 consultant.id,
                                 consultant.name
@@ -534,11 +542,11 @@ export function AdminDashboard() {
                                 selectedConsultation.id,
                                 `Consultation with ${selectedConsultation.name}`
                               );
-                              updateConsultation(selectedConsultation.id, {
+                              await updateConsultation(selectedConsultation.id, {
                                 googleMeetLink: meetLink,
                                 status: 'assigned',
                               });
-                              setConsultations(getConsultations());
+                              void refreshConsultations();
                               setSelectedConsultation({
                                 ...selectedConsultation,
                                 assignedTo: consultant.id,
@@ -585,16 +593,16 @@ export function AdminDashboard() {
                   {selectedConsultation.status === 'assigned' && !selectedConsultation.googleMeetLink && (
                     <Button
                       size="sm"
-                      onClick={() => {
+                        onClick={async () => {
                         const meetLink = generateGoogleMeetLink(
                           selectedConsultation.id,
                           `Consultation with ${selectedConsultation.name}`
                         );
-                        updateConsultation(selectedConsultation.id, {
+                          await updateConsultation(selectedConsultation.id, {
                           googleMeetLink: meetLink,
                           status: 'scheduled',
                         });
-                        setConsultations(getConsultations());
+                          void refreshConsultations();
                         setSelectedConsultation({
                           ...selectedConsultation,
                           googleMeetLink: meetLink,
@@ -610,9 +618,9 @@ export function AdminDashboard() {
                   <Button
                     size="sm"
                     variant="outline"
-                    onClick={() => {
-                      updateConsultationStatus(selectedConsultation.id, 'scheduled');
-                      setConsultations(getConsultations());
+                    onClick={async () => {
+                      await updateConsultationStatus(selectedConsultation.id, 'scheduled');
+                      void refreshConsultations();
                       setSelectedConsultation({
                         ...selectedConsultation,
                         status: 'scheduled',
@@ -624,9 +632,9 @@ export function AdminDashboard() {
                   <Button
                     size="sm"
                     variant="outline"
-                    onClick={() => {
-                      updateConsultationStatus(selectedConsultation.id, 'completed');
-                      setConsultations(getConsultations());
+                    onClick={async () => {
+                      await updateConsultationStatus(selectedConsultation.id, 'completed');
+                      void refreshConsultations();
                       setSelectedConsultation({
                         ...selectedConsultation,
                         status: 'completed',
@@ -638,10 +646,10 @@ export function AdminDashboard() {
                   <Button
                     size="sm"
                     variant="destructive"
-                    onClick={() => {
+                    onClick={async () => {
                       if (confirm('Are you sure you want to delete this consultation?')) {
-                        deleteConsultation(selectedConsultation.id);
-                        setConsultations(getConsultations());
+                        await deleteConsultation(selectedConsultation.id);
+                        void refreshConsultations();
                         setSelectedConsultation(null);
                       }
                     }}

@@ -37,15 +37,23 @@ export function SuperAdminDashboard() {
   const [revenueTotal, setRevenueTotal] = useState(0);
   const [isOnline, setIsOnline] = useState(true);
 
+  const refreshSubmissions = async () => {
+    const submissions = await getContactSubmissions();
+    setContactSubmissions(submissions);
+  };
+
+  const refreshConsultations = async () => {
+    const consultationList = await getConsultations();
+    setConsultations(consultationList);
+  };
+
   useEffect(() => {
-    const loadSubmissions = () => {
-      const submissions = getContactSubmissions();
-      setContactSubmissions(submissions);
+    const loadSubmissions = async () => {
+      await refreshSubmissions();
     };
     
-    const loadConsultations = () => {
-      const consultationList = getConsultations();
-      setConsultations(consultationList);
+    const loadConsultations = async () => {
+      await refreshConsultations();
     };
 
     const loadMetrics = () => {
@@ -60,13 +68,13 @@ export function SuperAdminDashboard() {
       setIsOnline(typeof navigator !== 'undefined' ? navigator.onLine : true);
     };
     
-    loadSubmissions();
-    loadConsultations();
+    void loadSubmissions();
+    void loadConsultations();
     loadMetrics();
     // Refresh every 5 seconds to catch new submissions
     const interval = setInterval(() => {
-      loadSubmissions();
-      loadConsultations();
+      void loadSubmissions();
+      void loadConsultations();
       loadMetrics();
     }, 5000);
     const handleOnline = () => setIsOnline(true);
@@ -128,8 +136,8 @@ export function SuperAdminDashboard() {
         sentBy: user?.name || 'Super Admin',
       };
 
-      addReply(selectedSubmission.id, reply);
-      setContactSubmissions(getContactSubmissions());
+      await addReply(selectedSubmission.id, reply, selectedSubmission.replies || []);
+      void refreshSubmissions();
       
       // Update selected submission
       const updatedSubmission = {
@@ -251,11 +259,11 @@ export function SuperAdminDashboard() {
                     className={`p-3 border rounded-lg hover:bg-gray-50 transition-colors cursor-pointer ${
                       !submission.read ? 'bg-blue-50 border-blue-200' : ''
                     }`}
-                    onClick={() => {
+                    onClick={async () => {
                       setSelectedSubmission(submission);
                       if (!submission.read) {
-                        markAsRead(submission.id);
-                        setContactSubmissions(getContactSubmissions());
+                        await markAsRead(submission.id);
+                        void refreshSubmissions();
                       }
                     }}
                   >
@@ -337,11 +345,11 @@ export function SuperAdminDashboard() {
                     className={`p-3 border rounded-lg hover:bg-gray-50 transition-colors cursor-pointer ${
                       !consultation.read ? 'bg-blue-50 border-blue-200' : ''
                     }`}
-                    onClick={() => {
+                    onClick={async () => {
                       setSelectedConsultation(consultation);
                       if (!consultation.read) {
-                        markConsultationAsRead(consultation.id);
-                        setConsultations(getConsultations());
+                        await markConsultationAsRead(consultation.id);
+                        void refreshConsultations();
                       }
                     }}
                   >
@@ -528,11 +536,11 @@ export function SuperAdminDashboard() {
                     <div className="flex gap-2">
                       <Button
                         size="sm"
-                        onClick={() => {
+                        onClick={async () => {
                           if (selectedConsultant) {
                             const consultant = getConsultants().find((c: any) => c.id === selectedConsultant);
                             if (consultant) {
-                              assignConsultation(
+                              await assignConsultation(
                                 selectedConsultation.id,
                                 consultant.id,
                                 consultant.name
@@ -542,11 +550,11 @@ export function SuperAdminDashboard() {
                                 selectedConsultation.id,
                                 `Consultation with ${selectedConsultation.name}`
                               );
-                              updateConsultation(selectedConsultation.id, {
+                              await updateConsultation(selectedConsultation.id, {
                                 googleMeetLink: meetLink,
                                 status: 'assigned',
                               });
-                              setConsultations(getConsultations());
+                              void refreshConsultations();
                               setSelectedConsultation({
                                 ...selectedConsultation,
                                 assignedTo: consultant.id,
@@ -593,16 +601,16 @@ export function SuperAdminDashboard() {
                   {selectedConsultation.status === 'assigned' && !selectedConsultation.googleMeetLink && (
                     <Button
                       size="sm"
-                      onClick={() => {
+                        onClick={async () => {
                         const meetLink = generateGoogleMeetLink(
                           selectedConsultation.id,
                           `Consultation with ${selectedConsultation.name}`
                         );
-                        updateConsultation(selectedConsultation.id, {
+                        await updateConsultation(selectedConsultation.id, {
                           googleMeetLink: meetLink,
                           status: 'scheduled',
                         });
-                        setConsultations(getConsultations());
+                        void refreshConsultations();
                         setSelectedConsultation({
                           ...selectedConsultation,
                           googleMeetLink: meetLink,
@@ -618,9 +626,9 @@ export function SuperAdminDashboard() {
                   <Button
                     size="sm"
                     variant="outline"
-                    onClick={() => {
-                      updateConsultationStatus(selectedConsultation.id, 'scheduled');
-                      setConsultations(getConsultations());
+                    onClick={async () => {
+                      await updateConsultationStatus(selectedConsultation.id, 'scheduled');
+                      void refreshConsultations();
                       setSelectedConsultation({
                         ...selectedConsultation,
                         status: 'scheduled',
@@ -632,9 +640,9 @@ export function SuperAdminDashboard() {
                   <Button
                     size="sm"
                     variant="outline"
-                    onClick={() => {
-                      updateConsultationStatus(selectedConsultation.id, 'completed');
-                      setConsultations(getConsultations());
+                    onClick={async () => {
+                      await updateConsultationStatus(selectedConsultation.id, 'completed');
+                      void refreshConsultations();
                       setSelectedConsultation({
                         ...selectedConsultation,
                         status: 'completed',
@@ -646,10 +654,10 @@ export function SuperAdminDashboard() {
                   <Button
                     size="sm"
                     variant="destructive"
-                    onClick={() => {
+                    onClick={async () => {
                       if (confirm('Are you sure you want to delete this consultation?')) {
-                        deleteConsultation(selectedConsultation.id);
-                        setConsultations(getConsultations());
+                        await deleteConsultation(selectedConsultation.id);
+                        void refreshConsultations();
                         setSelectedConsultation(null);
                       }
                     }}
@@ -834,9 +842,9 @@ export function SuperAdminDashboard() {
                   <Button
                     size="sm"
                     variant="outline"
-                    onClick={() => {
-                      updateSubmissionStatus(selectedSubmission.id, 'read');
-                      setContactSubmissions(getContactSubmissions());
+                    onClick={async () => {
+                      await updateSubmissionStatus(selectedSubmission.id, 'read');
+                      void refreshSubmissions();
                       setSelectedSubmission({ ...selectedSubmission, status: 'read' });
                     }}
                   >
@@ -846,9 +854,9 @@ export function SuperAdminDashboard() {
                   <Button
                     size="sm"
                     variant="outline"
-                    onClick={() => {
-                      updateSubmissionStatus(selectedSubmission.id, 'replied');
-                      setContactSubmissions(getContactSubmissions());
+                    onClick={async () => {
+                      await updateSubmissionStatus(selectedSubmission.id, 'replied');
+                      void refreshSubmissions();
                       setSelectedSubmission({ ...selectedSubmission, status: 'replied' });
                     }}
                   >
@@ -857,9 +865,9 @@ export function SuperAdminDashboard() {
                   <Button
                     size="sm"
                     variant="outline"
-                    onClick={() => {
-                      updateSubmissionStatus(selectedSubmission.id, 'archived');
-                      setContactSubmissions(getContactSubmissions());
+                    onClick={async () => {
+                      await updateSubmissionStatus(selectedSubmission.id, 'archived');
+                      void refreshSubmissions();
                       setSelectedSubmission({ ...selectedSubmission, status: 'archived' });
                     }}
                   >
@@ -868,9 +876,9 @@ export function SuperAdminDashboard() {
                   <Button
                     size="sm"
                     variant="destructive"
-                    onClick={() => {
-                      deleteSubmission(selectedSubmission.id);
-                      setContactSubmissions(getContactSubmissions());
+                    onClick={async () => {
+                      await deleteSubmission(selectedSubmission.id);
+                      void refreshSubmissions();
                       setSelectedSubmission(null);
                     }}
                     className="ml-auto"

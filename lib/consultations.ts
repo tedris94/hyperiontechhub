@@ -20,110 +20,83 @@ export interface Consultation {
   notes?: string;
 }
 
-const STORAGE_KEY = 'hyperion_consultations';
-
-export function getConsultations(): Consultation[] {
-  if (typeof window === 'undefined') return [];
-  
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    return stored ? JSON.parse(stored) : [];
-  } catch (error) {
-    console.error('Error reading consultations:', error);
+export async function getConsultations(): Promise<Consultation[]> {
+  const response = await fetch('/api/admin/consultations');
+  if (!response.ok) {
+    console.error('Failed to fetch consultations');
     return [];
   }
+  const data = await response.json();
+  return data.consultations || [];
 }
 
-export function saveConsultations(consultations: Consultation[]): void {
-  if (typeof window === 'undefined') return;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(consultations));
+export async function markAsRead(id: string): Promise<void> {
+  await fetch('/api/admin/consultations', {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id, updates: { read: true } }),
+  });
 }
 
-export function addConsultation(newConsultation: Consultation): void {
-  if (typeof window === 'undefined') return;
-  const consultations = getConsultations();
-  consultations.push(newConsultation);
-  saveConsultations(consultations);
-}
-
-export function getUnreadConsultationsCount(): number {
-  const consultations = getConsultations();
-  return consultations.filter((c) => !c.read).length;
-}
-
-export function getPendingConsultationsCount(): number {
-  const consultations = getConsultations();
-  return consultations.filter((c) => c.status === 'pending').length;
-}
-
-export function markAsRead(id: string): void {
-  if (typeof window === 'undefined') return;
-  
-  const consultations = getConsultations();
-  const updated = consultations.map((c) =>
-    c.id === id ? { ...c, read: true } : c
-  );
-  saveConsultations(updated);
-}
-
-export function updateConsultationStatus(
+export async function updateConsultationStatus(
   id: string,
   status: Consultation['status']
-): void {
-  if (typeof window === 'undefined') return;
-  
-  const consultations = getConsultations();
-  const updated = consultations.map((c) =>
-    c.id === id ? { ...c, status } : c
-  );
-  saveConsultations(updated);
+): Promise<void> {
+  await fetch('/api/admin/consultations', {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id, updates: { status } }),
+  });
 }
 
-export function assignConsultation(
+export async function assignConsultation(
   id: string,
   consultantId: string,
   consultantName: string
-): void {
-  if (typeof window === 'undefined') return;
-  
-  const consultations = getConsultations();
-  const updated = consultations.map((c) =>
-    c.id === id
-      ? {
-          ...c,
-          assignedTo: consultantId,
-          assignedToName: consultantName,
-          status: 'assigned' as const,
-        }
-      : c
-  );
-  saveConsultations(updated);
+): Promise<void> {
+  await fetch('/api/admin/consultations', {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      id,
+      updates: {
+        assigned_to: consultantId,
+        assigned_to_name: consultantName,
+        status: 'assigned',
+      },
+    }),
+  });
 }
 
-export function updateConsultation(
+export async function updateConsultation(
   id: string,
   updates: Partial<Consultation>
-): void {
-  if (typeof window === 'undefined') return;
-  
-  const consultations = getConsultations();
-  const updated = consultations.map((c) =>
-    c.id === id ? { ...c, ...updates } : c
-  );
-  saveConsultations(updated);
+): Promise<void> {
+  const mappedUpdates: Record<string, unknown> = { ...updates };
+  if (updates.assignedTo !== undefined) mappedUpdates.assigned_to = updates.assignedTo;
+  if (updates.assignedToName !== undefined) mappedUpdates.assigned_to_name = updates.assignedToName;
+  if (updates.googleMeetLink !== undefined) mappedUpdates.google_meet_link = updates.googleMeetLink;
+  if (updates.preferredDate !== undefined) mappedUpdates.preferred_date = updates.preferredDate;
+  if (updates.preferredTime !== undefined) mappedUpdates.preferred_time = updates.preferredTime;
+  delete mappedUpdates.assignedTo;
+  delete mappedUpdates.assignedToName;
+  delete mappedUpdates.googleMeetLink;
+  delete mappedUpdates.preferredDate;
+  delete mappedUpdates.preferredTime;
+
+  await fetch('/api/admin/consultations', {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id, updates: mappedUpdates }),
+  });
 }
 
-export function deleteConsultation(id: string): void {
-  if (typeof window === 'undefined') return;
-  
-  const consultations = getConsultations();
-  const updated = consultations.filter((c) => c.id !== id);
-  saveConsultations(updated);
-}
-
-export function getConsultationsByConsultant(consultantId: string): Consultation[] {
-  const consultations = getConsultations();
-  return consultations.filter((c) => c.assignedTo === consultantId);
+export async function deleteConsultation(id: string): Promise<void> {
+  await fetch('/api/admin/consultations', {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id }),
+  });
 }
 
 // Generate Google Meet link

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { getSupabaseServer } from '@/lib/supabaseServer';
 
 interface ContactFormData {
   name: string;
@@ -55,22 +56,28 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create submission object
-    const submission = {
-      id: Date.now().toString(),
-      name,
-      email,
-      phone: phone || 'Not provided',
-      service,
-      message,
-      status: 'new',
-      createdAt: new Date().toISOString(),
-      read: false,
-    };
+    const supabase = getSupabaseServer();
+    const { data: inserted, error: insertError } = await supabase
+      .from('contact_submissions')
+      .insert({
+        name,
+        email,
+        phone: phone || null,
+        service,
+        message,
+        status: 'new',
+        read: false,
+      })
+      .select('*')
+      .single();
 
-    // Store submission in localStorage (via client-side)
-    // For server-side storage, you'd use a database
-    // For now, we'll return it and the client will store it
+    if (insertError) {
+      console.error('Supabase insert error:', insertError);
+      return NextResponse.json(
+        { error: 'Failed to save contact submission' },
+        { status: 500 }
+      );
+    }
 
     // Send email
     try {
@@ -163,7 +170,18 @@ Submitted on ${new Date().toLocaleString()}
     return NextResponse.json({
       success: true,
       message: 'Contact form submitted successfully',
-      submission,
+      submission: {
+        id: inserted.id,
+        name: inserted.name,
+        email: inserted.email,
+        phone: inserted.phone || 'Not provided',
+        service: inserted.service,
+        message: inserted.message,
+        status: inserted.status,
+        createdAt: inserted.created_at,
+        read: inserted.read,
+        replies: inserted.replies || [],
+      },
     });
   } catch (error) {
     console.error('Contact form error:', error);

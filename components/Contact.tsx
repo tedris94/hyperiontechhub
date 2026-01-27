@@ -155,20 +155,6 @@ export default function Contact() {
         throw new Error(data.error || 'Failed to send message');
       }
 
-      // Store submission in localStorage for admin dashboards
-      if (data.submission) {
-        const existingSubmissions = JSON.parse(
-          localStorage.getItem('hyperion_contact_submissions') || '[]'
-        );
-        existingSubmissions.unshift(data.submission);
-        // Keep only last 100 submissions
-        const limitedSubmissions = existingSubmissions.slice(0, 100);
-        localStorage.setItem(
-          'hyperion_contact_submissions',
-          JSON.stringify(limitedSubmissions)
-        );
-      }
-
       setSubmitStatus('success');
       
       // Reset form after success

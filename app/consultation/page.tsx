@@ -152,13 +152,6 @@ export default function ConsultationPage() {
       const result = await response.json();
 
       if (response.ok && result.success) {
-        // Store in localStorage for dashboard access
-        if (typeof window !== 'undefined') {
-          const consultations = JSON.parse(localStorage.getItem('hyperion_consultations') || '[]');
-          consultations.push(result.consultation);
-          localStorage.setItem('hyperion_consultations', JSON.stringify(consultations));
-        }
-
         setSubmitStatus('success');
         setFormData({
           name: '',
