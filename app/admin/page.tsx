@@ -2,12 +2,15 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import BackToTop from '@/components/BackToTop';
-import RequireAuth from '@/components/RequireAuth';
+import RequireRole from '@/components/RequireRole';
 
 export default function AdminHomePage() {
   return (
     <>
-      <RequireAuth message="Please sign in to access admin tools.">
+      <RequireRole
+        allowedRoles={['admin', 'super_admin']}
+        message="Access denied. Admin roles only."
+      >
         <Header />
         <main className="min-h-screen pt-20 bg-gray-50">
           <section className="py-16">
@@ -47,7 +50,7 @@ export default function AdminHomePage() {
         </main>
         <Footer />
         <BackToTop />
-      </RequireAuth>
+      </RequireRole>
     </>
   );
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import RequireAuth from '@/components/RequireAuth';
+import RequireRole from '@/components/RequireRole';
 
 function generateToken(byteLength: number = 32): string {
   const bytes = new Uint8Array(byteLength);
@@ -26,7 +26,10 @@ export default function TokenGeneratorPage() {
   };
 
   return (
-    <RequireAuth message="Please sign in to generate a CMS token.">
+    <RequireRole
+      allowedRoles={['admin', 'super_admin']}
+      message="Access denied. Admin roles only."
+    >
       <div className="min-h-screen bg-gray-50 py-12 px-4">
         <div className="max-w-3xl mx-auto space-y-6">
           <div>
@@ -73,6 +76,6 @@ export default function TokenGeneratorPage() {
           </div>
         </div>
       </div>
-    </RequireAuth>
+    </RequireRole>
   );
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import RequireAuth from '@/components/RequireAuth';
+import RequireRole from '@/components/RequireRole';
 
 export default function SiteContentAdminPage() {
   const [content, setContent] = useState('');
@@ -47,7 +47,10 @@ export default function SiteContentAdminPage() {
   };
 
   return (
-    <RequireAuth message="Please sign in to edit site content.">
+    <RequireRole
+      allowedRoles={['admin', 'super_admin']}
+      message="Access denied. Admin roles only."
+    >
       <div className="min-h-screen bg-gray-50 py-12 px-4">
         <div className="max-w-4xl mx-auto space-y-6">
           <div>
@@ -92,6 +95,6 @@ export default function SiteContentAdminPage() {
           </div>
         </div>
       </div>
-    </RequireAuth>
+    </RequireRole>
   );
 }
