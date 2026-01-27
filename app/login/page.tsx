@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Lock, Mail, Eye, EyeOff, Users, Settings } from 'lucide-react';
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
@@ -22,6 +22,9 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const { login, demoUsers } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectMessage = searchParams?.get('message') || '';
+  const returnTo = searchParams?.get('returnTo') || '/dashboard';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,7 +33,7 @@ export default function LoginPage() {
 
     try {
       await login(email, password);
-      router.push('/dashboard');
+      router.push(returnTo);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to login');
     } finally {
@@ -44,7 +47,7 @@ export default function LoginPage() {
 
     try {
       await login(demoEmail, demoPassword);
-      router.push('/dashboard');
+      router.push(returnTo);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to login');
     } finally {
@@ -85,10 +88,10 @@ export default function LoginPage() {
         </CardHeader>
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
-            {error && (
+            {(error || redirectMessage) && (
               <Alert variant="destructive">
                 <AlertCircle className="h-4 w-4" />
-                <AlertDescription>{error}</AlertDescription>
+                <AlertDescription>{error || redirectMessage}</AlertDescription>
               </Alert>
             )}
 
