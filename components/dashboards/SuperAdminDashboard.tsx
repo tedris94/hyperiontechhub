@@ -61,8 +61,9 @@ export function SuperAdminDashboard() {
 
     const loadMetrics = async () => {
       const userCount = await getStoredUsersCount();
+      const sessionsCount = await getActiveSessionCount();
       setTotalUsers(userCount);
-      setActiveSessions(getActiveSessionCount());
+      setActiveSessions(sessionsCount);
       const cmsRevenue = siteContent.adminMetrics?.revenueTotal;
       setRevenueTotal(
         typeof cmsRevenue === 'number' && !Number.isNaN(cmsRevenue)

@@ -7,16 +7,13 @@ export async function getStoredUsersCount(): Promise<number> {
   return data.count || 0;
 }
 
-export function getActiveSessionCount(): number {
-  if (typeof window === 'undefined') return 0;
-  try {
-    const stored = localStorage.getItem('hyperion_active_sessions');
-    const sessions = stored ? JSON.parse(stored) : [];
-    return Array.isArray(sessions) ? sessions.length : 0;
-  } catch (error) {
-    console.error('Error reading active sessions:', error);
+export async function getActiveSessionCount(): Promise<number> {
+  const response = await fetch('/api/admin/sessions/count');
+  if (!response.ok) {
     return 0;
   }
+  const data = await response.json();
+  return data.count || 0;
 }
 
 export function getStoredRevenueTotal(): number {

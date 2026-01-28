@@ -26,24 +26,20 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
 
-  const setActiveSession = (userId: string) => {
-    if (typeof window === 'undefined') return;
-    const stored = localStorage.getItem('hyperion_active_sessions');
-    const sessions = stored ? JSON.parse(stored) : [];
-    const nextSessions = Array.isArray(sessions)
-      ? sessions.filter((session: any) => session.userId !== userId)
-      : [];
-    nextSessions.push({ userId, lastActive: new Date().toISOString() });
-    localStorage.setItem('hyperion_active_sessions', JSON.stringify(nextSessions));
+  const setActiveSession = async (userId: string) => {
+    await fetch('/api/analytics/session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId }),
+    });
   };
 
-  const clearActiveSession = (userId: string) => {
-    if (typeof window === 'undefined') return;
-    const stored = localStorage.getItem('hyperion_active_sessions');
-    const sessions = stored ? JSON.parse(stored) : [];
-    if (!Array.isArray(sessions)) return;
-    const nextSessions = sessions.filter((session: any) => session.userId !== userId);
-    localStorage.setItem('hyperion_active_sessions', JSON.stringify(nextSessions));
+  const clearActiveSession = async (userId: string) => {
+    await fetch('/api/analytics/session', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId }),
+    });
   };
 
   useEffect(() => {
@@ -52,10 +48,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (storedUser) {
         const parsedUser = JSON.parse(storedUser);
         setUser(parsedUser);
-        setActiveSession(parsedUser.id);
+        void setActiveSession(parsedUser.id);
       }
     }
   }, []);
+
+  useEffect(() => {
+    if (!user?.id) return;
+    void setActiveSession(user.id);
+    const interval = setInterval(() => {
+      void setActiveSession(user.id);
+    }, 60_000);
+    return () => clearInterval(interval);
+  }, [user?.id]);
 
   const login = async (email: string, password: string) => {
     const response = await fetch('/api/auth/login', {
@@ -95,7 +100,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = () => {
     if (user) {
-      clearActiveSession(user.id);
+      void clearActiveSession(user.id);
     }
     setUser(null);
     if (typeof window !== 'undefined') {

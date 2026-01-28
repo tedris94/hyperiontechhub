@@ -50,3 +50,12 @@ create table if not exists public.app_users (
   password_hash text not null,
   created_at timestamp with time zone not null default now()
 );
+
+create table if not exists public.active_sessions (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null,
+  last_seen timestamp with time zone not null default now()
+);
+
+create index if not exists active_sessions_last_seen_idx on public.active_sessions (last_seen desc);
+create index if not exists active_sessions_user_idx on public.active_sessions (user_id);

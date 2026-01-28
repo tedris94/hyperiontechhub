@@ -54,8 +54,9 @@ export function AdminDashboard() {
 
     const loadMetrics = async () => {
       const userCount = await getStoredUsersCount();
+      const sessionsCount = await getActiveSessionCount();
       setTotalUsers(userCount);
-      setActiveSessions(getActiveSessionCount());
+      setActiveSessions(sessionsCount);
     };
     
     void loadSubmissions();
