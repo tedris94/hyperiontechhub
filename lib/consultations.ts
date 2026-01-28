@@ -99,6 +99,13 @@ export async function deleteConsultation(id: string): Promise<void> {
   });
 }
 
+export async function getConsultationsByConsultant(
+  consultantId: string
+): Promise<Consultation[]> {
+  const consultations = await getConsultations();
+  return consultations.filter((consultation) => consultation.assignedTo === consultantId);
+}
+
 // Generate Google Meet link
 export function generateGoogleMeetLink(consultationId: string, title: string): string {
   // For now, we'll generate a simple Google Meet link
