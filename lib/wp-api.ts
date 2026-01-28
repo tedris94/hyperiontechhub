@@ -74,6 +74,9 @@ function getFeaturedImageUrl(post: any): string | undefined {
 
 // Fetch services
 export async function getServices(): Promise<Service[]> {
+  if (!WP_API_URL) {
+    return [];
+  }
   try {
     const response = await wpApi.get('/services', {
       params: {
@@ -94,6 +97,9 @@ export async function getServices(): Promise<Service[]> {
 
 // Fetch single service
 export async function getService(slug: string): Promise<Service | null> {
+  if (!WP_API_URL) {
+    return null;
+  }
   try {
     const response = await wpApi.get(`/services?slug=${slug}&_embed=true`);
     if (response.data.length > 0) {
@@ -112,6 +118,9 @@ export async function getService(slug: string): Promise<Service | null> {
 
 // Fetch team members
 export async function getTeamMembers(): Promise<TeamMember[]> {
+  if (!WP_API_URL) {
+    return [];
+  }
   try {
     const response = await wpApi.get('/team', {
       params: {
@@ -132,6 +141,9 @@ export async function getTeamMembers(): Promise<TeamMember[]> {
 
 // Fetch portfolio items
 export async function getPortfolioItems(): Promise<PortfolioItem[]> {
+  if (!WP_API_URL) {
+    return [];
+  }
   try {
     const response = await wpApi.get('/portfolio', {
       params: {
@@ -152,6 +164,9 @@ export async function getPortfolioItems(): Promise<PortfolioItem[]> {
 
 // Fetch page by slug
 export async function getPage(slug: string): Promise<WPPost | null> {
+  if (!WP_API_URL) {
+    return null;
+  }
   try {
     const response = await wpApi.get(`/pages?slug=${slug}&_embed=true`);
     if (response.data.length > 0) {
@@ -170,6 +185,9 @@ export async function getPage(slug: string): Promise<WPPost | null> {
 
 // Fetch posts
 export async function getPosts(limit: number = 10): Promise<WPPost[]> {
+  if (!WP_API_URL) {
+    return [];
+  }
   try {
     const response = await wpApi.get('/posts', {
       params: {

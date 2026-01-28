@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import './globals.css';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { SiteContentProvider } from '@/contexts/SiteContentContext';
@@ -50,7 +51,9 @@ export default async function RootLayout({
       <body>
         <SiteContentProvider initialContent={siteContent}>
           <AuthProvider>
-            <PageViewTracker />
+            <Suspense fallback={null}>
+              <PageViewTracker />
+            </Suspense>
             {children}
           </AuthProvider>
         </SiteContentProvider>
