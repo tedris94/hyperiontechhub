@@ -326,9 +326,10 @@ export default function ConsultantAppointmentsPage() {
                   {selectedConsultation.status !== 'scheduled' && selectedConsultation.googleMeetLink && (
                     <Button
                       size="sm"
-                      onClick={() => {
-                        updateConsultationStatus(selectedConsultation.id, 'scheduled');
-                        setConsultations(getConsultationsByConsultant(user?.id || ''));
+                      onClick={async () => {
+                        await updateConsultationStatus(selectedConsultation.id, 'scheduled');
+                        const updated = await getConsultationsByConsultant(user?.id || '');
+                        setConsultations(updated);
                         setSelectedConsultation({
                           ...selectedConsultation,
                           status: 'scheduled',
@@ -343,9 +344,10 @@ export default function ConsultantAppointmentsPage() {
                   {selectedConsultation.status !== 'completed' && (
                     <Button
                       size="sm"
-                      onClick={() => {
-                        updateConsultationStatus(selectedConsultation.id, 'completed');
-                        setConsultations(getConsultationsByConsultant(user?.id || ''));
+                      onClick={async () => {
+                        await updateConsultationStatus(selectedConsultation.id, 'completed');
+                        const updated = await getConsultationsByConsultant(user?.id || '');
+                        setConsultations(updated);
                         setSelectedConsultation({
                           ...selectedConsultation,
                           status: 'completed',
