@@ -59,8 +59,9 @@ export function SuperAdminDashboard() {
       await refreshConsultations();
     };
 
-    const loadMetrics = () => {
-      setTotalUsers(getStoredUsersCount());
+    const loadMetrics = async () => {
+      const userCount = await getStoredUsersCount();
+      setTotalUsers(userCount);
       setActiveSessions(getActiveSessionCount());
       const cmsRevenue = siteContent.adminMetrics?.revenueTotal;
       setRevenueTotal(
@@ -82,13 +83,13 @@ export function SuperAdminDashboard() {
     
     void loadSubmissions();
     void loadConsultations();
-    loadMetrics();
+    void loadMetrics();
     void loadAnalytics();
     // Refresh every 5 seconds to catch new submissions
     const interval = setInterval(() => {
       void loadSubmissions();
       void loadConsultations();
-      loadMetrics();
+      void loadMetrics();
       void loadAnalytics();
     }, 5000);
     const handleOnline = () => setIsOnline(true);

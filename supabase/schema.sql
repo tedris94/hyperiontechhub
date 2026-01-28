@@ -41,3 +41,12 @@ create table if not exists public.page_views (
 
 create index if not exists page_views_created_at_idx on public.page_views (created_at desc);
 create index if not exists page_views_visitor_idx on public.page_views (visitor_id);
+
+create table if not exists public.app_users (
+  id uuid primary key default gen_random_uuid(),
+  email text unique not null,
+  name text not null,
+  role text not null,
+  password_hash text not null,
+  created_at timestamp with time zone not null default now()
+);

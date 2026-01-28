@@ -52,19 +52,20 @@ export function AdminDashboard() {
       await refreshConsultations();
     };
 
-    const loadMetrics = () => {
-      setTotalUsers(getStoredUsersCount());
+    const loadMetrics = async () => {
+      const userCount = await getStoredUsersCount();
+      setTotalUsers(userCount);
       setActiveSessions(getActiveSessionCount());
     };
     
     void loadSubmissions();
     void loadConsultations();
-    loadMetrics();
+    void loadMetrics();
     // Refresh every 5 seconds to catch new submissions
     const interval = setInterval(() => {
       void loadSubmissions();
       void loadConsultations();
-      loadMetrics();
+      void loadMetrics();
     }, 5000);
     return () => clearInterval(interval);
   }, []);

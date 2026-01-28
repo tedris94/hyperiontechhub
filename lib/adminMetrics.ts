@@ -1,13 +1,10 @@
-export function getStoredUsersCount(): number {
-  if (typeof window === 'undefined') return 0;
-  try {
-    const stored = localStorage.getItem('hyperion_users');
-    const users = stored ? JSON.parse(stored) : [];
-    return Array.isArray(users) ? users.length : 0;
-  } catch (error) {
-    console.error('Error reading users:', error);
+export async function getStoredUsersCount(): Promise<number> {
+  const response = await fetch('/api/admin/users/count');
+  if (!response.ok) {
     return 0;
   }
+  const data = await response.json();
+  return data.count || 0;
 }
 
 export function getActiveSessionCount(): number {
