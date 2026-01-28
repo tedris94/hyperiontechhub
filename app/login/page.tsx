@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Lock, Mail, Eye, EyeOff, Users, Settings } from 'lucide-react';
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
@@ -22,9 +22,15 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const { login, demoUsers } = useAuth();
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const redirectMessage = searchParams?.get('message') || '';
-  const returnTo = searchParams?.get('returnTo') || '/dashboard';
+  const [redirectMessage, setRedirectMessage] = useState('');
+  const [returnTo, setReturnTo] = useState('/dashboard');
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    setRedirectMessage(params.get('message') || '');
+    setReturnTo(params.get('returnTo') || '/dashboard');
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
