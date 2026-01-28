@@ -29,3 +29,15 @@ create table if not exists public.consultations (
   notes text,
   created_at timestamp with time zone not null default now()
 );
+
+create table if not exists public.page_views (
+  id uuid primary key default gen_random_uuid(),
+  path text not null,
+  referrer text,
+  user_agent text,
+  visitor_id text not null,
+  created_at timestamp with time zone not null default now()
+);
+
+create index if not exists page_views_created_at_idx on public.page_views (created_at desc);
+create index if not exists page_views_visitor_idx on public.page_views (visitor_id);

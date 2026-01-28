@@ -36,6 +36,9 @@ export function SuperAdminDashboard() {
   const [activeSessions, setActiveSessions] = useState(0);
   const [revenueTotal, setRevenueTotal] = useState(0);
   const [isOnline, setIsOnline] = useState(true);
+  const [totalViews, setTotalViews] = useState(0);
+  const [last24hViews, setLast24hViews] = useState(0);
+  const [last24hVisitors, setLast24hVisitors] = useState(0);
 
   const refreshSubmissions = async () => {
     const submissions = await getContactSubmissions();
@@ -67,15 +70,26 @@ export function SuperAdminDashboard() {
       );
       setIsOnline(typeof navigator !== 'undefined' ? navigator.onLine : true);
     };
+
+    const loadAnalytics = async () => {
+      const response = await fetch('/api/admin/analytics');
+      if (!response.ok) return;
+      const data = await response.json();
+      setTotalViews(data.totalViews || 0);
+      setLast24hViews(data.last24hViews || 0);
+      setLast24hVisitors(data.last24hVisitors || 0);
+    };
     
     void loadSubmissions();
     void loadConsultations();
     loadMetrics();
+    void loadAnalytics();
     // Refresh every 5 seconds to catch new submissions
     const interval = setInterval(() => {
       void loadSubmissions();
       void loadConsultations();
       loadMetrics();
+      void loadAnalytics();
     }, 5000);
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
@@ -191,6 +205,18 @@ export function SuperAdminDashboard() {
       value: isOnline ? '100%' : '0%',
       icon: ShieldCheck,
       change: isOnline ? 'Online' : 'Offline',
+    },
+    {
+      title: 'Site Visits',
+      value: totalViews.toLocaleString(),
+      icon: Activity,
+      change: 'All time',
+    },
+    {
+      title: 'Traffic (24h)',
+      value: last24hViews.toLocaleString(),
+      icon: Users,
+      change: `${last24hVisitors} visitors`,
     },
     {
       title: 'Revenue',

@@ -3,6 +3,7 @@ import './globals.css';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { SiteContentProvider } from '@/contexts/SiteContentContext';
 import { getSiteContent } from '@/lib/site-content';
+import PageViewTracker from '@/components/PageViewTracker';
 
 export async function generateMetadata(): Promise<Metadata> {
   const siteContent = await getSiteContent();
@@ -49,6 +50,7 @@ export default async function RootLayout({
       <body>
         <SiteContentProvider initialContent={siteContent}>
           <AuthProvider>
+            <PageViewTracker />
             {children}
           </AuthProvider>
         </SiteContentProvider>
