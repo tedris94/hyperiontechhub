@@ -17,12 +17,12 @@ export default function ConsultantAppointmentsPage() {
 
   useEffect(() => {
     if (user?.id) {
-      const loadConsultations = () => {
-        const assignedConsultations = getConsultationsByConsultant(user.id);
+      const loadConsultations = async () => {
+        const assignedConsultations = await getConsultationsByConsultant(user.id);
         setConsultations(assignedConsultations);
       };
       
-      loadConsultations();
+      void loadConsultations();
       // Refresh every 5 seconds to catch new assignments
       const interval = setInterval(loadConsultations, 5000);
       return () => clearInterval(interval);
