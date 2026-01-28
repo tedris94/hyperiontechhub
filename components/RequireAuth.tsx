@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode, useEffect } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 
 interface RequireAuthProps {
@@ -12,18 +12,17 @@ interface RequireAuthProps {
 export default function RequireAuth({ children, message }: RequireAuthProps) {
   const { user, isAuthenticated } = useAuth();
   const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     if (!isAuthenticated || !user) {
-      const search = searchParams?.toString();
-      const returnTo = `${pathname}${search ? `?${search}` : ''}`;
+      const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
+      const search = typeof window !== 'undefined' ? window.location.search : '';
+      const returnTo = `${pathname}${search || ''}`;
       const redirectMessage = message || 'Please sign in to access this page.';
       const loginUrl = `/login?returnTo=${encodeURIComponent(returnTo)}&message=${encodeURIComponent(redirectMessage)}`;
       router.replace(loginUrl);
     }
-  }, [isAuthenticated, user, router, pathname, searchParams, message]);
+  }, [isAuthenticated, user, router, message]);
 
   if (!isAuthenticated || !user) {
     return (
