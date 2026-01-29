@@ -281,8 +281,8 @@ export default function UserManagementPage() {
                       <Label>Role</Label>
                       <Select
                         value={createForm.role}
-                        onValueChange={(value: UserRole) =>
-                          setCreateForm((prev) => ({ ...prev, role: value }))
+                        onValueChange={(value) =>
+                          setCreateForm((prev) => ({ ...prev, role: value as UserRole }))
                         }
                       >
                         <SelectTrigger>
@@ -352,8 +352,8 @@ export default function UserManagementPage() {
                         <Label>Role</Label>
                         <Select
                           value={editForm.role}
-                          onValueChange={(value: UserRole) =>
-                            setEditForm((prev) => ({ ...prev, role: value }))
+                          onValueChange={(value) =>
+                            setEditForm((prev) => ({ ...prev, role: value as UserRole }))
                           }
                         >
                           <SelectTrigger>
