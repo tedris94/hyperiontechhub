@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseServer } from '@/lib/supabaseServer';
 import { hashPassword } from '@/lib/password';
 
@@ -8,8 +8,12 @@ interface RouteContext {
   };
 }
 
-export async function PATCH(request: Request, context: RouteContext) {
-  const userId = context.params.id;
+type NextRouteContext = {
+  params: Promise<{ id: string }>;
+};
+
+export async function PATCH(request: NextRequest, context: NextRouteContext) {
+  const { id: userId } = await context.params;
   const body = await request.json();
   const { name, email, role, password } = body || {};
 
@@ -42,8 +46,8 @@ export async function PATCH(request: Request, context: RouteContext) {
   return NextResponse.json({ user: data });
 }
 
-export async function DELETE(_: Request, context: RouteContext) {
-  const userId = context.params.id;
+export async function DELETE(_: NextRequest, context: NextRouteContext) {
+  const { id: userId } = await context.params;
   const supabase = getSupabaseServer();
 
   await supabase.from('active_sessions').delete().eq('user_id', userId);
