@@ -2,6 +2,21 @@ import { NextResponse } from 'next/server';
 import { getSupabaseServer } from '@/lib/supabaseServer';
 import { hashPassword } from '@/lib/password';
 
+async function logUserActivity(
+  action: string,
+  targetUserId?: string,
+  targetEmail?: string,
+  details?: string
+) {
+  const supabase = getSupabaseServer();
+  await supabase.from('app_user_activity').insert({
+    action,
+    target_user_id: targetUserId || null,
+    target_email: targetEmail || null,
+    details: details || null,
+  });
+}
+
 export async function GET() {
   const supabase = getSupabaseServer();
   const { data, error } = await supabase
@@ -52,6 +67,8 @@ export async function POST(request: Request) {
   if (error || !data) {
     return NextResponse.json({ error: error?.message || 'Failed to create user.' }, { status: 500 });
   }
+
+  await logUserActivity('create', data.id, data.email, `Role: ${data.role}`);
 
   return NextResponse.json({ user: data });
 }
