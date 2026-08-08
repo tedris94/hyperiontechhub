@@ -1,0 +1,59 @@
+[
+  {
+    "slug": "bright-olivelight-schools",
+    "title": "School portal & term subscriptions",
+    "client": "Bright Olivelight Schools",
+    "industry": "schools",
+    "category": "EduSuite / School systems",
+    "summary": "Live school management and results portal with recurring term-based subscriptions — proof that schools will pay for reliable digital ops.",
+    "challenge": "The school needed a dependable online presence for academics and results, plus a clear commercial model for ongoing support instead of one-off freelance fixes.",
+    "solution": "Deployed a school portal stack (management + Educare results) with Hyperion hosting and term subscription billing. Staff were trained to publish results and manage student records without chasing developers for every term.",
+    "results": [
+      "Production school portal in active use",
+      "Recurring term subscription revenue model validated",
+      "Foundation for EduSuite SaaS case study and referrals"
+    ],
+    "technologies": ["WordPress", "School Management", "Educare", "Hosting"],
+    "projectUrl": "",
+    "featured": true,
+    "sortOrder": 1
+  },
+  {
+    "slug": "haqqul-mubeen-islamic-schools",
+    "title": "Results portal for an Islamic school",
+    "client": "Haqqul Mubeen Islamic Schools",
+    "industry": "schools",
+    "category": "School results systems",
+    "summary": "Student results and school web presence tailored for an Islamic school — a repeatable pattern for madrasas and faith-based institutions across Nigeria.",
+    "challenge": "Parents and admin needed trustworthy online results delivery and a professional school site without complex enterprise software.",
+    "solution": "Built and supported a WordPress + Educare results experience with role-aware access and PDF/email workflows suited to school term calendars.",
+    "results": [
+      "Live results-focused school website",
+      "Reusable delivery pattern for Islamic, private, and public schools",
+      "Named portfolio asset for EduSuite GTM"
+    ],
+    "technologies": ["WordPress", "Educare", "Custom plugins"],
+    "projectUrl": "",
+    "featured": true,
+    "sortOrder": 2
+  },
+  {
+    "slug": "fizam-table-water",
+    "title": "SME commerce & ops digital kit",
+    "client": "Fizam Table Water",
+    "industry": "smes",
+    "category": "SME Digital Business Kit",
+    "summary": "Modern marketing site, Paystack checkout, HR/jobs, and staff dashboards for a bottled-water brand — the template for our Commerce and Ops SKUs.",
+    "challenge": "An FMCG water company needed more than a brochure site: online orders, content management, and internal portals without a large IT team.",
+    "solution": "Delivered a Next.js + Payload CMS platform with Paystack payments, order flows, careers, and admin dashboards — packaged as the reference SME Digital Business Kit.",
+    "results": [
+      "End-to-end SME digital stack (marketing + commerce + HR)",
+      "Paystack-ready order experience",
+      "Repeatable quote template for Presence / Commerce / Ops SKUs"
+    ],
+    "technologies": ["Next.js", "Payload CMS", "Paystack", "Supabase"],
+    "projectUrl": "https://fizam.ng",
+    "featured": true,
+    "sortOrder": 3
+  }
+]

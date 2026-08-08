@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap');
+@import 'tailwindcss';
+
+@theme inline {
+  --color-emerald: #0F5A43;
+  --color-forest: #07382B;
+  --color-gold: #C79A2C;
+  --color-ivory: #FAF8F2;
+  --color-charcoal: #1E1E1E;
+  --color-warm-gray: #6F6F6F;
+
+  --font-display: 'Cinzel', Georgia, serif;
+  --font-body: 'Montserrat', system-ui, sans-serif;
+  --font-arabic: 'Amiri', Georgia, serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Montserrat', system-ui, sans-serif;
+  background-color: #FAF8F2;
+  color: #1E1E1E;
+  margin: 0;
+  padding: 0;
+}
+
+/* Hide scrollbar by default, show on scroll */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #C79A2C44;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C79A2C;
+}

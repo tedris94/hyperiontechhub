@@ -1,0 +1,137 @@
+{
+  "edusuite": {
+    "name": "Hyperion EduSuite",
+    "tagline": "Complete school OS for private, Islamic, and public schools across Nigeria",
+    "audience": "Built for private, Islamic, and public schools anywhere in Nigeria — with strong on-ground support from Abuja.",
+    "setupFeeNgn": { "min": 500000, "max": 2500000, "note": "Depends on campus size, data migration, and SMS volume" },
+    "subscription": {
+      "perTermNgn": { "min": 150000, "max": 450000 },
+      "annualNgn": { "min": 400000, "max": 1200000 },
+      "note": "Priced by student band; includes hosting and Hyperion Care Starter for year one when bundled"
+    },
+    "moduleGroups": [
+      {
+        "id": "core",
+        "title": "Core operations",
+        "modules": [
+          { "id": "auth", "title": "Auth & security", "description": "Secure login, roles, and school membership." },
+          { "id": "dashboards", "title": "Role dashboards", "description": "KPIs and alerts for owners, teachers, parents, and students." },
+          { "id": "students", "title": "Student management", "description": "Profiles, admission, enrollment, and class allocation." },
+          { "id": "parents", "title": "Parent portal", "description": "Fees, results, attendance, and messages in one place." },
+          { "id": "staff", "title": "Staff & HR", "description": "Staff profiles, departments, leave, and contracts." },
+          { "id": "academic", "title": "Academic management", "description": "Classes, subjects, timetable, and teacher assignment." },
+          { "id": "attendance", "title": "Attendance", "description": "Daily and period attendance for students and staff." },
+          { "id": "exams", "title": "Exams & results", "description": "Marks entry, report cards, and parent publishing." },
+          { "id": "fees", "title": "Fees & accounting", "description": "Fee structures, invoices, Paystack payments, and arrears." },
+          { "id": "communication", "title": "Communication", "description": "Notices, email, and SMS announcements." },
+          { "id": "settings", "title": "Settings & config", "description": "Terms, grading scales, branding, and school preferences." }
+        ]
+      },
+      {
+        "id": "campus",
+        "title": "Campus operations",
+        "modules": [
+          { "id": "library", "title": "Library", "description": "Catalogue, issue/return, and fines." },
+          { "id": "transport", "title": "Transport", "description": "Routes, vehicles, drivers, and student allocation." },
+          { "id": "hostel", "title": "Hostel", "description": "Rooms, beds, allocation, and hostel fees." },
+          { "id": "inventory", "title": "Inventory & assets", "description": "Assets, stock, and assignment tracking." },
+          { "id": "documents", "title": "Documents & certificates", "description": "Certificates, letters, and school documents." },
+          { "id": "events", "title": "Events & calendar", "description": "School calendar, events, and term dates." }
+        ]
+      },
+      {
+        "id": "grow",
+        "title": "Grow & insight",
+        "modules": [
+          { "id": "lms", "title": "LMS (lite)", "description": "Link learning materials and Hyperion courses to your school." },
+          { "id": "alumni", "title": "Alumni", "description": "Graduate records and alumni engagement." },
+          { "id": "reports", "title": "Reports & analytics", "description": "Cross-module reports for fees, academics, and operations." }
+        ]
+      }
+    ],
+    "pilotSchool": {
+      "recommended": "Bright Olivelight Schools",
+      "rationale": "Existing term-subscription relationship; strongest path to a flagship EduSuite case study."
+    }
+  },
+  "smeKit": {
+    "name": "SME Digital Business Kit",
+    "skus": [
+      {
+        "id": "presence",
+        "name": "Presence",
+        "priceNgn": { "min": 400000, "max": 900000 },
+        "includes": ["Marketing website", "CMS for pages/blog", "Contact form", "Basic SEO setup", "30 days hypercare"],
+        "timelineWeeks": "2–4"
+      },
+      {
+        "id": "commerce",
+        "name": "Commerce",
+        "priceNgn": { "min": 900000, "max": 2000000 },
+        "includes": ["Everything in Presence", "Product catalogue", "Paystack checkout", "Order admin", "Email order notifications"],
+        "timelineWeeks": "4–8",
+        "reference": "Fizam Table Water pattern"
+      },
+      {
+        "id": "ops",
+        "name": "Ops",
+        "priceNgn": { "min": 1500000, "max": 3000000 },
+        "includes": ["Commerce or Presence base", "Staff portal", "Jobs/HR module", "Simple inventory or invoices", "Admin dashboards"],
+        "timelineWeeks": "6–12",
+        "reference": "Fizam ops modules"
+      }
+    ],
+    "retainerNote": "Every kit includes a Hyperion Care offer at go-live (Starter or Growth)."
+  },
+  "hyperionCare": {
+    "name": "Hyperion Care",
+    "tiers": [
+      {
+        "id": "starter",
+        "name": "Starter",
+        "priceMonthlyNgn": 50000,
+        "includes": [
+          "Uptime monitoring",
+          "Weekly backups",
+          "Domain/DNS check",
+          "Security plugin/update review",
+          "Email support (48h)"
+        ]
+      },
+      {
+        "id": "growth",
+        "name": "Growth",
+        "priceMonthlyNgn": 150000,
+        "includes": [
+          "Everything in Starter",
+          "Monthly malware / hardening check",
+          "Content or small change budget (2 hrs)",
+          "Staff cyber awareness tip sheet",
+          "Priority support (24h)"
+        ]
+      },
+      {
+        "id": "business",
+        "name": "Business",
+        "priceMonthlyNgn": 300000,
+        "includes": [
+          "Everything in Growth",
+          "Quarterly business review",
+          "Change budget (6 hrs)",
+          "Staging checks before releases",
+          "Phone / WhatsApp escalation path"
+        ]
+      }
+    ],
+    "attachRule": "Offer with every EduSuite and SME Kit delivery within 30 days of go-live."
+  },
+  "training": {
+    "cohortExample": {
+      "title": "Web Development Fundamentals — Abuja Cohort",
+      "durationWeeks": 6,
+      "priceNgn": 85000,
+      "delivery": "Hub + LMS",
+      "topics": ["HTML/CSS", "JavaScript basics", "WordPress intro", "Deploying a simple site"]
+    }
+  }
+}

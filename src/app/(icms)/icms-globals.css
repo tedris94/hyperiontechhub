@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --icms-emerald: #0f5a43;
+  --icms-forest: #07382b;
+  --icms-gold: #c79a2c;
+  --icms-ivory: #faf8f2;
+  --icms-charcoal: #1e1e1e;
+  --icms-warm-gray: #6f6f6f;
+}
+
+.icms-root {
+  font-family: 'Montserrat', system-ui, sans-serif;
+  color: var(--icms-charcoal);
+  background: var(--icms-ivory);
+  min-height: 100vh;
+}
+
+.icms-display {
+  font-family: 'Cinzel', Georgia, serif;
+}
+
+.icms-arabic {
+  font-family: 'Amiri', serif;
+}
+
+.icms-btn-primary {
+  @apply inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-white transition-colors;
+  background: var(--icms-emerald);
+  border-radius: 10px;
+}
+
+.icms-btn-primary:hover {
+  background: var(--icms-forest);
+}
+
+.icms-btn-secondary {
+  @apply inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold transition-colors;
+  color: var(--icms-forest);
+  border: 1px solid var(--icms-gold);
+  background: transparent;
+  border-radius: 10px;
+}
+
+.icms-btn-secondary:hover {
+  background: color-mix(in srgb, var(--icms-gold) 12%, transparent);
+}
+
+.icms-hairline {
+  height: 1px;
+  background: color-mix(in srgb, var(--icms-gold) 55%, transparent);
+}
+
+.icms-section {
+  @apply px-4 py-16 md:px-8 lg:px-12;
+}
+
+.icms-container {
+  @apply mx-auto w-full max-w-6xl;
+}
+
+.icms-input {
+  @apply w-full border bg-white px-3 py-2.5 text-sm outline-none transition-colors;
+  border-color: color-mix(in srgb, var(--icms-warm-gray) 35%, white);
+  color: var(--icms-charcoal);
+}
+
+.icms-input:focus {
+  border-color: var(--icms-emerald);
+}
+
+/* —— UI variant chrome —— */
+[data-ui-variant='modern'] .icms-section {
+  @apply py-12 md:py-14;
+}
+
+[data-ui-variant='modern'] .icms-display {
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+
+[data-ui-variant='community'] .icms-section {
+  @apply py-14;
+}
+
+[data-ui-variant='community'] .icms-btn-primary {
+  border-radius: 999px;
+}
+
+[data-ui-variant='scholarly'] .icms-root,
+[data-ui-variant='scholarly'] {
+  letter-spacing: 0.01em;
+}
+
+[data-ui-variant='scholarly'] .icms-section {
+  @apply py-20 md:py-24;
+}
+
+[data-ui-variant='scholarly'] .icms-display {
+  font-weight: 500;
+}
+
+[data-ui-variant='compact'] .icms-section {
+  @apply py-10 md:py-12;
+}
+
+[data-ui-variant='compact'] .icms-container {
+  @apply max-w-5xl;
+}
+
+[data-ui-variant='compact'] .icms-btn-primary,
+[data-ui-variant='compact'] .icms-btn-secondary {
+  border-radius: 6px;
+  @apply px-4 py-2 text-xs uppercase tracking-wider;
+}

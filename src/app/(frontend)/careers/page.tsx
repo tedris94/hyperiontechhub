@@ -1,0 +1,230 @@
+'use client';
+
+import { useState } from 'react';
+import { Briefcase, MapPin, Clock, DollarSign, CheckCircle, Upload, ArrowRight } from 'lucide-react';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import BackToTop from '@/components/BackToTop';
+import { useSiteContent } from '@/contexts/SiteContentContext';
+
+export default function CareersPage() {
+  const siteContent = useSiteContent();
+  const { careers } = siteContent;
+  const jobOpenings = careers.openings.jobs;
+  const [selectedJob, setSelectedJob] = useState<number | string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    coverLetter: ''
+  });
+
+  const handleSubmit = async (e: React.FormEvent, jobId: number | string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setSubmitting(true);
+    try {
+      const res = await fetch('/api/applications', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          jobId,
+          fullName: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          coverLetter: formData.coverLetter,
+        }),
+      });
+      if (!res.ok) throw new Error('Submit failed');
+      alert(careers.application.form.submitLabel + ' — We will contact you soon.');
+      setFormData({ name: '', email: '', phone: '', coverLetter: '' });
+      setSelectedJob(null);
+    } catch {
+      alert('Could not submit application. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen">
+      <Header />
+      
+      {/* Hero Section */}
+      <section className="pt-32 pb-16 bg-gradient-to-br from-[#1A2BC2]/5 via-white to-[#0D0D52]/5">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="text-center max-w-4xl mx-auto">
+            <div className="inline-flex items-center space-x-2 bg-[#1A2BC2]/10 px-4 py-2 rounded-full mb-6">
+              <Briefcase className="w-4 h-4 text-[#1A2BC2]" />
+                <span className="text-sm text-[#1A2BC2]">{careers.hero.badge}</span>
+            </div>
+            <h1 className="text-5xl md:text-6xl text-[#1B1C1E] mb-6">
+                {careers.hero.title}
+            </h1>
+            <p className="text-xl text-gray-600 leading-relaxed">
+                {careers.hero.description}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Join Us Section */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl text-[#1B1C1E] mb-4">{careers.whyJoin.heading}</h2>
+            <p className="text-xl text-gray-600">{careers.whyJoin.subheading}</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {careers.whyJoin.items.map((item, idx) => (
+              <div key={idx} className="text-center p-6 bg-gray-50 rounded-lg">
+                <div className="text-4xl mb-4">{item.icon}</div>
+                <h3 className="text-xl text-[#1B1C1E] mb-2">{item.title}</h3>
+                <p className="text-gray-600">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Job Openings */}
+      <section className="py-24 bg-gray-50">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl text-[#1B1C1E] mb-4">{careers.openings.heading}</h2>
+            <p className="text-xl text-gray-600">{careers.openings.subheading}</p>
+          </div>
+          <div className="max-w-4xl mx-auto space-y-6">
+            {jobOpenings.map((job) => (
+              <div
+                key={job.id}
+                className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow p-8 cursor-pointer"
+                onClick={() => setSelectedJob(selectedJob === job.id ? null : job.id)}
+              >
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                  <div>
+                    <h3 className="text-2xl text-[#1B1C1E] mb-2">{job.title}</h3>
+                    <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+                      <span className="flex items-center">
+                        <MapPin className="w-4 h-4 mr-1 text-[#1A2BC2]" />
+                        {job.location}
+                      </span>
+                      <span className="flex items-center">
+                        <Clock className="w-4 h-4 mr-1 text-[#1A2BC2]" />
+                        {job.type}
+                      </span>
+                      <span className="flex items-center">
+                        <DollarSign className="w-4 h-4 mr-1 text-[#1A2BC2]" />
+                        {job.salary}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <p className="text-gray-600 mb-4">{job.description}</p>
+                {selectedJob === job.id && (
+                  <div className="mt-6 pt-6 border-t border-gray-200 space-y-4">
+                    <div>
+                      <h4 className="text-lg text-[#1B1C1E] mb-2">Responsibilities:</h4>
+                      <ul className="space-y-2">
+                        {job.responsibilities.map((resp, idx) => (
+                          <li key={idx} className="flex items-start text-gray-700">
+                            <CheckCircle className="w-5 h-5 text-[#1A2BC2] mr-2 flex-shrink-0 mt-0.5" />
+                            {resp}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="text-lg text-[#1B1C1E] mb-2">Requirements:</h4>
+                      <ul className="space-y-2">
+                        {job.requirements.map((req, idx) => (
+                          <li key={idx} className="flex items-start text-gray-700">
+                            <CheckCircle className="w-5 h-5 text-[#1A2BC2] mr-2 flex-shrink-0 mt-0.5" />
+                            {req}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <form onSubmit={(e) => void handleSubmit(e, job.id)} className="mt-6 space-y-4">
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <input
+                          type="text"
+                          placeholder={careers.application.form.namePlaceholder}
+                          className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#1A2BC2]"
+                          value={formData.name}
+                          onChange={(e) => setFormData({...formData, name: e.target.value})}
+                          required
+                        />
+                        <input
+                          type="email"
+                          placeholder={careers.application.form.emailPlaceholder}
+                          className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#1A2BC2]"
+                          value={formData.email}
+                          onChange={(e) => setFormData({...formData, email: e.target.value})}
+                          required
+                        />
+                      </div>
+                      <input
+                        type="tel"
+                        placeholder={careers.application.form.phonePlaceholder}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#1A2BC2]"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                        required
+                      />
+                      <textarea
+                        placeholder={careers.application.form.coverLetterPlaceholder}
+                        rows={4}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#1A2BC2]"
+                        value={formData.coverLetter}
+                        onChange={(e) => setFormData({...formData, coverLetter: e.target.value})}
+                        required
+                      />
+                      <div className="flex items-center gap-4">
+                        <label className="flex items-center cursor-pointer">
+                          <Upload className="w-5 h-5 mr-2 text-[#1A2BC2]" />
+                          <span className="text-sm text-gray-600">{careers.application.form.resumeLabel}</span>
+                          <input type="file" className="hidden" accept=".pdf,.doc,.docx" />
+                        </label>
+                      </div>
+                      <button
+                        type="submit"
+                        disabled={submitting}
+                        className="w-full bg-[#1A2BC2] hover:bg-[#0D0D52] text-white px-6 py-3 rounded-lg transition-colors duration-300 font-semibold disabled:opacity-60"
+                      >
+                        {submitting ? 'Submitting…' : careers.application.form.submitLabel}
+                      </button>
+                    </form>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24 bg-gradient-to-r from-[#1A2BC2] to-[#0D0D52]">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="text-center text-white max-w-4xl mx-auto">
+            <h2 className="text-4xl md:text-5xl mb-6">{careers.cta.heading}</h2>
+            <p className="text-xl mb-8 text-white/90">
+              {careers.cta.description}
+            </p>
+            <a href={careers.cta.buttonHref}>
+              <button className="inline-flex items-center bg-white text-[#1A2BC2] hover:bg-gray-100 px-8 py-3 rounded-lg transition-colors duration-300 group font-semibold">
+                {careers.cta.buttonLabel}
+                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+      <BackToTop />
+    </div>
+  );
+}
+

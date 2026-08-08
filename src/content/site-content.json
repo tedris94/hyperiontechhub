@@ -1,0 +1,474 @@
+{
+  "site": {
+    "name": "Hyperion Tech Hub",
+    "tagline": "Systems for schools and SMEs",
+    "description": "Nigeria’s digital partner for private, Islamic, and public schools and growing SMEs — systems we build, host, train on, and support, with strong Abuja presence.",
+    "url": "https://www.hyperiontechhub.com",
+    "logo": {
+      "src": "/assets/img/hth-logo.svg",
+      "alt": "Hyperion Tech Hub"
+    }
+  },
+  "adminMetrics": {
+    "revenueTotal": 0,
+    "currency": "NGN"
+  },
+  "header": {
+    "navigation": [
+      { "label": "Home", "href": "/" },
+      { "label": "Products", "href": "/#products" },
+      { "label": "Schools", "href": "/industries/schools" },
+      { "label": "SMEs", "href": "/industries/smes" },
+      { "label": "Training", "href": "/training" },
+      { "label": "Portfolio", "href": "/portfolio" },
+      { "label": "Courses", "href": "/courses" }
+    ],
+    "cta": {
+      "loginLabel": "Login",
+      "dashboardLabel": "Dashboard",
+      "primary": {
+        "label": "Get Started",
+        "href": "/get-started"
+      }
+    }
+  },
+  "home": {
+    "hero": {
+      "badge": "Abuja · Schools & SMEs",
+      "titleLines": ["Systems that", "schools and SMEs trust"],
+      "description": "We build, host, train on, and support digital systems for private, Islamic, and public schools and growing businesses across Nigeria — from EduSuite to SME kits and managed retainers, with strong Abuja on-ground support.",
+      "primaryCta": { "label": "View products", "href": "#products" },
+      "secondaryCta": { "label": "Get Started", "href": "/get-started" },
+      "stats": [
+        { "value": "3+", "label": "Schools live" },
+        { "value": "4", "label": "Core products" },
+        { "value": "Abuja", "label": "On-ground support" }
+      ],
+      "image": {
+        "src": "/assets/img/hero-img.jpg",
+        "alt": "Hyperion Tech Hub - Technology for schools and SMEs"
+      }
+    },
+    "services": {
+      "heading": "What we deliver",
+      "description": "Four portfolio pillars that generate recurring revenue and named case studies — plus walk-in hub services when you need them.",
+      "cta": { "label": "Talk to us", "href": "#contact" },
+      "fallbackItems": [
+        {
+          "title": "Hyperion EduSuite",
+          "description": "School OS for fees, results, attendance, and parent portals — with Paystack and term subscriptions.",
+          "icon": "GraduationCap",
+          "color": "bg-blue-50 text-[#1A2BC2]",
+          "href": "/products/edusuite"
+        },
+        {
+          "title": "SME Digital Business Kit",
+          "description": "Packaged sites, Paystack commerce, and ops portals for FMCG, retail, clinics, and estates.",
+          "icon": "Globe",
+          "color": "bg-cyan-50 text-cyan-700",
+          "href": "/products/sme-kit"
+        },
+        {
+          "title": "Hyperion Care",
+          "description": "Managed IT and cybersecurity retainers: uptime, backups, updates, and quarterly reviews.",
+          "icon": "Shield",
+          "color": "bg-indigo-50 text-indigo-600",
+          "href": "/products/hyperion-care"
+        },
+        {
+          "title": "Training & LMS",
+          "description": "Corporate workshops and paid cohorts — Web, React, WordPress, AI-for-business, and cyber basics.",
+          "icon": "BookOpen",
+          "color": "bg-orange-50 text-orange-600",
+          "href": "/courses"
+        },
+        {
+          "title": "Custom software & web",
+          "description": "Bespoke builds when a kit is not enough — web, mobile, and integrations for your workflow.",
+          "icon": "Code2",
+          "color": "bg-purple-50 text-purple-600",
+          "href": "/get-started"
+        },
+        {
+          "title": "Hub walk-in services",
+          "description": "Repairs, printing, and design at our Kubwa hub — cash-side convenience, not our brand identity.",
+          "icon": "Wrench",
+          "color": "bg-slate-100 text-slate-700",
+          "href": "/#contact"
+        }
+      ]
+    },
+    "purpose": {
+      "heading": "Our purpose",
+      "subheading": "Trusted systems for Nigerian schools and SMEs",
+      "image": {
+        "src": "/assets/img/purpose.jpg",
+        "alt": "Hyperion Tech Hub Purpose - Schools and SMEs"
+      },
+      "paragraphs": [
+        "Hyperion Tech Hub is Abuja’s digital partner for schools and growing SMEs. We build systems you can run day-to-day — fees, results, orders, staff portals — then we host, train your team, and stay on as a retainer partner.",
+        "Our focus is deliberate: Education systems (EduSuite), SME digital kits, managed Hyperion Care retainers, and skills training. Walk-in repairs and printing keep the hub useful locally without diluting what we stand for.",
+        "Trust is earned with named work we still support — not vanity client counts. Every logo on our portfolio is a client you can call and a system we maintain."
+      ],
+      "values": [
+        {
+          "title": "Our Mission",
+          "description": "Make technology accessible and impactful for Nigerian schools and SMEs.",
+          "icon": "Target"
+        },
+        {
+          "title": "Proof over slogans",
+          "description": "Named case studies, live systems, and honest metrics — not inflated claims.",
+          "icon": "Lightbulb"
+        },
+        {
+          "title": "Partnership",
+          "description": "We stay after go-live with training, support retainers, and clear SLAs.",
+          "icon": "Users"
+        },
+        {
+          "title": "Excellence",
+          "description": "Ship what schools and businesses actually pay for: fees, results, commerce, uptime.",
+          "icon": "Award"
+        }
+      ],
+      "statement": "Lead message: systems for Nigerian schools and SMEs — built, trained, and supported from Abuja. Secondary: hub convenience services when you walk in."
+    },
+    "contact": {
+      "heading": "Get in Touch",
+      "subheading": "Ready to digitise your school or SME? Let’s start a conversation.",
+      "introHeading": "Let's Connect",
+      "introText": "Ask about EduSuite, SME Kits, Hyperion Care retainers, or training cohorts. We respond within one business day.",
+      "email": "info@hyperiontechhub.com",
+      "phone": "(+234) 906 4951 938",
+      "address": "Plot 624, No. 9 Clifford Omozeghian Ave., Gbazango Extension II, Arab Road, Arab Junction by Kubwa Express, Kubwa, FCT-Abuja",
+      "whyChooseUs": [
+        "On-ground Abuja support",
+        "Named school & SME case studies",
+        "Setup + subscription pricing",
+        "Retainers after go-live"
+      ],
+      "form": {
+        "successTitle": "Message Sent Successfully!",
+        "successMessage": "Thank you for contacting us. We'll get back to you within 24 hours.",
+        "errorTitle": "Failed to Send Message",
+        "errorMessage": "Please try again later or contact us directly via email or phone.",
+        "fields": {
+          "nameLabel": "Full Name",
+          "namePlaceholder": "John Doe",
+          "emailLabel": "Email Address",
+          "emailPlaceholder": "john.doe@example.com",
+          "phoneLabel": "Phone Number",
+          "phonePlaceholder": "+234 906 4951938",
+          "serviceLabel": "Interested In",
+          "servicePlaceholder": "Select an option",
+          "messageLabel": "Message",
+          "messagePlaceholder": "Tell us about your school, business, or training need..."
+        },
+        "serviceOptions": [
+          { "value": "edusuite", "label": "Hyperion EduSuite (School OS)" },
+          { "value": "sme-kit", "label": "SME Digital Business Kit" },
+          { "value": "hyperion-care", "label": "Hyperion Care (Retainer)" },
+          { "value": "training", "label": "Corporate / Career Training" },
+          { "value": "custom", "label": "Custom Software & Web" },
+          { "value": "hub", "label": "Hub services (repairs / printing)" },
+          { "value": "other", "label": "Other" }
+        ],
+        "submitLabel": "Send Message",
+        "submittingLabel": "Sending..."
+      }
+    }
+  },
+  "careers": {
+    "hero": {
+      "badge": "Join Our Team",
+      "title": "Build Your Career with Us",
+      "description": "Join a team shipping school systems, SME kits, and training for Abuja and beyond."
+    },
+    "whyJoin": {
+      "heading": "Why Join Hyperion Tech Hub?",
+      "subheading": "We offer more than just a job",
+      "items": [
+        { "icon": "💼", "title": "Career Growth", "description": "Opportunities for professional development" },
+        { "icon": "⚖️", "title": "Work-Life Balance", "description": "Flexible hours and remote options" },
+        { "icon": "🎓", "title": "Learning Culture", "description": "Continuous learning and training" },
+        { "icon": "🤝", "title": "Great Team", "description": "Collaborative and supportive environment" },
+        { "icon": "💰", "title": "Competitive Pay", "description": "Attractive compensation packages" },
+        { "icon": "🏆", "title": "Impact", "description": "Work on meaningful projects" }
+      ]
+    },
+    "openings": {
+      "heading": "Open Positions",
+      "subheading": "Explore current job opportunities",
+      "jobs": [
+        {
+          "id": 1,
+          "title": "Senior Full-Stack Developer",
+          "department": "Engineering",
+          "location": "Remote / Hybrid",
+          "type": "Full-time",
+          "salary": "Competitive (NGN)",
+          "experience": "5+ years",
+          "description": "Build and maintain EduSuite, SME kits, and client systems on Next.js and related stacks.",
+          "responsibilities": [
+            "Design and develop scalable web applications",
+            "Collaborate with cross-functional teams",
+            "Write clean, maintainable code",
+            "Mentor junior developers",
+            "Participate in code reviews and architecture decisions"
+          ],
+          "requirements": [
+            "Strong experience with React, Node.js, and TypeScript",
+            "Knowledge of cloud platforms (AWS, Azure, or GCP)",
+            "Experience with databases (SQL and NoSQL)",
+            "Excellent problem-solving skills",
+            "Strong communication abilities"
+          ]
+        },
+        {
+          "id": 2,
+          "title": "UI/UX Designer",
+          "department": "Design",
+          "location": "On-site",
+          "type": "Full-time",
+          "salary": "Competitive (NGN)",
+          "experience": "3+ years",
+          "description": "Design clear experiences for school admins, parents, and SME operators.",
+          "responsibilities": [
+            "Create wireframes, prototypes, and high-fidelity designs",
+            "Conduct user research and usability testing",
+            "Collaborate with developers to implement designs",
+            "Maintain design systems and style guides"
+          ],
+          "requirements": [
+            "Proficiency in Figma, Adobe XD, or Sketch",
+            "Strong portfolio demonstrating UX/UI skills",
+            "Understanding of user-centered design principles",
+            "Experience with responsive design"
+          ]
+        },
+        {
+          "id": 3,
+          "title": "Client Success / Support Lead",
+          "department": "Operations",
+          "location": "Kubwa / Hybrid",
+          "type": "Full-time",
+          "salary": "Competitive (NGN)",
+          "experience": "3+ years",
+          "description": "Own Hyperion Care retainers, school onboarding, and SME go-live support.",
+          "responsibilities": [
+            "Run onboarding for EduSuite and SME Kit clients",
+            "Manage retainer SLAs and quarterly reviews",
+            "Escalate technical issues with clear tickets",
+            "Collect testimonials and case-study inputs"
+          ],
+          "requirements": [
+            "Excellent communication in English",
+            "Comfort with school or SME operations",
+            "Basic familiarity with web hosting and payments",
+            "Organized, documentation-minded"
+          ]
+        }
+      ]
+    },
+    "application": {
+      "form": {
+        "namePlaceholder": "Full Name",
+        "emailPlaceholder": "Email",
+        "phonePlaceholder": "Phone Number",
+        "coverLetterPlaceholder": "Cover Letter",
+        "resumeLabel": "Upload Resume",
+        "submitLabel": "Submit Application"
+      }
+    },
+    "cta": {
+      "heading": "Don't See a Role That Fits?",
+      "description": "We're always interested in hearing from talented individuals. Send us your resume and we'll keep you in mind for future opportunities.",
+      "buttonLabel": "Send Your Resume",
+      "buttonHref": "mailto:careers@hyperiontechhub.com"
+    }
+  },
+  "getStarted": {
+    "hero": {
+      "title": "Get Started with",
+      "highlight": "Hyperion Tech Hub",
+      "description": "Choose a product pillar — EduSuite, SME Kit, Hyperion Care, or Training — and we’ll scope a clear next step.",
+      "ctaLabel": "Schedule a Consultation",
+      "ctaHref": "/consultation"
+    },
+    "steps": {
+      "heading": "How It Works",
+      "subheading": "From first call to live system and retainer",
+      "items": [
+        {
+          "number": "01",
+          "title": "Pick your pillar",
+          "description": "EduSuite for schools, SME Kit for business, Care for retainers, or a training cohort.",
+          "icon": "Briefcase"
+        },
+        {
+          "number": "02",
+          "title": "Discovery call",
+          "description": "We map fees, results, orders, or skills goals — and give honest scope and pricing.",
+          "icon": "Users"
+        },
+        {
+          "number": "03",
+          "title": "Pilot or build",
+          "description": "Fixed SKU delivery or school MVP modules, with training for your team.",
+          "icon": "GraduationCap"
+        },
+        {
+          "number": "04",
+          "title": "Support & grow",
+          "description": "Hyperion Care retainer, case study (with permission), and referral loop.",
+          "icon": "Code2"
+        }
+      ]
+    },
+    "services": {
+      "heading": "What Are You Looking For?",
+      "subheading": "Select a product to get started",
+      "items": [
+        {
+          "title": "Hyperion EduSuite",
+          "description": "School OS — fees, results, attendance, parent portal",
+          "link": "/products/edusuite"
+        },
+        {
+          "title": "SME Digital Business Kit",
+          "description": "Presence, Commerce, or Ops packages for your business",
+          "link": "/products/sme-kit"
+        },
+        {
+          "title": "Hyperion Care",
+          "description": "Monthly managed IT and cybersecurity retainers",
+          "link": "/products/hyperion-care"
+        },
+        {
+          "title": "Training & Courses",
+          "description": "Corporate workshops and paid learning cohorts",
+          "link": "/courses"
+        }
+      ]
+    },
+    "whyChoose": {
+      "heading": "Why Choose Hyperion Tech Hub?",
+      "items": [
+        "Vertical focus: schools and SMEs",
+        "Live school and SME case studies",
+        "Setup + subscription / retainer pricing",
+        "On-ground support in Kubwa, Abuja",
+        "Training bundled with every delivery",
+        "Honest metrics — no inflated client counts"
+      ],
+      "ctaTitle": "Ready to Get Started?",
+      "ctaDescription": "Schedule a free consultation to pick the right product and pricing tier.",
+      "ctaLabel": "Schedule Consultation",
+      "ctaHref": "/consultation"
+    },
+    "finalCta": {
+      "heading": "Let's Build Something You Can Trust",
+      "description": "Start with EduSuite, an SME Kit, Hyperion Care, or a training cohort — then grow with us.",
+      "primaryLabel": "Contact Us",
+      "primaryHref": "/#contact",
+      "secondaryLabel": "Schedule Consultation",
+      "secondaryHref": "/consultation"
+    }
+  },
+  "consultation": {
+    "hero": {
+      "title": "Schedule a",
+      "highlight": "Consultation",
+      "description": "Tell us whether you are a school, an SME, or a training buyer. We’ll reply within 24 hours with a clear next step."
+    },
+    "success": {
+      "title": "Thank You!",
+      "message": "Your consultation request has been submitted successfully. We'll contact you within 24 hours to schedule your consultation.",
+      "ctaLabel": "Return to Home",
+      "ctaHref": "/"
+    },
+    "error": {
+      "title": "Error!",
+      "message": "There was an issue submitting your request. Please try again."
+    },
+    "form": {
+      "labels": {
+        "name": "Full Name",
+        "email": "Email Address",
+        "phone": "Phone Number",
+        "company": "School / Company",
+        "service": "Interested In",
+        "preferredDate": "Preferred Date",
+        "preferredTime": "Preferred Time",
+        "message": "Message"
+      },
+      "placeholders": {
+        "name": "John Doe",
+        "email": "john@example.com",
+        "phone": "+234 906 4951938",
+        "company": "School or company name",
+        "message": "Tell us about your school, business, or training need..."
+      },
+      "servicePlaceholder": "Select an option",
+      "timePlaceholder": "Select a time",
+      "submitLabel": "Schedule Consultation"
+    },
+    "services": [
+      "Hyperion EduSuite",
+      "SME Digital Business Kit — Presence",
+      "SME Digital Business Kit — Commerce",
+      "SME Digital Business Kit — Ops",
+      "Hyperion Care Retainer",
+      "Corporate Training",
+      "Online Courses / Cohort",
+      "Custom Software",
+      "Other"
+    ],
+    "timeSlots": [
+      "9:00 AM - 10:00 AM",
+      "10:00 AM - 11:00 AM",
+      "11:00 AM - 12:00 PM",
+      "1:00 PM - 2:00 PM",
+      "2:00 PM - 3:00 PM",
+      "3:00 PM - 4:00 PM",
+      "4:00 PM - 5:00 PM"
+    ]
+  },
+  "footer": {
+    "description": "Abuja’s trusted digital partner for schools and growing SMEs — EduSuite, SME Kits, Hyperion Care, and training.",
+    "contact": {
+      "email": "info@hyperiontechhub.com",
+      "phone": "(+234) 906 4951 938",
+      "address": "Plot 624, No. 9 Clifford Omozeghian Ave., Gbazango Extension II, Arab Road, Arab Junction by Kubwa Express, Kubwa, FCT-Abuja"
+    },
+    "columns": {
+      "company": [
+        { "label": "About Us", "href": "/about" },
+        { "label": "Portfolio", "href": "/portfolio" },
+        { "label": "Schools", "href": "/industries/schools" },
+        { "label": "SMEs", "href": "/industries/smes" },
+        { "label": "Careers", "href": "/careers" }
+      ],
+      "services": [
+        { "label": "EduSuite", "href": "/products/edusuite" },
+        { "label": "SME Kit", "href": "/products/sme-kit" },
+        { "label": "Hyperion Care", "href": "/products/hyperion-care" },
+        { "label": "Training & Courses", "href": "/courses" }
+      ],
+      "support": [
+        { "label": "Help Center", "href": "/help-center" },
+        { "label": "Contact Us", "href": "/#contact" },
+        { "label": "FAQ", "href": "/faq" },
+        { "label": "Privacy Policy", "href": "/privacy" }
+      ]
+    },
+    "social": [
+      { "label": "LinkedIn", "href": "#" },
+      { "label": "Twitter", "href": "#" },
+      { "label": "Facebook", "href": "#" },
+      { "label": "Instagram", "href": "#" }
+    ],
+    "copyright": "© {{year}} Hyperion Tech Hub. All rights reserved."
+  }
+}
