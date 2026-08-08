@@ -215,16 +215,20 @@ export async function getTenantConfig(slug: string): Promise<TenantConfig | null
 export async function listTenants(): Promise<TenantConfig[]> {
   if (!isPayloadEnabled()) return [ANAS_TENANT]
 
-  const payload = await getPayloadSingleton()
-  const result = await payload.find({
-    collection: 'icms-tenants',
-    where: { status: { not_equals: 'suspended' } },
-    limit: 100,
-    depth: 1,
-    sort: 'name',
-    overrideAccess: true,
-  })
-  return (result.docs as IcmsTenantDoc[]).map(mapTenantDoc)
+  try {
+    const payload = await getPayloadSingleton()
+    const result = await payload.find({
+      collection: 'icms-tenants',
+      where: { status: { not_equals: 'suspended' } },
+      limit: 100,
+      depth: 1,
+      sort: 'name',
+      overrideAccess: true,
+    })
+    return (result.docs as IcmsTenantDoc[]).map(mapTenantDoc)
+  } catch {
+    return [ANAS_TENANT]
+  }
 }
 
 export async function listTenantDocs(): Promise<IcmsTenantDoc[]> {

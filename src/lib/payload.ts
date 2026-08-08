@@ -1,5 +1,7 @@
 export function isPayloadEnabled(): boolean {
   if (process.env.DISABLE_PAYLOAD === '1') return false
+  // Avoid Postgres connections during `next build` prerender (Vercel IPv6/pooler issues).
+  if (process.env.NEXT_PHASE === 'phase-production-build') return false
 
   const uri = process.env.DATABASE_URI?.trim()
   if (!uri) return false
