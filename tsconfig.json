@@ -26,5 +26,18 @@
     "**/*.tsx",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "jest.setup.ts", "__tests__", "scripts"]
+  "exclude": [
+    "node_modules",
+    "jest.setup.ts",
+    "__tests__",
+    "scripts",
+    "Anasbn-Malik-Figma-Design",
+    "edusuite-figma-prompts",
+    "promotion",
+    "business",
+    "proposals",
+    "media",
+    "assets",
+    "supabase"
+  ]
 }
