@@ -16,6 +16,10 @@ export const PLATFORM_ROLES = [
 
 export type PlatformRole = (typeof PLATFORM_ROLES)[number]
 
+export function isAdminRole(role: string | undefined): role is 'super_admin' | 'admin' {
+  return role === 'super_admin' || role === 'admin'
+}
+
 export type RoleOption = { label: string; value: string }
 
 const PLATFORM_LABELS: Record<PlatformRole, string> = {

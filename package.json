@@ -27,6 +27,7 @@
     "import:wordpress": "cross-env NODE_OPTIONS=--no-deprecation PAYLOAD_MIGRATING=true tsx scripts/import-wordpress.ts"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "@payloadcms/db-postgres": "^3.82.1",
     "@payloadcms/next": "3.82.1",
     "@payloadcms/richtext-lexical": "3.82.1",

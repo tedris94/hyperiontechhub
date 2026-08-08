@@ -3,12 +3,9 @@ import { createPayloadRequest } from 'payload'
 import { cookies as nextCookies, headers as nextHeaders } from 'next/headers'
 import type { User } from '@/payload-types'
 import { PAYLOAD_TOKEN_COOKIE } from '@/constants/payload'
+import { isAdminRole } from '@/lib/roleCatalog'
 
-export { PAYLOAD_TOKEN_COOKIE }
-
-export function isAdminRole(role: string | undefined): role is 'super_admin' | 'admin' {
-  return role === 'super_admin' || role === 'admin'
-}
+export { PAYLOAD_TOKEN_COOKIE, isAdminRole }
 
 /** Build a Request from the current RSC/headers cookie jar for Payload auth. */
 export async function getIncomingRequest(path = '/'): Promise<Request> {

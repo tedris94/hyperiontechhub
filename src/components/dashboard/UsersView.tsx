@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { DashboardLayout } from './DashboardLayout'
 import { Edit, LogIn, Plus, Save, Trash2, X } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
-import { isAdminRole } from '@/lib/auth'
+import { isAdminRole } from '@/lib/roleCatalog'
 import { filterAssignableRoles } from '@/lib/roleAssignments'
 
 type DashboardUser = {
