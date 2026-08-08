@@ -15,6 +15,6 @@ jobs:
 
       - name: Deploy to Vercel
         env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN_HYPERION }}
         run: |
           npx vercel@latest deploy --prod --token "$VERCEL_TOKEN" --yes
