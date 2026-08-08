@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import type { Where } from 'payload'
 import { getSchoolBySlug } from '@/lib/edusuite/tenant'
 import { getPayloadSingleton, isPayloadEnabled } from '@/lib/payload'
 import { getCurrentUser } from '@/lib/auth'
@@ -45,27 +46,19 @@ export default async function ParentPortalPage({ params }: Props) {
 
   if (isPayloadEnabled()) {
     const payload = await getPayloadSingleton()
-    const schoolFilter = { school: { equals: school.id } }
+    const schoolFilter: Where = { school: { equals: school.id } }
 
-    const studentWhere =
-      userId || email
-        ? {
-            and: [
-              schoolFilter,
-              {
-                or: [
-                  ...(userId
-                    ? [
-                        { parentUser: { equals: userId } },
-                        { user: { equals: userId } },
-                      ]
-                    : []),
-                  ...(email ? [{ guardianEmail: { equals: email } }] : []),
-                ],
-              },
-            ],
-          }
-        : schoolFilter
+    const orClauses: Where[] = []
+    if (userId != null) {
+      orClauses.push({ parentUser: { equals: userId } })
+      orClauses.push({ user: { equals: userId } })
+    }
+    if (email) {
+      orClauses.push({ guardianEmail: { equals: email } })
+    }
+
+    const studentWhere: Where =
+      orClauses.length > 0 ? { and: [schoolFilter, { or: orClauses }] } : schoolFilter
 
     const studs = await payload.find({
       collection: 'edu-students',
@@ -83,7 +76,7 @@ export default async function ParentPortalPage({ params }: Props) {
         where:
           childIds.length > 0
             ? {
-                and: [schoolFilter, { student: { in: childIds } }],
+                and: [schoolFilter, { student: { in: childIds as (string | number)[] } }],
               }
             : schoolFilter,
         limit: 20,
@@ -98,7 +91,7 @@ export default async function ParentPortalPage({ params }: Props) {
                 and: [
                   schoolFilter,
                   { published: { equals: true } },
-                  { student: { in: childIds } },
+                  { student: { in: childIds as (string | number)[] } },
                 ],
               }
             : { and: [schoolFilter, { published: { equals: true } }] },
