@@ -1,5 +1,3 @@
-import fs from 'fs/promises'
-import path from 'path'
 import { getPayloadSingleton, isPayloadEnabled } from '@/lib/payload'
 import fallbackJson from '@/content/site-content.json'
 
@@ -92,10 +90,10 @@ export interface SiteContent {
   }
 }
 
-async function getFallbackContent(): Promise<SiteContent> {
-  const contentPath = path.join(process.cwd(), 'src', 'content', 'site-content.json')
-  const file = await fs.readFile(contentPath, 'utf-8')
-  return JSON.parse(file) as SiteContent
+function getFallbackContent(): SiteContent {
+  // Use the bundled import — filesystem reads fail on Vercel serverless
+  // where `/var/task/src/content/...` is not present at runtime.
+  return fallbackJson as SiteContent
 }
 
 function mediaUrl(media: unknown): string | undefined {
@@ -105,7 +103,7 @@ function mediaUrl(media: unknown): string | undefined {
 }
 
 export async function getSiteContent(): Promise<SiteContent> {
-  const fallback = await getFallbackContent()
+  const fallback = getFallbackContent()
 
   if (!isPayloadEnabled()) {
     return fallback
