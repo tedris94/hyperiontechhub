@@ -12,17 +12,33 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from '@/components/ui/badge'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 
+function normalizeReturnTo(value: string | null | undefined, fallback = '/dashboard'): string {
+  const raw = typeof value === 'string' ? value.trim() : ''
+  if (!raw) return fallback
+
+  const target = raw.startsWith('/') ? raw : `/${raw}`
+  const pathOnly = target.split('?')[0]
+
+  if (target.startsWith('//') || target.includes('://') || pathOnly === '/login') {
+    return fallback
+  }
+
+  return target
+}
+
 async function resolveDestination(returnTo: string): Promise<string> {
+  const safeReturnTo = normalizeReturnTo(returnTo)
+
   try {
     const res = await fetch(
-      `/api/auth/post-login-redirect?returnTo=${encodeURIComponent(returnTo || '/dashboard')}`,
+      `/api/auth/post-login-redirect?returnTo=${encodeURIComponent(safeReturnTo)}`,
       { credentials: 'include' },
     )
-    if (!res.ok) return returnTo || '/dashboard'
+    if (!res.ok) return safeReturnTo
     const data = (await res.json()) as { path?: string }
-    return data.path || returnTo || '/dashboard'
+    return data.path || safeReturnTo
   } catch {
-    return returnTo || '/dashboard'
+    return safeReturnTo
   }
 }
 
@@ -44,7 +60,7 @@ export default function LoginPage() {
     if (typeof window === 'undefined') return
     const params = new URLSearchParams(window.location.search)
     setRedirectMessage(params.get('message') || '')
-    setReturnTo(params.get('returnTo') || '/dashboard')
+    setReturnTo(normalizeReturnTo(params.get('returnTo'), '/dashboard'))
   }, [])
 
   useEffect(() => {
@@ -68,7 +84,8 @@ export default function LoginPage() {
   }, [])
 
   useEffect(() => {
-    if (authLoading || !isAuthenticated) return
+    // Already signed-in visitors only (form submit navigates itself).
+    if (authLoading || !isAuthenticated || loading) return
     let cancelled = false
     void (async () => {
       const path = await resolveDestination(returnTo)
@@ -77,7 +94,7 @@ export default function LoginPage() {
     return () => {
       cancelled = true
     }
-  }, [authLoading, isAuthenticated, returnTo, router])
+  }, [authLoading, isAuthenticated, loading, returnTo, router])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -90,7 +107,6 @@ export default function LoginPage() {
       router.push(path)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to login')
-    } finally {
       setLoading(false)
     }
   }
@@ -105,7 +121,6 @@ export default function LoginPage() {
       router.push(path)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to login')
-    } finally {
       setLoading(false)
     }
   }
@@ -225,30 +240,37 @@ export default function LoginPage() {
                 {showDemoUsers && (
                   <div className="space-y-2 max-h-80 overflow-y-auto">
                     {demoUsers.map((demo, index) => (
-                      <Card key={index} className="p-3 hover:bg-gray-50 transition-colors">
-                        <div className="flex items-center justify-between mb-2">
-                          <div className="flex-1">
-                            <div className="flex items-center gap-2 mb-1">
-                              <span className="text-sm">{demo.name}</span>
-                              <Badge className={`${getRoleBadgeColor(demo.role)} text-white text-xs`}>
-                                {getRoleLabel(demo.role)}
-                              </Badge>
+                      <div key={index}>
+                        {demo.group && (index === 0 || demoUsers[index - 1]?.group !== demo.group) ? (
+                          <p className="pb-2 pt-3 text-xs font-semibold uppercase tracking-wider text-gray-500">
+                            {demo.group} accounts
+                          </p>
+                        ) : null}
+                        <Card className="p-3 hover:bg-gray-50 transition-colors">
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2 mb-1">
+                                <span className="text-sm">{demo.name}</span>
+                                <Badge className={`${getRoleBadgeColor(demo.role)} text-white text-xs`}>
+                                  {getRoleLabel(demo.role)}
+                                </Badge>
+                              </div>
+                              <div className="text-xs text-gray-500">{demo.email}</div>
+                              <div className="text-xs text-gray-400">Password: {demo.password}</div>
                             </div>
-                            <div className="text-xs text-gray-500">{demo.email}</div>
-                            <div className="text-xs text-gray-400">Password: {demo.password}</div>
+                            <Button
+                              type="button"
+                              size="sm"
+                              variant="outline"
+                              onClick={() => handleDemoLogin(demo.email, demo.password)}
+                              disabled={loading}
+                              className="ml-2"
+                            >
+                              Login
+                            </Button>
                           </div>
-                          <Button
-                            type="button"
-                            size="sm"
-                            variant="outline"
-                            onClick={() => handleDemoLogin(demo.email, demo.password)}
-                            disabled={loading}
-                            className="ml-2"
-                          >
-                            Login
-                          </Button>
-                        </div>
-                      </Card>
+                        </Card>
+                      </div>
                     ))}
                   </div>
                 )}

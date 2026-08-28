@@ -4,8 +4,10 @@ import { getUserIcmsMemberships } from '@/lib/icms/access'
 import type { IcmsTenantDoc } from '@/lib/icms/tenants'
 
 function isSafeReturnTo(path: string): boolean {
-  if (!path.startsWith('/') || path.startsWith('//')) return false
+  if (!path || !path.startsWith('/') || path.startsWith('//')) return false
   if (path.includes('://')) return false
+  const pathOnly = path.split('?')[0]
+  if (pathOnly === '/login') return false
   return true
 }
 
@@ -25,11 +27,16 @@ export async function GET(req: NextRequest) {
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   const requested = req.nextUrl.searchParams.get('returnTo') || ''
+  const isPlatform = isAdminRole(user.role)
+
   if (requested && requested !== '/dashboard' && isSafeReturnTo(requested)) {
+    const requestedPath = requested.split('?')[0]
+    if (isPlatform && requestedPath.startsWith('/icms/admin/')) {
+      return NextResponse.json({ path: '/dashboard', reason: 'platform_admin_default_dashboard' })
+    }
     return NextResponse.json({ path: requested, reason: 'returnTo' })
   }
 
-  const isPlatform = isAdminRole(user.role)
   const memberships = await getUserIcmsMemberships(user.id)
 
   const tenantSlugs = memberships
