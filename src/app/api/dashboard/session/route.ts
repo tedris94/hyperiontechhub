@@ -1,9 +1,14 @@
 import { NextResponse } from 'next/server'
 import { createPayloadRequest } from 'payload'
 import config from '@payload-config'
-import { ALL_CAPABILITIES } from '@/lib/capabilities'
+import {
+  ALL_CAPABILITIES,
+  ALL_CAPABILITY_KEYS,
+  capabilitiesForRoleSlug,
+  DEFAULT_ROLE_CAPABILITIES,
+} from '@/lib/capabilities'
 import { getCurrentUser } from '@/lib/auth'
-import { getCapabilitiesForUser, getDashboardRoleBySlug } from '@/lib/resolveCapabilities'
+import { getDashboardRoleBySlug } from '@/lib/resolveCapabilities'
 import { PAYLOAD_TOKEN_COOKIE } from '@/constants/payload'
 import { IMPERSONATOR_COOKIE, readCookie } from '@/lib/impersonation'
 
@@ -22,8 +27,25 @@ export async function GET(request: Request) {
     })
   }
 
-  const capabilities = await getCapabilitiesForUser(user)
-  const roleDoc = user.role ? await getDashboardRoleBySlug(user.role) : null
+  // One role lookup (was duplicated via getCapabilitiesForUser + getDashboardRoleBySlug).
+  const roleDoc = user.role
+    ? await getDashboardRoleBySlug(user.role).catch((error) => {
+        if (process.env.NODE_ENV !== 'production') {
+          console.error('[dashboard/session]', error)
+        }
+        return null
+      })
+    : null
+  let capabilities: string[] = []
+  if (user.role === 'super_admin') {
+    capabilities = [...ALL_CAPABILITY_KEYS]
+  } else if (user.role) {
+    const caps = roleDoc?.capabilities?.length
+      ? roleDoc.capabilities
+      : capabilitiesForRoleSlug(user.role)
+    const defaults = DEFAULT_ROLE_CAPABILITIES[user.role] ?? []
+    capabilities = [...new Set([...caps, ...defaults])]
+  }
 
   let impersonating = false
   let impersonator: {
