@@ -39,3 +39,20 @@ next-env.d.ts
 # ICMS runtime uploads (seeded media under public/icms/media is kept)
 /public/icms/uploads/
 
+# local design exports and working materials
+/Anasbn-Malik-Figma-Design/
+/assets/
+/business/
+/edusuite-figma-prompts/
+/media/
+/promotion/
+/proposals/
+/fizam-table-water-financial-proposal.md
+/hyperion-tech-hub-business-plan.html
+/hyperion-tech-hub-business-plan.md
+/hyperion-tech-hub-feasibility-report.html
+/hyperion-tech-hub-feasibility-report.md
+/hyperion-tech-hub-financial-model.csv
+/anas_client_review_*.plan.md
+/cookies.txt
+/login.out
