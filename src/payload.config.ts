@@ -96,6 +96,7 @@ if (s3Endpoint && s3Bucket && s3AccessKey && s3SecretKey) {
 const dbUri = process.env.DATABASE_URI ?? ''
 const supabaseDb = dbUri.includes('supabase')
 const onVercel = process.env.VERCEL === '1'
+const productionLike = process.env.NODE_ENV === 'production' || onVercel
 
 export default buildConfig({
   secret: process.env.PAYLOAD_SECRET || 'CHANGE_ME_DEV_ONLY',
@@ -168,15 +169,14 @@ export default buildConfig({
     },
     migrationDir: path.resolve(dirname, 'migrations'),
     prodMigrations: migrations,
-    // Never auto-push against shared Supabase/prod DBs — a leftover `dev` (batch -1)
-    // migration row makes production Payload hang on an interactive migrate prompt
-    // (login/API 500 → UI "Invalid credentials"). Opt in with PAYLOAD_DB_PUSH=1.
+    // Never auto-push against shared production databases. Run migrations explicitly
+    // with `npm run migrate` before deploying schema changes.
     push:
-      process.env.PAYLOAD_DB_PUSH === '1'
+      !productionLike && process.env.PAYLOAD_DB_PUSH === '1'
         ? true
         : process.env.PAYLOAD_DB_PUSH === '0'
           ? false
-          : process.env.NODE_ENV !== 'production' && !supabaseDb,
+          : !productionLike && !supabaseDb,
   }),
   sharp,
   plugins,
