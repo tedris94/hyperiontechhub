@@ -39,6 +39,7 @@ export type TenantConfig = {
   uiVariant: IcmsUiVariant
   /** Custom homepage section order; empty/undefined uses the layout-pack default */
   homeSectionOrder?: string[]
+  navigation: IcmsNavItem[]
   /** Connected custom hostname (normalized), if any */
   customDomain?: string
   customDomainStatus?: CustomDomainStatus
@@ -61,6 +62,12 @@ export type TenantConfig = {
   }
   /** True when this tenant has its own Paystack secret configured (never expose the secret) */
   paystackEnabled?: boolean
+}
+
+export type IcmsNavItem = {
+  label: string
+  href: string
+  placement: 'primary' | 'more'
 }
 
 export type IslamiyyahClass = {

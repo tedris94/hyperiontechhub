@@ -142,6 +142,14 @@ export const IcmsTenants: CollectionConfig = {
       },
     },
     {
+      name: 'navigation',
+      type: 'json',
+      admin: {
+        description:
+          'Public navigation items. Manage ordering and placement in tenant admin → Navigation.',
+      },
+    },
+    {
       name: 'domainLabel',
       type: 'text',
       admin: {

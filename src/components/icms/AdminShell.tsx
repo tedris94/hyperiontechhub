@@ -129,6 +129,12 @@ export default function AdminShell({
               ICMS platform
             </Link>
             <Link
+              href={`${base}/navigation`}
+              className="block px-3 py-2.5 text-sm text-white/70 transition-colors hover:bg-white/5 hover:text-white"
+            >
+              Public navigation
+            </Link>
+            <Link
               href="/dashboard/audit"
               className="block px-3 py-2.5 text-sm text-white/70 transition-colors hover:bg-white/5 hover:text-white"
             >

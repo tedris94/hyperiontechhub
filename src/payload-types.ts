@@ -1729,18 +1729,6 @@ export interface IcmsTenant {
    */
   instagramUrl?: string | null;
   /**
-   * Optional public YouTube URL
-   */
-  youtubeUrl?: string | null;
-  /**
-   * Optional public X (Twitter) URL
-   */
-  twitterUrl?: string | null;
-  /**
-   * Optional WhatsApp link, e.g. https://wa.me/2348012345678
-   */
-  whatsappUrl?: string | null;
-  /**
    * Legacy Payload media logo
    */
   logo?: (number | null) | Media;
@@ -1790,6 +1778,18 @@ export interface IcmsTenant {
    * Homepage section order for this tenant. Edit by drag-and-drop in tenant admin → Brand tokens. Example: ["hero","prayer","events","articles","waqf","findUs"]
    */
   homeSectionOrder?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Public navigation items. Manage ordering and placement in tenant admin → Navigation.
+   */
+  navigation?:
     | {
         [k: string]: unknown;
       }
@@ -2156,7 +2156,6 @@ export interface IcmsPage {
     | 'donate'
     | 'contact'
     | 'islamiyyah'
-    | 'dawah'
     | 'khutba'
     | 'zakah'
     | 'ramadan';
@@ -2182,28 +2181,6 @@ export interface IcmsPage {
       }[]
     | null;
   visionItems?:
-    | {
-        text: string;
-        id?: string | null;
-      }[]
-    | null;
-  schoolPrograms?:
-    | {
-        title: string;
-        summary: string;
-        schedule?: string | null;
-        focus?: string | null;
-        outcomes?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  schoolFacts?:
-    | {
-        text: string;
-        id?: string | null;
-      }[]
-    | null;
-  schoolGoals?:
     | {
         text: string;
         id?: string | null;
@@ -3812,9 +3789,6 @@ export interface IcmsTenantsSelect<T extends boolean = true> {
   email?: T;
   facebookUrl?: T;
   instagramUrl?: T;
-  youtubeUrl?: T;
-  twitterUrl?: T;
-  whatsappUrl?: T;
   logo?: T;
   logoUrl?: T;
   colors?:
@@ -3831,6 +3805,7 @@ export interface IcmsTenantsSelect<T extends boolean = true> {
   planTier?: T;
   uiVariant?: T;
   homeSectionOrder?: T;
+  navigation?: T;
   domainLabel?: T;
   customDomain?: T;
   customDomainStatus?: T;
@@ -4064,28 +4039,6 @@ export interface IcmsPagesSelect<T extends boolean = true> {
         id?: T;
       };
   visionItems?:
-    | T
-    | {
-        text?: T;
-        id?: T;
-      };
-  schoolPrograms?:
-    | T
-    | {
-        title?: T;
-        summary?: T;
-        schedule?: T;
-        focus?: T;
-        outcomes?: T;
-        id?: T;
-      };
-  schoolFacts?:
-    | T
-    | {
-        text?: T;
-        id?: T;
-      };
-  schoolGoals?:
     | T
     | {
         text?: T;

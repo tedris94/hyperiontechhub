@@ -327,6 +327,13 @@ export async function PATCH(req: NextRequest) {
         )
       }
 
+      if ('navigation' in data && !isSuperAdmin(user)) {
+        return NextResponse.json(
+          { error: 'Only Hyperion super admin can edit public navigation' },
+          { status: 403 },
+        )
+      }
+
       const canSettings = accessHasCapability(access, 'settings')
       const canBank = accessHasCapability(access, 'bank')
       const canPrayer = accessHasCapability(access, 'prayer')

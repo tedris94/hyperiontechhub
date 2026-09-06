@@ -6,6 +6,7 @@ import type {
   IcmsUiVariant,
   TenantConfig,
   TenantColors,
+  IcmsNavItem,
 } from './types'
 
 const UI_VARIANTS: IcmsUiVariant[] = [
@@ -50,6 +51,7 @@ export type IcmsTenantDoc = {
   domainLabel?: string | null
   uiVariant?: string | null
   homeSectionOrder?: unknown
+  navigation?: unknown
   customDomain?: string | null
   customDomainStatus?: string | null
   customDomainError?: string | null
@@ -72,6 +74,35 @@ export type IcmsTenantDoc = {
     secretKey?: string | null
     publicKey?: string | null
   } | null
+}
+
+export const DEFAULT_ICMS_NAVIGATION: IcmsNavItem[] = [
+  { label: 'About', href: 'about', placement: 'primary' },
+  { label: 'Mosque', href: 'mosque', placement: 'primary' },
+  { label: 'Islamiyyah', href: 'islamiyyah', placement: 'primary' },
+  { label: 'Events', href: 'events', placement: 'primary' },
+  { label: 'Articles', href: 'articles', placement: 'primary' },
+  { label: 'Contact Us', href: 'contact', placement: 'primary' },
+  { label: 'Khutba', href: 'khutba', placement: 'more' },
+  { label: 'Dawah', href: 'dawah', placement: 'more' },
+  { label: 'Zakah', href: 'zakah', placement: 'more' },
+  { label: 'Ramadan', href: 'ramadan', placement: 'more' },
+  { label: 'Waqf', href: 'waqf', placement: 'more' },
+  { label: 'Shurah', href: 'committee', placement: 'more' },
+]
+
+function normalizeNavigation(value: unknown): IcmsNavItem[] {
+  if (!Array.isArray(value)) return DEFAULT_ICMS_NAVIGATION
+  const items = value
+    .map((item) => {
+      const record = item as Record<string, unknown>
+      const label = typeof record.label === 'string' ? record.label.trim() : ''
+      const href = typeof record.href === 'string' ? record.href.trim().replace(/^\/+|\/+$/g, '') : ''
+      const placement = record.placement === 'more' ? 'more' : 'primary'
+      return label && href ? { label, href, placement } : null
+    })
+    .filter(Boolean) as IcmsNavItem[]
+  return items.length ? items : DEFAULT_ICMS_NAVIGATION
 }
 
 export type IcmsMembershipDoc = {
@@ -136,6 +167,7 @@ export function mapTenantDoc(doc: IcmsTenantDoc): TenantConfig {
     homeSectionOrder: Array.isArray(doc.homeSectionOrder)
       ? (doc.homeSectionOrder as string[])
       : undefined,
+    navigation: normalizeNavigation(doc.navigation),
     customDomain: doc.customDomain?.trim() || undefined,
     customDomainStatus: (doc.customDomainStatus as CustomDomainStatus) || 'none',
     customDomainError: doc.customDomainError || undefined,

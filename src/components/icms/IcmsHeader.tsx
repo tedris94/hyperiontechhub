@@ -8,23 +8,6 @@ import type { TenantConfig } from '@/lib/icms/types'
 import type { HeaderStyle } from '@/lib/icms/ui-variants'
 import { useAuth } from '@/contexts/AuthContext'
 
-const links = [
-  { label: 'About', href: 'about' },
-  { label: 'Mosque', href: 'mosque' },
-  { label: 'Islamiyyah', href: 'islamiyyah' },
-  { label: 'Events', href: 'events' },
-  { label: 'Articles', href: 'articles' },
-  { label: 'Contact Us', href: 'contact' },
-]
-
-const moreLinks = [
-  { label: 'Khutba', href: 'khutba' },
-  { label: 'Zakah', href: 'zakah' },
-  { label: 'Ramadan', href: 'ramadan' },
-  { label: 'Waqf', href: 'waqf' },
-  { label: 'Shurah', href: 'committee' },
-]
-
 function hrefJoin(base: string, path: string) {
   if (!path) return base || '/'
   if (!base) return `/${path}`
@@ -49,6 +32,8 @@ export default function IcmsHeader({
   const { isAuthenticated, loading } = useAuth()
   const base = basePath ?? `/icms/${tenant.slug}`
   const adminPath = adminHref || `/icms/admin/${tenant.slug}`
+  const links = tenant.navigation.filter((item) => item.placement === 'primary')
+  const moreLinks = tenant.navigation.filter((item) => item.placement === 'more')
   const loginHref = `/login?returnTo=${encodeURIComponent(adminPath)}&message=${encodeURIComponent(
     `Sign in to manage ${tenant.shortName}.`,
   )}`
@@ -121,12 +106,18 @@ export default function IcmsHeader({
               type="button"
               className={`flex items-center gap-1 ${navClass}`}
               aria-expanded={moreOpen}
-              onClick={() => setMoreOpen((v) => !v)}
+              onMouseEnter={() => setMoreOpen(true)}
+              onFocus={() => setMoreOpen(true)}
+              onMouseLeave={() => setMoreOpen(false)}
             >
               More <ChevronDownIcon className="h-4 w-4" />
             </button>
             {moreOpen ? (
-              <div className="absolute right-0 top-full mt-3 min-w-44 border border-black/10 bg-[color:var(--icms-ivory)] p-2 shadow-lg">
+              <div
+                className="absolute right-0 top-full min-w-44 border border-black/10 bg-[color:var(--icms-ivory)] p-2 shadow-lg"
+                onMouseEnter={() => setMoreOpen(true)}
+                onMouseLeave={() => setMoreOpen(false)}
+              >
                 {moreLinks.map((item) => (
                   <Link
                     key={item.href}

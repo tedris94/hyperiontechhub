@@ -6,6 +6,7 @@ import * as migration_20260808_170000_show_demo_accounts from './20260808_170000
 import * as migration_20260810_213000_portfolio_brand_assets from './20260810_213000_portfolio_brand_assets';
 import * as migration_20260822_093000_icms_home_section_order from './20260822_093000_icms_home_section_order';
 import * as migration_20260827_221300_icms_tenant_social_urls from './20260827_221300_icms_tenant_social_urls';
+import * as migration_20260906_230000_icms_tenant_navigation from './20260906_230000_icms_tenant_navigation';
 
 export const migrations = [
   {
@@ -47,5 +48,10 @@ export const migrations = [
     up: migration_20260827_221300_icms_tenant_social_urls.up,
     down: migration_20260827_221300_icms_tenant_social_urls.down,
     name: '20260827_221300_icms_tenant_social_urls',
+  },
+  {
+    up: migration_20260906_230000_icms_tenant_navigation.up,
+    down: migration_20260906_230000_icms_tenant_navigation.down,
+    name: '20260906_230000_icms_tenant_navigation',
   },
 ];
