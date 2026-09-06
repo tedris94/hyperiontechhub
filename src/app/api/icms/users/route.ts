@@ -165,7 +165,7 @@ export async function POST(req: NextRequest) {
         collection: 'icms-memberships',
         data: {
           user: created.id,
-          tenant: isNaN(Number(tenantId)) ? tenantId : Number(tenantId),
+          tenant: Number(tenantId),
           role: icmsRole,
           status: 'active',
         },

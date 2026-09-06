@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
     })
     const header = 'Name,Roll_No,Regi_No,Class,Year,Group,GuardianName,GuardianPhone'
     const lines = found.docs.map((d) => {
-      const r = d as Record<string, unknown>
+      const r = d as unknown as Record<string, unknown>
       return [
         r.title,
         r.rollNo,
@@ -56,7 +56,7 @@ export async function GET(req: NextRequest) {
   })
   const header = 'Name,Roll_No,Class,Exam,Year,Average,GPA,Result,Published'
   const lines = found.docs.map((d) => {
-    const r = d as Record<string, unknown>
+    const r = d as unknown as Record<string, unknown>
     return [
       r.studentName || r.title,
       r.rollNo,

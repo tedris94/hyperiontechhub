@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Send, CheckCircle, AlertCircle, Mail, Phone, MapPin } from 'lucide-react';
 import { useSiteContent } from '@/contexts/SiteContentContext';
 
@@ -16,12 +16,14 @@ export default function Contact() {
   const siteContent = useSiteContent();
   const contactContent = siteContent.home.contact;
   const { form } = contactContent;
+  const formStartedAt = useRef(Date.now());
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     service: '',
     message: '',
+    website: '',
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -112,10 +114,10 @@ export default function Contact() {
     const newErrors: FormErrors = {};
     let isValid = true;
 
-    Object.keys(formData).forEach((key) => {
-      const error = validateField(key, formData[key as keyof typeof formData]);
+    ;(['name', 'email', 'phone', 'service', 'message'] as const).forEach((key) => {
+      const error = validateField(key, formData[key]);
       if (error) {
-        newErrors[key as keyof FormErrors] = error;
+        newErrors[key] = error;
         isValid = false;
       }
     });
@@ -143,10 +145,15 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
+      const { website, ...fields } = formData;
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...fields,
+          website,
+          formStartedAt: formStartedAt.current,
+        }),
       });
 
       const data = await response.json();
@@ -156,6 +163,7 @@ export default function Contact() {
       }
 
       setSubmitStatus('success');
+      formStartedAt.current = Date.now();
       
       // Reset form after success
       setTimeout(() => {
@@ -165,6 +173,7 @@ export default function Contact() {
           phone: '',
           service: '',
           message: '',
+          website: '',
         });
         setErrors({});
         setTouched({});
@@ -304,7 +313,21 @@ export default function Contact() {
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+              <form onSubmit={handleSubmit} className="relative space-y-6" noValidate>
+                {/* Honeypot — hidden from users, bots often fill it */}
+                <div className="absolute -left-[9999px] top-auto h-0 w-0 overflow-hidden" aria-hidden="true">
+                  <label htmlFor="website">Website</label>
+                  <input
+                    id="website"
+                    name="website"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={formData.website}
+                    onChange={handleChange}
+                  />
+                </div>
+
                 {/* Full Name */}
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-[#1B1C1E] font-medium">

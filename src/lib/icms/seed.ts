@@ -68,6 +68,7 @@ export async function seedTenantDemoContent(
   tenantId: string | number,
   opts?: { clear?: boolean },
 ) {
+  const dbTenantId = Number(tenantId)
   if (opts?.clear !== false) {
     await clearTenantContent(payload, tenantId)
   }
@@ -76,7 +77,7 @@ export async function seedTenantDemoContent(
     await payload.create({
       collection: 'icms-leaders',
       data: {
-        tenant: tenantId,
+        tenant: dbTenantId,
         name: leader.name,
         roleTitle: leader.role,
         category: leader.category,
@@ -91,7 +92,7 @@ export async function seedTenantDemoContent(
     await payload.create({
       collection: 'icms-committee-members',
       data: {
-        tenant: tenantId,
+        tenant: dbTenantId,
         name: member.name,
         roleTitle: member.roleTitle,
         committeeType: member.committeeType,
@@ -113,7 +114,7 @@ export async function seedTenantDemoContent(
     await payload.create({
       collection: 'icms-prayer-times',
       data: {
-        tenant: tenantId,
+        tenant: dbTenantId,
         day: 'Today',
         prayer: pt.name,
         time: pt.time,
@@ -128,7 +129,7 @@ export async function seedTenantDemoContent(
       await payload.create({
         collection: 'icms-prayer-times',
         data: {
-          tenant: tenantId,
+          tenant: dbTenantId,
           day,
           prayer,
           time,
@@ -142,7 +143,7 @@ export async function seedTenantDemoContent(
     await payload.create({
       collection: 'icms-events',
       data: {
-        tenant: tenantId,
+        tenant: dbTenantId,
         title: event.title,
         eventDate: event.date,
         time: event.time,
@@ -158,7 +159,7 @@ export async function seedTenantDemoContent(
     await payload.create({
       collection: 'icms-articles',
       data: {
-        tenant: tenantId,
+        tenant: dbTenantId,
         title: article.title,
         slug: article.slug,
         category: article.category,
@@ -176,7 +177,7 @@ export async function seedTenantDemoContent(
     await payload.create({
       collection: 'icms-waqf-projects',
       data: {
-        tenant: tenantId,
+        tenant: dbTenantId,
         title: project.title,
         summary: project.summary,
         status: project.status,
@@ -190,12 +191,12 @@ export async function seedTenantDemoContent(
     await payload.create({
       collection: 'icms-donations',
       data: {
-        tenant: tenantId,
+        tenant: dbTenantId,
         reference: donation.id,
         donor: donation.donor,
         amount: donation.amount,
         fund: donation.fund,
-        status: donation.status,
+        status: donation.status as 'Completed' | 'Pending' | 'Failed',
         donatedAt: donation.date,
       },
       overrideAccess: true,
@@ -207,31 +208,31 @@ export async function seedTenantDemoContent(
     const created = await payload.create({
       collection: 'icms-islamiyyah-classes',
       data: {
-        tenant: tenantId,
+        tenant: dbTenantId,
         title: cls.title,
         schedule: cls.schedule,
         ageGroup: cls.ageGroup,
         teacher: cls.teacher,
         capacity: cls.capacity,
         enrolled: cls.enrolled,
-        status: cls.status,
+        status: cls.status as 'Open' | 'Full' | 'Closed',
         summary: cls.summary,
       },
       overrideAccess: true,
     })
-    classIdByTitle.set(cls.title, created.id)
+    classIdByTitle.set(cls.title, Number(created.id))
   }
 
   for (const student of islamiyyahStudents) {
     await payload.create({
       collection: 'icms-islamiyyah-students',
       data: {
-        tenant: tenantId,
+        tenant: dbTenantId,
         name: student.name,
         guardian: student.guardian,
         phone: student.phone,
-        status: student.status,
-        classRef: classIdByTitle.get(student.classTitle) || undefined,
+        status: student.status as 'Pending' | 'Active' | 'Graduated' | 'Withdrawn',
+        classRef: Number(classIdByTitle.get(student.classTitle)) || undefined,
       },
       overrideAccess: true,
     })
@@ -243,8 +244,22 @@ export async function seedTenantDemoContent(
     await payload.create({
       collection: 'icms-pages',
       data: {
-        tenant: tenantId,
-        pageKey: page.pageKey,
+        tenant: dbTenantId,
+        pageKey: page.pageKey as
+          | 'committee'
+          | 'waqf'
+          | 'home'
+          | 'about'
+          | 'mosque'
+          | 'leadership'
+          | 'events'
+          | 'articles'
+          | 'donate'
+          | 'contact'
+          | 'islamiyyah'
+          | 'khutba'
+          | 'zakah'
+          | 'ramadan',
         heroTitle: page.heroTitle,
         heroSubtitle: page.heroSubtitle,
         introHeading: page.introHeading,
@@ -293,7 +308,7 @@ export async function seedTenantDemoContent(
     await payload.create({
       collection: 'icms-facilities',
       data: {
-        tenant: tenantId,
+        tenant: dbTenantId,
         title: facility.title,
         description: facility.description,
         sortOrder: i,
@@ -306,7 +321,7 @@ export async function seedTenantDemoContent(
     await payload.create({
       collection: 'icms-donate-funds',
       data: {
-        tenant: tenantId,
+        tenant: dbTenantId,
         key: fund.key,
         label: fund.label,
         description: fund.description,
@@ -356,11 +371,14 @@ export async function upsertAnasTenant(payload: Payload): Promise<string | numbe
     address: ANAS_TENANT.address,
     phones: ANAS_TENANT.phones.map((number) => ({ number })),
     email: ANAS_TENANT.email,
+    facebookUrl: ANAS_TENANT.facebookUrl || '',
+    instagramUrl: ANAS_TENANT.instagramUrl || '',
     colors: ANAS_TENANT.colors,
     status: 'active' as const,
     planTier: 'professional' as const,
     domainLabel: ANAS_TENANT.domainLabel,
     uiVariant: ANAS_TENANT.uiVariant,
+    homeSectionOrder: ANAS_TENANT.homeSectionOrder,
     customDomainStatus: 'none' as const,
     prayer: ANAS_TENANT.prayer,
     bank: ANAS_TENANT.bank,
@@ -372,7 +390,7 @@ export async function upsertAnasTenant(payload: Payload): Promise<string | numbe
     await payload.update({
       collection: 'icms-tenants',
       id,
-      data: tenantData,
+      data: tenantData as any,
       overrideAccess: true,
     })
     return id
@@ -380,7 +398,7 @@ export async function upsertAnasTenant(payload: Payload): Promise<string | numbe
 
   const created = await payload.create({
     collection: 'icms-tenants',
-    data: tenantData,
+    data: tenantData as any,
     overrideAccess: true,
   })
   return created.id
@@ -412,8 +430,52 @@ export async function ensureOwnerMembership(
   if (mem.totalDocs === 0) {
     await payload.create({
       collection: 'icms-memberships',
-      data: { user: userId, tenant: tenantId, role: 'owner', status: 'active' },
+      data: { user: userId, tenant: Number(tenantId), role: 'owner', status: 'active' },
       overrideAccess: true,
     })
+  }
+}
+
+const ICMS_DEMO_USERS = [
+  ['owner', 'icms.owner@hyperiontechhub.com'],
+  ['director', 'icms.director@hyperiontechhub.com'],
+  ['imam', 'icms.imam@hyperiontechhub.com'],
+  ['content_editor', 'icms.editor@hyperiontechhub.com'],
+  ['waqf_manager', 'icms.waqf@hyperiontechhub.com'],
+  ['secretary', 'icms.secretary@hyperiontechhub.com'],
+  ['finance', 'icms.finance@hyperiontechhub.com'],
+  ['viewer', 'icms.viewer@hyperiontechhub.com'],
+] as const
+
+export async function ensureIcmsDemoMemberships(
+  payload: Payload,
+  tenantId: string | number,
+) {
+  const dbTenantId = Number(tenantId)
+  for (const [role, email] of ICMS_DEMO_USERS) {
+    const existing = await payload.find({
+      collection: 'users',
+      where: { email: { equals: email } },
+      limit: 1,
+      overrideAccess: true,
+    })
+    const user = existing.docs[0] || (await payload.create({
+      collection: 'users',
+      data: { email, password: 'demo1234', fullName: `ICMS ${role.replace(/_/g, ' ')}`, role: 'tenant_member' },
+      overrideAccess: true,
+    }))
+    const membership = await payload.find({
+      collection: 'icms-memberships',
+      where: { and: [{ user: { equals: user.id } }, { tenant: { equals: tenantId } }] },
+      limit: 1,
+      overrideAccess: true,
+    })
+    if (!membership.docs[0]) {
+      await payload.create({
+        collection: 'icms-memberships',
+        data: { user: user.id, tenant: dbTenantId, role, status: 'active' },
+        overrideAccess: true,
+      })
+    }
   }
 }

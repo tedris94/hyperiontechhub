@@ -22,6 +22,7 @@ type FooterDoc = {
   columns?: { title: string; links?: { label: string; href: string }[] }[];
   contact?: { email?: string; address?: string };
   legalLinks?: { label: string; href: string }[];
+  socialLinks?: { platform: string; href: string }[];
 };
 
 export function SiteChromeView({ role, kind }: SiteChromeViewProps) {
@@ -118,6 +119,24 @@ export function SiteChromeView({ role, kind }: SiteChromeViewProps) {
                   </ul>
                 ) : (
                   <p className="text-gray-400">Using default footer.</p>
+                )}
+              </div>
+              <div className="border-t border-gray-100 pt-4">
+                <div className="text-gray-500 mb-2">Social media links</div>
+                {data.socialLinks && data.socialLinks.length > 0 ? (
+                  <ul className="space-y-2">
+                    {data.socialLinks.map((link, i) => (
+                      <li key={i} className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-3">
+                        <span className="font-medium text-gray-700">{link.platform}</span>
+                        <span className="break-all text-gray-500">{link.href}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-gray-400">
+                    No social links configured. Set Facebook, Instagram, YouTube, X, or WhatsApp
+                    URLs in the tenant Settings page.
+                  </p>
                 )}
               </div>
             </div>

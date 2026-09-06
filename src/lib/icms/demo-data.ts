@@ -261,14 +261,17 @@ export const articles: Article[] = [
   },
   {
     id: '4',
-    slug: 'ramadan-program-outline-draft',
-    title: 'Ramadan Program Outline (Draft)',
+    slug: 'ramadan-program-outline',
+    title: 'Ramadan Programme Outline',
     category: 'Programs',
     date: '2026-07-05',
     author: 'Content Editor',
-    excerpt: 'Internal draft for upcoming Ramadan programming — not yet public.',
-    body: ['Draft content for editorial review.'],
-    status: 'draft',
+    excerpt: 'A first look at Qur’an circles, community iftar, taraweeh, and welfare support planned for Ramadan.',
+    body: [
+      'Ramadan at Anas bn Malik Islamic Center will bring worship, learning, and service together for families across the community.',
+      'The programme will include Qur’an circles, community iftar, taraweeh, and targeted welfare support. Dates and registration details will be announced as the month approaches.',
+    ],
+    status: 'published',
   },
 ]
 

@@ -1,0 +1,20 @@
+[
+  {
+    "slug": "mr-technologies",
+    "name": "M&R Technologies",
+    "tagline": "Innovative ICT solutions — software, cloud, and digital systems since 2013.",
+    "url": "http://mrtechnologies.com.ng/",
+    "logo": "/assets/partners/mr-technologies.png",
+    "logoBg": "dark",
+    "sortOrder": 1
+  },
+  {
+    "slug": "tololus-global-resources",
+    "name": "Tololus Global Resources Limited",
+    "tagline": "Strategic partner supporting delivery and growth across our client work.",
+    "url": "",
+    "logo": "/assets/partners/tololus-global-resources-white.png",
+    "logoBg": "dark",
+    "sortOrder": 2
+  }
+]

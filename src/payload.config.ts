@@ -52,7 +52,16 @@ const serverURL =
 
 const localDevCsrfOrigins =
   process.env.NODE_ENV !== 'production'
-    ? ['http://localhost:3000', 'http://127.0.0.1:3000']
+    ? [
+        'http://localhost:3000',
+        'http://127.0.0.1:3000',
+        'http://192.168.11.158:3000',
+        ...(process.env.ALLOWED_DEV_ORIGINS ?? '')
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean)
+          .map((h) => (h.startsWith('http') ? h : `http://${h.replace(/\/$/, '')}:3000`)),
+      ]
     : []
 
 const s3Endpoint = process.env.S3_ENDPOINT
@@ -86,6 +95,7 @@ if (s3Endpoint && s3Bucket && s3AccessKey && s3SecretKey) {
 
 const dbUri = process.env.DATABASE_URI ?? ''
 const supabaseDb = dbUri.includes('supabase')
+const onVercel = process.env.VERCEL === '1'
 
 export default buildConfig({
   secret: process.env.PAYLOAD_SECRET || 'CHANGE_ME_DEV_ONLY',
@@ -145,11 +155,28 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URI,
       ...(supabaseDb ? { ssl: { rejectUnauthorized: false } } : {}),
+      // Vercel serverless: keep client pools tiny so Supabase session/transaction
+      // poolers are not exhausted (EMAXCONNSESSION). Prefer DATABASE_URI on :6543.
+      ...(onVercel
+        ? {
+            max: 2,
+            idleTimeoutMillis: 5_000,
+            connectionTimeoutMillis: 10_000,
+            allowExitOnIdle: true,
+          }
+        : {}),
     },
     migrationDir: path.resolve(dirname, 'migrations'),
     prodMigrations: migrations,
-    // Sync new EduSuite collections in non-production; set PAYLOAD_DB_PUSH=0 to disable.
-    push: process.env.PAYLOAD_DB_PUSH === '0' ? false : process.env.NODE_ENV !== 'production',
+    // Never auto-push against shared Supabase/prod DBs — a leftover `dev` (batch -1)
+    // migration row makes production Payload hang on an interactive migrate prompt
+    // (login/API 500 → UI "Invalid credentials"). Opt in with PAYLOAD_DB_PUSH=1.
+    push:
+      process.env.PAYLOAD_DB_PUSH === '1'
+        ? true
+        : process.env.PAYLOAD_DB_PUSH === '0'
+          ? false
+          : process.env.NODE_ENV !== 'production' && !supabaseDb,
   }),
   sharp,
   plugins,

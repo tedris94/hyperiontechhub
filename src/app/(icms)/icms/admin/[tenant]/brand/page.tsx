@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { getTenantBySlug, mapTenantDoc } from '@/lib/icms/tenants'
 import { BRAND_RATIO_COPY } from '@/lib/icms/brand-tokens'
 import BrandTokensForm from './BrandTokensForm'
+import HomeSectionOrderEditor from './HomeSectionOrderEditor'
 import UiVariantPicker from './UiVariantPicker'
 
 type Props = { params: Promise<{ tenant: string }> }
@@ -28,12 +29,19 @@ export default async function AdminBrandPage({ params }: Props) {
         initial={tenant.uiVariant}
       />
 
+      <HomeSectionOrderEditor
+        tenantId={String(doc.id)}
+        tenantSlug={tenant.slug}
+        uiVariant={tenant.uiVariant}
+        initial={tenant.homeSectionOrder}
+      />
+
       <BrandTokensForm
         tenantId={String(doc.id)}
         tenantSlug={tenant.slug}
         shortName={tenant.shortName}
         initial={{
-          logoUrl: doc.logoUrl || tenant.logo,
+          logoUrl: tenant.logo,
           emerald: tenant.colors.emerald,
           forest: tenant.colors.forest,
           gold: tenant.colors.gold,

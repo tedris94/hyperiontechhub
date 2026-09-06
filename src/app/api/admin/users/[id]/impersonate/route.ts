@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import type { User } from '@/payload-types'
 import { getCurrentUser } from '@/lib/auth'
 import { getPayloadSingleton, isPayloadEnabled } from '@/lib/payload'
 import { PAYLOAD_TOKEN_COOKIE } from '@/constants/payload'
@@ -47,7 +48,10 @@ export async function POST(req: NextRequest, { params }: Params) {
     return NextResponse.json({ error: 'User not found' }, { status: 404 })
   }
 
-  const gate = canStartImpersonation(actor, target as { id: string | number; role: string })
+  const gate = canStartImpersonation(
+    actor as Pick<User, 'id' | 'role'>,
+    target as Pick<User, 'id' | 'role'>,
+  )
   if (!gate.ok) {
     return NextResponse.json({ error: gate.error }, { status: 403 })
   }

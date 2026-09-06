@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { DashboardLayout } from './DashboardLayout';
-import { FileText, Image as ImageIcon, Search, Layout, Eye, Edit, PanelTop, PanelBottom, Home } from 'lucide-react';
+import { FileText, Image as ImageIcon, Search, Layout, Eye, Edit, PanelTop, PanelBottom, Home, Briefcase } from 'lucide-react';
 import Link from 'next/link';
 
 interface CMSViewProps {
@@ -60,6 +60,7 @@ export function CMSView({ role }: CMSViewProps) {
 
   const quickActions = [
     { title: 'Manage Pages', href: '/dashboard/cms/pages', icon: FileText, description: 'Create, edit and publish pages', color: 'from-blue-50 to-blue-100', iconColor: 'text-blue-600' },
+    { title: 'Portfolio', href: '/dashboard/cms/portfolio', icon: Briefcase, description: 'Case studies & live app URLs', color: 'from-teal-50 to-teal-100', iconColor: 'text-teal-700' },
     { title: 'Media Library', href: '/dashboard/cms/media', icon: ImageIcon, description: 'Upload and manage images', color: 'from-purple-50 to-purple-100', iconColor: 'text-purple-600' },
     { title: 'SEO Settings', href: '/dashboard/cms/seo', icon: Search, description: 'Optimize search engine visibility', color: 'from-green-50 to-green-100', iconColor: 'text-green-600' },
     { title: 'Header', href: '/dashboard/cms/header', icon: PanelTop, description: 'Manage site navigation', color: 'from-amber-50 to-amber-100', iconColor: 'text-amber-600' },

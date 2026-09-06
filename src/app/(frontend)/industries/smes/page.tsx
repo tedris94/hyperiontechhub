@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { ProductPageShell, FeatureList } from '@/components/ProductPageShell'
+import IndustryCaseStudies from '@/components/IndustryCaseStudies'
 
 export const metadata = {
   title: 'SMEs | Hyperion Tech Hub',
@@ -14,7 +15,7 @@ export default function SmesIndustryPage() {
       title="Digital kits for growing SMEs"
       tagline="Presence, Commerce, and Ops packages — plus Hyperion Care so you are not abandoned after launch."
       primaryCta={{ label: 'View SME Kit', href: '/products/sme-kit' }}
-      secondaryCta={{ label: 'Fizam case study', href: '/portfolio/fizam-table-water' }}
+      secondaryCta={{ label: 'Case studies', href: '#case-studies' }}
     >
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 lg:px-8 max-w-5xl grid lg:grid-cols-2 gap-12">
@@ -42,7 +43,14 @@ export default function SmesIndustryPage() {
           </div>
         </div>
       </section>
-      <section className="py-16 bg-gray-50 text-center">
+
+      <IndustryCaseStudies
+        slugs={['fizam-table-water', 'anas-bn-malik-islamic-center']}
+        title="Case studies"
+        subtitle="Fizam is our SME kit reference. Anas bn Malik shows the same digital-ops discipline for faith-community admin — Presence, commerce-ready giving, and Care after launch."
+      />
+
+      <section className="py-16 bg-white text-center">
         <div className="container mx-auto px-4">
           <Link
             href="/consultation"

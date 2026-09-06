@@ -545,6 +545,8 @@ export interface TeamMember {
   createdAt: string;
 }
 /**
+ * Named case studies on the marketing site. Update Live app URL here when a client domain changes.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "portfolio-items".
  */
@@ -554,12 +556,11 @@ export interface PortfolioItem {
   /**
    * URL slug e.g. bright-olivelight-schools
    */
-  slug?: string | null;
-  client?: string | null;
-  industry?: ('schools' | 'smes' | 'other') | null;
+  slug: string;
+  client: string;
+  industry?: ('schools' | 'mosques' | 'smes' | 'other') | null;
   category?: string | null;
   summary?: string | null;
-  description?: string | null;
   challenge?: string | null;
   solution?: string | null;
   results?:
@@ -568,6 +569,9 @@ export interface PortfolioItem {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Live app / site visitors open from the case study (e.g. https://bos.hyperiontechhub.com/)
+   */
   projectUrl?: string | null;
   technologies?:
     | {
@@ -575,10 +579,28 @@ export interface PortfolioItem {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Client logo for the logo garden (keep original brand colors)
+   */
+  logo?: (number | null) | Media;
+  /**
+   * Optional static path fallback e.g. /assets/clients/bright-olivelight.png (used when logo upload is empty)
+   */
+  logoPath?: string | null;
+  /**
+   * Product / UI preview image on portfolio cards
+   */
   featuredImage?: (number | null) | Media;
-  gallery?:
+  /**
+   * Optional static preview path fallback e.g. /assets/portfolio/fizam-preview.png
+   */
+  previewImagePath?: string | null;
+  /**
+   * Optional brand hex colors e.g. #6D1B72
+   */
+  brandColors?:
     | {
-        image: number | Media;
+        color: string;
         id?: string | null;
       }[]
     | null;
@@ -707,6 +729,7 @@ export interface DashboardRole {
           | 'cms.seo.manage'
           | 'cms.header.manage'
           | 'cms.footer.manage'
+          | 'cms.portfolio.manage'
           | 'settings.view'
           | 'settings.manage'
           | 'audit.view'
@@ -1698,6 +1721,26 @@ export interface IcmsTenant {
     | null;
   email?: string | null;
   /**
+   * Optional public Facebook URL
+   */
+  facebookUrl?: string | null;
+  /**
+   * Optional public Instagram URL
+   */
+  instagramUrl?: string | null;
+  /**
+   * Optional public YouTube URL
+   */
+  youtubeUrl?: string | null;
+  /**
+   * Optional public X (Twitter) URL
+   */
+  twitterUrl?: string | null;
+  /**
+   * Optional WhatsApp link, e.g. https://wa.me/2348012345678
+   */
+  whatsappUrl?: string | null;
+  /**
    * Legacy Payload media logo
    */
   logo?: (number | null) | Media;
@@ -1740,9 +1783,21 @@ export interface IcmsTenant {
    */
   planTier?: ('community' | 'standard' | 'professional') | null;
   /**
-   * Public site layout pack (nav/hero/section order). Brand colors still apply on top.
+   * Public site layout pack (nav/hero). Homepage section order can be overridden below.
    */
   uiVariant?: ('classic' | 'modern' | 'community' | 'scholarly' | 'compact') | null;
+  /**
+   * Homepage section order for this tenant. Edit by drag-and-drop in tenant admin → Brand tokens. Example: ["hero","prayer","events","articles","waqf","findUs"]
+   */
+  homeSectionOrder?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   /**
    * Primary public host display (usually {slug}.hyperiontechhub.com). Updated when custom domain activates.
    */
@@ -2100,7 +2155,11 @@ export interface IcmsPage {
     | 'waqf'
     | 'donate'
     | 'contact'
-    | 'islamiyyah';
+    | 'islamiyyah'
+    | 'dawah'
+    | 'khutba'
+    | 'zakah'
+    | 'ramadan';
   heroTitle?: string | null;
   heroSubtitle?: string | null;
   introHeading?: string | null;
@@ -2123,6 +2182,28 @@ export interface IcmsPage {
       }[]
     | null;
   visionItems?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  schoolPrograms?:
+    | {
+        title: string;
+        summary: string;
+        schedule?: string | null;
+        focus?: string | null;
+        outcomes?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  schoolFacts?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  schoolGoals?:
     | {
         text: string;
         id?: string | null;
@@ -2810,7 +2891,6 @@ export interface PortfolioItemsSelect<T extends boolean = true> {
   industry?: T;
   category?: T;
   summary?: T;
-  description?: T;
   challenge?: T;
   solution?: T;
   results?:
@@ -2826,11 +2906,14 @@ export interface PortfolioItemsSelect<T extends boolean = true> {
         name?: T;
         id?: T;
       };
+  logo?: T;
+  logoPath?: T;
   featuredImage?: T;
-  gallery?:
+  previewImagePath?: T;
+  brandColors?:
     | T
     | {
-        image?: T;
+        color?: T;
         id?: T;
       };
   featured?: T;
@@ -3727,6 +3810,11 @@ export interface IcmsTenantsSelect<T extends boolean = true> {
         id?: T;
       };
   email?: T;
+  facebookUrl?: T;
+  instagramUrl?: T;
+  youtubeUrl?: T;
+  twitterUrl?: T;
+  whatsappUrl?: T;
   logo?: T;
   logoUrl?: T;
   colors?:
@@ -3742,6 +3830,7 @@ export interface IcmsTenantsSelect<T extends boolean = true> {
   status?: T;
   planTier?: T;
   uiVariant?: T;
+  homeSectionOrder?: T;
   domainLabel?: T;
   customDomain?: T;
   customDomainStatus?: T;
@@ -3975,6 +4064,28 @@ export interface IcmsPagesSelect<T extends boolean = true> {
         id?: T;
       };
   visionItems?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  schoolPrograms?:
+    | T
+    | {
+        title?: T;
+        summary?: T;
+        schedule?: T;
+        focus?: T;
+        outcomes?: T;
+        id?: T;
+      };
+  schoolFacts?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  schoolGoals?:
     | T
     | {
         text?: T;

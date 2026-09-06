@@ -2,6 +2,7 @@ import { loadProjectEnv } from './loadEnv.js'
 import { prepareDatabaseUri } from './resolveDbUri.js'
 import {
   ensureOwnerMembership,
+  ensureIcmsDemoMemberships,
   seedTenantDemoContent,
   upsertAnasTenant,
 } from '../src/lib/icms/seed.ts'
@@ -28,6 +29,8 @@ async function main() {
 
   await ensureOwnerMembership(payload, tenantId)
   console.log('Owner membership ensured')
+  await ensureIcmsDemoMemberships(payload, tenantId)
+  console.log('ICMS demo memberships ensured')
 
   console.log('ICMS seed complete.')
   process.exit(0)

@@ -7,7 +7,7 @@ import {
   getPublishedArticles,
   getWaqfProjects,
 } from '@/lib/icms/content'
-import { getUiVariant } from '@/lib/icms/ui-variants'
+import { getUiVariant, resolveHomeSectionOrder } from '@/lib/icms/ui-variants'
 import { getPublicBaseFromHeaders } from '@/lib/icms/public-base-server'
 import HomePageSections from '@/components/icms/HomePageSections'
 
@@ -55,7 +55,7 @@ export default async function TenantHomePage({ params }: Props) {
       campaignGoal={campaignGoal}
       campaignRaised={campaignRaised}
       featuredWaqf={featuredWaqf}
-      sectionOrder={variant.homeSectionOrder}
+      sectionOrder={resolveHomeSectionOrder(tenant.homeSectionOrder, tenant.uiVariant)}
       heroStyle={variant.heroStyle}
     />
   )

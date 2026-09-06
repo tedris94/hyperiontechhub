@@ -9,6 +9,16 @@ export function normalizeHost(host: string | null | undefined): string {
   return host.trim().toLowerCase().replace(/:\d+$/, '').replace(/\.$/, '')
 }
 
+/** True for RFC1918 LAN IPs (phone testing via http://192.168.x.x:3000). */
+export function isPrivateLanHost(host: string): boolean {
+  const h = normalizeHost(host)
+  if (!h) return false
+  if (/^192\.168\.\d{1,3}\.\d{1,3}$/.test(h)) return true
+  if (/^10\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(h)) return true
+  if (/^172\.(1[6-9]|2\d|3[0-1])\.\d{1,3}\.\d{1,3}$/.test(h)) return true
+  return false
+}
+
 export function isPlatformHost(host: string): boolean {
   const h = normalizeHost(host)
   return (
@@ -16,7 +26,8 @@ export function isPlatformHost(host: string): boolean {
     h === PLATFORM_APEX ||
     h === 'localhost' ||
     h === '127.0.0.1' ||
-    h.endsWith('.vercel.app')
+    h.endsWith('.vercel.app') ||
+    isPrivateLanHost(h)
   )
 }
 

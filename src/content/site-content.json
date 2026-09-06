@@ -1,8 +1,8 @@
 {
   "site": {
     "name": "Hyperion Tech Hub",
-    "tagline": "Systems for schools and SMEs",
-    "description": "Nigeria’s digital partner for private, Islamic, and public schools and growing SMEs — systems we build, host, train on, and support, with strong Abuja presence.",
+    "tagline": "Systems for schools, mosques, and SMEs",
+    "description": "Nigeria’s digital partner for schools, mosques & Islamic centers, and growing SMEs — systems we build, host, train on, and support, with strong Abuja presence.",
     "url": "https://www.hyperiontechhub.com",
     "logo": {
       "src": "/assets/img/hth-logo.svg",
@@ -18,6 +18,7 @@
       { "label": "Home", "href": "/" },
       { "label": "Products", "href": "/#products" },
       { "label": "Schools", "href": "/industries/schools" },
+      { "label": "Mosques", "href": "/industries/mosques" },
       { "label": "SMEs", "href": "/industries/smes" },
       { "label": "Training", "href": "/training" },
       { "label": "Portfolio", "href": "/portfolio" },
@@ -34,24 +35,24 @@
   },
   "home": {
     "hero": {
-      "badge": "Abuja · Schools & SMEs",
-      "titleLines": ["Systems that", "schools and SMEs trust"],
-      "description": "We build, host, train on, and support digital systems for private, Islamic, and public schools and growing businesses across Nigeria — from EduSuite to SME kits and managed retainers, with strong Abuja on-ground support.",
+      "badge": "Abuja · Schools, Mosques & SMEs",
+      "titleLines": ["Systems that", "schools, mosques, and SMEs trust"],
+      "description": "We build, host, train on, and support digital systems for schools, mosques & Islamic centers, and growing businesses across Nigeria — from EduSuite and ICMS to SME kits and managed retainers, with strong Abuja on-ground support.",
       "primaryCta": { "label": "View products", "href": "#products" },
       "secondaryCta": { "label": "Get Started", "href": "/get-started" },
       "stats": [
         { "value": "3+", "label": "Schools live" },
-        { "value": "4", "label": "Core products" },
+        { "value": "5", "label": "Core products" },
         { "value": "Abuja", "label": "On-ground support" }
       ],
       "image": {
         "src": "/assets/img/hero-img.jpg",
-        "alt": "Hyperion Tech Hub - Technology for schools and SMEs"
+        "alt": "Hyperion Tech Hub - Technology for schools, mosques, and SMEs"
       }
     },
     "services": {
       "heading": "What we deliver",
-      "description": "Four portfolio pillars that generate recurring revenue and named case studies — plus walk-in hub services when you need them.",
+      "description": "Five portfolio pillars that generate recurring revenue and named case studies — plus walk-in hub services when you need them.",
       "cta": { "label": "Talk to us", "href": "#contact" },
       "fallbackItems": [
         {
@@ -60,6 +61,13 @@
           "icon": "GraduationCap",
           "color": "bg-blue-50 text-[#1A2BC2]",
           "href": "/products/edusuite"
+        },
+        {
+          "title": "Hyperion ICMS",
+          "description": "Islamic Center Management System — prayer times, Waqf, donations, Islamiyyah, and white-label mosque sites.",
+          "icon": "Building2",
+          "color": "bg-emerald-50 text-emerald-700",
+          "href": "/products/icms"
         },
         {
           "title": "SME Digital Business Kit",
@@ -100,20 +108,20 @@
     },
     "purpose": {
       "heading": "Our purpose",
-      "subheading": "Trusted systems for Nigerian schools and SMEs",
+      "subheading": "Trusted systems for Nigerian schools, mosques, and SMEs",
       "image": {
         "src": "/assets/img/purpose.jpg",
-        "alt": "Hyperion Tech Hub Purpose - Schools and SMEs"
+        "alt": "Hyperion Tech Hub Purpose - Schools, mosques, and SMEs"
       },
       "paragraphs": [
-        "Hyperion Tech Hub is Abuja’s digital partner for schools and growing SMEs. We build systems you can run day-to-day — fees, results, orders, staff portals — then we host, train your team, and stay on as a retainer partner.",
-        "Our focus is deliberate: Education systems (EduSuite), SME digital kits, managed Hyperion Care retainers, and skills training. Walk-in repairs and printing keep the hub useful locally without diluting what we stand for.",
+        "Hyperion Tech Hub is Abuja’s digital partner for schools, mosques & Islamic centers, and growing SMEs. We build systems you can run day-to-day — fees, results, prayer times, donations, orders, staff portals — then we host, train your team, and stay on as a retainer partner.",
+        "Our focus is deliberate: Education systems (EduSuite), Islamic Center Management (ICMS), SME digital kits, managed Hyperion Care retainers, and skills training. Walk-in repairs and printing keep the hub useful locally without diluting what we stand for.",
         "Trust is earned with named work we still support — not vanity client counts. Every logo on our portfolio is a client you can call and a system we maintain."
       ],
       "values": [
         {
           "title": "Our Mission",
-          "description": "Make technology accessible and impactful for Nigerian schools and SMEs.",
+          "description": "Make technology accessible and impactful for Nigerian schools, mosques, and SMEs.",
           "icon": "Target"
         },
         {
@@ -128,23 +136,23 @@
         },
         {
           "title": "Excellence",
-          "description": "Ship what schools and businesses actually pay for: fees, results, commerce, uptime.",
+          "description": "Ship what schools, centers, and businesses actually pay for: fees, prayer, donations, commerce, uptime.",
           "icon": "Award"
         }
       ],
-      "statement": "Lead message: systems for Nigerian schools and SMEs — built, trained, and supported from Abuja. Secondary: hub convenience services when you walk in."
+      "statement": "Lead message: systems for Nigerian schools, mosques, and SMEs — built, trained, and supported from Abuja. Secondary: hub convenience services when you walk in."
     },
     "contact": {
       "heading": "Get in Touch",
-      "subheading": "Ready to digitise your school or SME? Let’s start a conversation.",
+      "subheading": "Ready to digitise your school, mosque, or SME? Let’s start a conversation.",
       "introHeading": "Let's Connect",
-      "introText": "Ask about EduSuite, SME Kits, Hyperion Care retainers, or training cohorts. We respond within one business day.",
+      "introText": "Ask about EduSuite, ICMS, SME Kits, Hyperion Care retainers, or training cohorts. We respond within one business day.",
       "email": "info@hyperiontechhub.com",
       "phone": "(+234) 906 4951 938",
       "address": "Plot 624, No. 9 Clifford Omozeghian Ave., Gbazango Extension II, Arab Road, Arab Junction by Kubwa Express, Kubwa, FCT-Abuja",
       "whyChooseUs": [
         "On-ground Abuja support",
-        "Named school & SME case studies",
+        "Named school, mosque & SME case studies",
         "Setup + subscription pricing",
         "Retainers after go-live"
       ],
@@ -163,10 +171,11 @@
           "serviceLabel": "Interested In",
           "servicePlaceholder": "Select an option",
           "messageLabel": "Message",
-          "messagePlaceholder": "Tell us about your school, business, or training need..."
+          "messagePlaceholder": "Tell us about your school, mosque, business, or training need..."
         },
         "serviceOptions": [
           { "value": "edusuite", "label": "Hyperion EduSuite (School OS)" },
+          { "value": "icms", "label": "Hyperion ICMS (Islamic Center OS)" },
           { "value": "sme-kit", "label": "SME Digital Business Kit" },
           { "value": "hyperion-care", "label": "Hyperion Care (Retainer)" },
           { "value": "training", "label": "Corporate / Career Training" },
@@ -209,7 +218,7 @@
           "type": "Full-time",
           "salary": "Competitive (NGN)",
           "experience": "5+ years",
-          "description": "Build and maintain EduSuite, SME kits, and client systems on Next.js and related stacks.",
+          "description": "Build and maintain EduSuite, ICMS, SME kits, and client systems on Next.js and related stacks.",
           "responsibilities": [
             "Design and develop scalable web applications",
             "Collaborate with cross-functional teams",
@@ -257,7 +266,7 @@
           "experience": "3+ years",
           "description": "Own Hyperion Care retainers, school onboarding, and SME go-live support.",
           "responsibilities": [
-            "Run onboarding for EduSuite and SME Kit clients",
+            "Run onboarding for EduSuite, ICMS, and SME Kit clients",
             "Manage retainer SLAs and quarterly reviews",
             "Escalate technical issues with clear tickets",
             "Collect testimonials and case-study inputs"
@@ -292,7 +301,7 @@
     "hero": {
       "title": "Get Started with",
       "highlight": "Hyperion Tech Hub",
-      "description": "Choose a product pillar — EduSuite, SME Kit, Hyperion Care, or Training — and we’ll scope a clear next step.",
+      "description": "Choose a product pillar — EduSuite, ICMS, SME Kit, Hyperion Care, or Training — and we’ll scope a clear next step.",
       "ctaLabel": "Schedule a Consultation",
       "ctaHref": "/consultation"
     },
@@ -303,19 +312,19 @@
         {
           "number": "01",
           "title": "Pick your pillar",
-          "description": "EduSuite for schools, SME Kit for business, Care for retainers, or a training cohort.",
+          "description": "EduSuite for schools, ICMS for mosques, SME Kit for business, Care for retainers, or a training cohort.",
           "icon": "Briefcase"
         },
         {
           "number": "02",
           "title": "Discovery call",
-          "description": "We map fees, results, orders, or skills goals — and give honest scope and pricing.",
+          "description": "We map fees, results, prayer/donations, orders, or skills goals — and give honest scope and pricing.",
           "icon": "Users"
         },
         {
           "number": "03",
           "title": "Pilot or build",
-          "description": "Fixed SKU delivery or school MVP modules, with training for your team.",
+          "description": "Fixed SKU delivery or school / center MVP modules, with training for your team.",
           "icon": "GraduationCap"
         },
         {
@@ -334,6 +343,11 @@
           "title": "Hyperion EduSuite",
           "description": "School OS — fees, results, attendance, parent portal",
           "link": "/products/edusuite"
+        },
+        {
+          "title": "Hyperion ICMS",
+          "description": "Islamic Center OS — prayer, Waqf, donations, Islamiyyah",
+          "link": "/products/icms"
         },
         {
           "title": "SME Digital Business Kit",
@@ -355,8 +369,8 @@
     "whyChoose": {
       "heading": "Why Choose Hyperion Tech Hub?",
       "items": [
-        "Vertical focus: schools and SMEs",
-        "Live school and SME case studies",
+        "Vertical focus: schools, mosques, and SMEs",
+        "Live school, mosque, and SME case studies",
         "Setup + subscription / retainer pricing",
         "On-ground support in Kubwa, Abuja",
         "Training bundled with every delivery",
@@ -369,7 +383,7 @@
     },
     "finalCta": {
       "heading": "Let's Build Something You Can Trust",
-      "description": "Start with EduSuite, an SME Kit, Hyperion Care, or a training cohort — then grow with us.",
+      "description": "Start with EduSuite, ICMS, an SME Kit, Hyperion Care, or a training cohort — then grow with us.",
       "primaryLabel": "Contact Us",
       "primaryHref": "/#contact",
       "secondaryLabel": "Schedule Consultation",
@@ -380,7 +394,7 @@
     "hero": {
       "title": "Schedule a",
       "highlight": "Consultation",
-      "description": "Tell us whether you are a school, an SME, or a training buyer. We’ll reply within 24 hours with a clear next step."
+      "description": "Tell us whether you are a school, a mosque or Islamic center, an SME, or a training buyer. We’ll reply within 24 hours with a clear next step."
     },
     "success": {
       "title": "Thank You!",
@@ -407,8 +421,8 @@
         "name": "John Doe",
         "email": "john@example.com",
         "phone": "+234 906 4951938",
-        "company": "School or company name",
-        "message": "Tell us about your school, business, or training need..."
+        "company": "School, mosque, or company name",
+        "message": "Tell us about your school, mosque, business, or training need..."
       },
       "servicePlaceholder": "Select an option",
       "timePlaceholder": "Select a time",
@@ -416,6 +430,7 @@
     },
     "services": [
       "Hyperion EduSuite",
+      "Hyperion ICMS",
       "SME Digital Business Kit — Presence",
       "SME Digital Business Kit — Commerce",
       "SME Digital Business Kit — Ops",
@@ -436,7 +451,7 @@
     ]
   },
   "footer": {
-    "description": "Abuja’s trusted digital partner for schools and growing SMEs — EduSuite, SME Kits, Hyperion Care, and training.",
+    "description": "Abuja’s trusted digital partner for schools, mosques, and growing SMEs — EduSuite, ICMS, SME Kits, Hyperion Care, and training.",
     "contact": {
       "email": "info@hyperiontechhub.com",
       "phone": "(+234) 906 4951 938",
@@ -447,11 +462,13 @@
         { "label": "About Us", "href": "/about" },
         { "label": "Portfolio", "href": "/portfolio" },
         { "label": "Schools", "href": "/industries/schools" },
+        { "label": "Mosques", "href": "/industries/mosques" },
         { "label": "SMEs", "href": "/industries/smes" },
         { "label": "Careers", "href": "/careers" }
       ],
       "services": [
         { "label": "EduSuite", "href": "/products/edusuite" },
+        { "label": "ICMS", "href": "/products/icms" },
         { "label": "SME Kit", "href": "/products/sme-kit" },
         { "label": "Hyperion Care", "href": "/products/hyperion-care" },
         { "label": "Training & Courses", "href": "/courses" }

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import RecordForm, { type RecordFieldDef } from '@/components/icms/RecordForm'
 import DeleteRecordButton from '@/components/icms/DeleteRecordButton'
 
-type Row = { id: string | number } & Record<string, unknown>
+type Row = { id?: string | number } & Record<string, unknown>
 
 function defaultToInitial(
   row: Row,
@@ -137,10 +137,11 @@ export default function CrudResourcePanel({
               </tr>
             ) : null}
             {rows.map((row) => {
+              const rowId = row.id ?? ''
               const allowDelete =
-                !deleteIdPrefix || !String(row.id).startsWith(deleteIdPrefix)
+                !deleteIdPrefix || !String(rowId).startsWith(deleteIdPrefix)
               return (
-                <tr key={String(row.id)} className="border-t border-black/5">
+                <tr key={String(rowId)} className="border-t border-black/5">
                   {columns.map((c) => (
                     <td key={c.key} className={`px-4 py-3 ${c.className || ''}`}>
                       {String(row[c.key] ?? '')}
@@ -158,9 +159,9 @@ export default function CrudResourcePanel({
                       {allowDelete ? (
                         <DeleteRecordButton
                           collection={collection}
-                          id={row.id}
+                          id={rowId}
                           tenantSlug={tenantSlug}
-                          onSuccess={() => handleDeleted(row.id)}
+                          onSuccess={() => handleDeleted(rowId)}
                         />
                       ) : null}
                     </div>

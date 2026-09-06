@@ -27,6 +27,14 @@ export const DEMO_USERS = [
   { email: 'admin@hyperiontechhub.com', password: 'demo1234', name: 'Admin User', role: 'admin' as UserRole },
   { email: 'consultant@hyperiontechhub.com', password: 'demo1234', name: 'Consultant', role: 'consultant' as UserRole },
   { email: 'student@hyperiontechhub.com', password: 'demo1234', name: 'Student', role: 'student' as UserRole },
+  { email: 'icms.owner@hyperiontechhub.com', password: 'demo1234', name: 'ICMS Owner', role: 'tenant_member' as UserRole, group: 'ICMS' },
+  { email: 'icms.director@hyperiontechhub.com', password: 'demo1234', name: 'ICMS Director', role: 'tenant_member' as UserRole, group: 'ICMS' },
+  { email: 'icms.imam@hyperiontechhub.com', password: 'demo1234', name: 'ICMS Imam', role: 'tenant_member' as UserRole, group: 'ICMS' },
+  { email: 'icms.editor@hyperiontechhub.com', password: 'demo1234', name: 'ICMS Content Editor', role: 'tenant_member' as UserRole, group: 'ICMS' },
+  { email: 'icms.waqf@hyperiontechhub.com', password: 'demo1234', name: 'ICMS Waqf Manager', role: 'tenant_member' as UserRole, group: 'ICMS' },
+  { email: 'icms.secretary@hyperiontechhub.com', password: 'demo1234', name: 'ICMS Secretary', role: 'tenant_member' as UserRole, group: 'ICMS' },
+  { email: 'icms.finance@hyperiontechhub.com', password: 'demo1234', name: 'ICMS Finance', role: 'tenant_member' as UserRole, group: 'ICMS' },
+  { email: 'icms.viewer@hyperiontechhub.com', password: 'demo1234', name: 'ICMS Viewer', role: 'tenant_member' as UserRole, group: 'ICMS' },
 ]
 
 type AuthContextType = {
@@ -106,9 +114,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       })
       if (!res.ok) {
         const body = await res.json().catch(() => ({}))
-        throw new Error(body.errors?.[0]?.message || 'Invalid credentials')
+        const apiMessage = body.errors?.[0]?.message
+        if (apiMessage) throw new Error(apiMessage)
+        if (res.status >= 500) {
+          throw new Error('Login service unavailable. Please try again in a moment.')
+        }
+        throw new Error('Invalid credentials')
       }
-      await refresh()
+
+      const body = (await res.json().catch(() => ({}))) as { user?: User | null }
+      // Optimistic auth so redirect can start immediately; session hydrates caps in background.
+      if (body.user) {
+        setUser(body.user)
+        setRoleName(body.user.role ?? null)
+        setLoading(false)
+      }
+      void refresh()
     },
     [refresh],
   )

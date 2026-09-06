@@ -6,6 +6,8 @@ async function main() {
   process.chdir(root)
   delete process.env.PAYLOAD_MIGRATING
   process.env.NODE_ENV = process.env.NODE_ENV || 'development'
+  // This command is the explicit schema-sync opt-in, including for Supabase.
+  process.env.PAYLOAD_DB_PUSH = '1'
   process.env.DATABASE_URI = await prepareDatabaseUri(process.env.DATABASE_URI!)
 
   const { getPayload } = await import('payload')

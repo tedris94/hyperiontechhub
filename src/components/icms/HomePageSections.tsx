@@ -201,16 +201,16 @@ function HeroSection({
           }`}
         >
           <Link
-            href={hrefJoin(base, 'donate')}
+            href={hrefJoin(base, 'mosque')}
             className="rounded border border-[color:var(--icms-gold)] bg-[color:var(--icms-gold)] px-8 py-[0.875rem] text-[0.78rem] font-semibold uppercase tracking-[0.1em] text-[color:var(--icms-forest)] no-underline transition-colors hover:bg-white"
           >
-            {page.ctaPrimaryLabel || 'Donate Now'}
+            {page.ctaPrimaryLabel || 'Prayer Times'}
           </Link>
           <Link
-            href={hrefJoin(base, 'mosque')}
+            href={hrefJoin(base, 'donate')}
             className="rounded border border-[color:var(--icms-ivory)]/33 bg-transparent px-8 py-[0.875rem] text-[0.78rem] font-semibold uppercase tracking-[0.1em] text-[color:var(--icms-ivory)] no-underline transition-colors hover:bg-white/10"
           >
-            {page.ctaSecondaryLabel || 'Prayer Times'}
+            {page.ctaSecondaryLabel || 'Donate Now'}
           </Link>
         </div>
       </div>
@@ -504,7 +504,7 @@ export default function HomePageSections(props: HomeSectionsProps) {
           </div>
           <div>
             <p className="mb-2 text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-[color:var(--icms-gold)]">
-              {page.contactEyebrow || 'Contact'}
+              {page.contactEyebrow || 'Contact Us'}
             </p>
             <GoldRule className="mb-3" />
             <h3 className="icms-display text-[1.15rem] font-semibold text-[color:var(--icms-charcoal)]">

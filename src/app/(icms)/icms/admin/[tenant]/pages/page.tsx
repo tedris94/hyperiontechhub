@@ -17,6 +17,11 @@ const PAGE_KEYS = [
   'waqf',
   'donate',
   'contact',
+  'islamiyyah',
+  'dawah',
+  'khutba',
+  'zakah',
+  'ramadan',
 ]
 
 export default async function AdminPagesPage({ params }: Props) {
@@ -31,8 +36,8 @@ export default async function AdminPagesPage({ params }: Props) {
       <div>
         <h1 className="icms-display text-3xl text-[color:var(--icms-forest)]">Site pages</h1>
         <p className="mt-1 text-sm text-[color:var(--icms-warm-gray)]">
-          Edit each public page section-by-section. For Home: Hero, Prayer strip, Events, Waqf,
-          Articles, and Find us / Support.
+          Edit each public page section-by-section. Reorder homepage blocks (Articles before Waqf,
+          etc.) under Brand tokens — drag and drop, no code.
         </p>
       </div>
 

@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
       await payload.create({
         collection: 'edu-students',
         data: {
-          school: access.school.id,
+          school: Number(access.school.id),
           title: name,
           rollNo: row.Roll_No || row.rollNo || '',
           regiNo: row.Regi_No || row.regiNo || '',

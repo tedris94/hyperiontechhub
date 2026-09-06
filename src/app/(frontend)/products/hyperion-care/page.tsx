@@ -15,7 +15,7 @@ export default function HyperionCarePage() {
     <ProductPageShell
       badge="Retainers · Recurring revenue"
       title={care.name}
-      tagline="Stay online, secure, and supported after go-live. Sold with every EduSuite and SME Kit delivery."
+      tagline="Stay online, secure, and supported after go-live. Sold with every EduSuite, ICMS, and SME Kit delivery."
       primaryCta={{ label: 'Choose a tier', href: '/consultation' }}
     >
       <section className="py-20 bg-white">

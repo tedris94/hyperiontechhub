@@ -127,7 +127,7 @@ export async function POST(req: NextRequest) {
   })
 
   const data = {
-    school: access.school.id,
+    school: Number(access.school.id),
     title,
     className,
     exam,
@@ -143,14 +143,14 @@ export async function POST(req: NextRequest) {
     doc = await payload.update({
       collection: 'edu-marks',
       id: existing.docs[0].id,
-      data,
+      data: data as any,
       user,
       overrideAccess: isPlatformAdmin(user),
     })
   } else {
     doc = await payload.create({
       collection: 'edu-marks',
-      data,
+      data: data as any,
       user,
       overrideAccess: isPlatformAdmin(user),
     })
@@ -265,9 +265,9 @@ export async function PUT(req: NextRequest) {
     })
 
     const data = {
-      school: access.school.id,
+      school: Number(access.school.id),
       title,
-      student: entry.studentId,
+      student: Number(entry.studentId),
       studentName: entry.studentName || stud?.title || '',
       rollNo: entry.rollNo || stud?.rollNo || '',
       regiNo: stud?.regiNo || '',
@@ -295,14 +295,14 @@ export async function PUT(req: NextRequest) {
       await payload.update({
         collection: 'edu-results',
         id: existing.docs[0].id,
-        data,
+        data: data as any,
         user,
         overrideAccess: isPlatformAdmin(user),
       })
     } else {
       await payload.create({
         collection: 'edu-results',
-        data,
+        data: data as any,
         user,
         overrideAccess: isPlatformAdmin(user),
       })

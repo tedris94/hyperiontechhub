@@ -217,8 +217,8 @@ export async function POST(req: NextRequest) {
       })
 
       const membershipData = {
-        user: userId,
-        tenant: tenantId,
+        user: Number(userId),
+        tenant: Number(tenantId),
         role: role as (typeof ICMS_ROLES)[number],
         status: 'active' as const,
       }

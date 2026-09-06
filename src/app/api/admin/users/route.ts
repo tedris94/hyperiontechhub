@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import type { User } from '@/payload-types'
 import { authorizeCapability } from '@/lib/dashboardAuth'
 import { canAssignRole, filterAssignableRoles } from '@/lib/roleAssignments'
 import { ensureDashboardRolesSeeded, getDashboardRoleBySlug, toRoleRecord } from '@/lib/resolveCapabilities'
@@ -69,7 +70,7 @@ export async function POST(request: Request) {
     const email = body.email?.trim().toLowerCase()
     const password = body.password?.trim()
     const fullName = body.fullName?.trim()
-    const role = body.role?.trim() || 'subscriber'
+    const role = (body.role?.trim() || 'subscriber') as User['role']
 
     if (!email || !password || !fullName) {
       return NextResponse.json({ error: 'Email, password, and full name are required.' }, { status: 400 })
@@ -83,7 +84,7 @@ export async function POST(request: Request) {
     const payload = await getPayloadSingleton()
     const created = await payload.create({
       collection: 'users',
-      data: { email, password, fullName, role },
+      data: { email, password, fullName, role } as any,
       overrideAccess: true,
     })
 

@@ -237,21 +237,22 @@ export async function getArticleBySlug(
   return doc ? mapArticle(doc) : undefined
 }
 
-function mapArticle(d: Record<string, unknown>): Article {
-  const body = Array.isArray(d.body)
-    ? (d.body as { paragraph?: string }[]).map((b) => String(b.paragraph || '')).filter(Boolean)
+function mapArticle(d: unknown): Article {
+  const doc = d as Record<string, unknown>
+  const body = Array.isArray(doc.body)
+    ? (doc.body as { paragraph?: string }[]).map((b) => String(b.paragraph || '')).filter(Boolean)
     : []
   return {
-    id: String(d.id),
-    slug: String(d.slug),
-    title: String(d.title),
-    category: String(d.category || ''),
-    date: String(d.publishedAt || d.updatedAt || '').slice(0, 10),
-    author: String(d.author || ''),
-    excerpt: String(d.excerpt || ''),
+    id: String(doc.id),
+    slug: String(doc.slug),
+    title: String(doc.title),
+    category: String(doc.category || ''),
+    date: String(doc.publishedAt || doc.updatedAt || '').slice(0, 10),
+    author: String(doc.author || ''),
+    excerpt: String(doc.excerpt || ''),
     body,
-    status: (d.status as Article['status']) || 'draft',
-    coverImageUrl: d.coverImageUrl ? String(d.coverImageUrl) : undefined,
+    status: (doc.status as Article['status']) || 'draft',
+    coverImageUrl: doc.coverImageUrl ? String(doc.coverImageUrl) : undefined,
   }
 }
 
@@ -406,6 +407,27 @@ function mapPageDoc(d: Record<string, unknown>): PageContent {
   const formSubjects = Array.isArray(d.formSubjects)
     ? (d.formSubjects as { label?: string }[]).map((s) => String(s.label || '')).filter(Boolean)
     : []
+  const schoolPrograms = Array.isArray(d.schoolPrograms)
+    ? (d.schoolPrograms as {
+        title?: string
+        summary?: string
+        schedule?: string
+        focus?: string
+        outcomes?: string
+      }[]).map((program) => ({
+        title: String(program.title || ''),
+        summary: String(program.summary || ''),
+        schedule: program.schedule ? String(program.schedule) : undefined,
+        focus: program.focus ? String(program.focus) : undefined,
+        outcomes: program.outcomes ? String(program.outcomes) : undefined,
+      }))
+    : []
+  const schoolFacts = Array.isArray(d.schoolFacts)
+    ? (d.schoolFacts as { text?: string }[]).map((i) => String(i.text || '')).filter(Boolean)
+    : []
+  const schoolGoals = Array.isArray(d.schoolGoals)
+    ? (d.schoolGoals as { text?: string }[]).map((i) => String(i.text || '')).filter(Boolean)
+    : []
 
   return {
     pageKey: String(d.pageKey),
@@ -448,6 +470,9 @@ function mapPageDoc(d: Record<string, unknown>): PageContent {
     storyEyebrow: d.storyEyebrow ? String(d.storyEyebrow) : undefined,
     purposeEyebrow: d.purposeEyebrow ? String(d.purposeEyebrow) : undefined,
     mapCtaLabel: d.mapCtaLabel ? String(d.mapCtaLabel) : undefined,
+    schoolPrograms,
+    schoolFacts,
+    schoolGoals,
   }
 }
 

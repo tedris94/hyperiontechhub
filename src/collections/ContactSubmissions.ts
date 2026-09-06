@@ -8,7 +8,8 @@ export const ContactSubmissions: CollectionConfig = {
   },
   access: {
     read: ({ req }) => Boolean(req.user),
-    create: () => true,
+    // Public creates go through /api/contact (overrideAccess) with spam guards.
+    create: () => false,
     update: ({ req }) => Boolean(req.user),
     delete: ({ req }) => ['super_admin', 'admin'].includes((req.user as { role?: string })?.role ?? ''),
   },

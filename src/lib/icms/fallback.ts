@@ -4,16 +4,17 @@ import { DEFAULT_TENANT_COLORS } from './brand-tokens'
 /** Static fallback when Payload/DB is unavailable (local without DATABASE_URI). */
 export const ANAS_TENANT: TenantConfig = {
   slug: 'anas-bn-malik',
-  name: 'Anas bn Malik Islamic Center',
-  shortName: 'Anas bn Malik',
-  motto: 'STRIVING IN THE CAUSE OF ALLAH',
-  address: 'AMSSCO Platinum City Estate, Plot 312 Galadimawa District, Abuja FCT',
-  phones: ['08062252510', '08034416661'],
+  name: 'Anas Bin Malik Islamic School',
+  shortName: 'Anas Bin Malik',
+  motto: 'KNOWLEDGE. CHARACTER. QUR’AN.',
+  address: 'AMMSSCO Platinum City, Galadimawa, Abuja',
+  phones: ['08063237993', '09018909640'],
   email: 'info@anasbnmalik.org',
   logo: '/tenants/anas-bn-malik/logo.png',
   colors: { ...DEFAULT_TENANT_COLORS },
   domainLabel: 'anas-bn-malik.hyperiontechhub.com',
   uiVariant: 'classic',
+  homeSectionOrder: ['hero', 'prayer', 'events', 'articles', 'waqf', 'findUs'],
   customDomainStatus: 'none',
   prayer: {
     latitude: 9.0145,
@@ -25,7 +26,7 @@ export const ANAS_TENANT: TenantConfig = {
   },
   bank: {
     bankName: 'Guaranty Trust Bank',
-    accountName: 'Anas bn Malik Islamic Center',
+    accountName: 'Anas Bin Malik Islamic School',
     accountNumber: '0123456789',
     transferNote:
       'Use your full name and donation purpose (e.g. Zakat / Sadaqah) as the transfer narration.',

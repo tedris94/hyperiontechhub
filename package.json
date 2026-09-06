@@ -22,6 +22,7 @@
     "seed:edusuite": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/seedEdusuite.ts",
     "db:push:edusuite": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/pushEdusuiteSchema.ts",
     "seed:icms": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/seedIcms.ts",
+    "seed:icms-pages": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/seedIcmsPages.ts",
     "db:push:icms": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/pushIcmsSchema.ts",
     "localize:icms-images": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/localizeIcmsImages.ts",
     "import:wordpress": "cross-env NODE_OPTIONS=--no-deprecation PAYLOAD_MIGRATING=true tsx scripts/import-wordpress.ts"

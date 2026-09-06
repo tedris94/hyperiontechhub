@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { ProductPageShell, FeatureList, formatNgn } from '@/components/ProductPageShell'
+import IndustryCaseStudies from '@/components/IndustryCaseStudies'
 import pricing from '@/content/products-pricing.json'
 
 export const metadata = {
@@ -17,7 +18,7 @@ export default function SmeKitPage() {
       title={kit.name}
       tagline="Fixed packages so sales are productized — not a bespoke quote for every brochure site."
       primaryCta={{ label: 'Request a quote', href: '/consultation' }}
-      secondaryCta={{ label: 'See Fizam case study', href: '/portfolio/fizam-table-water' }}
+      secondaryCta={{ label: 'Case studies', href: '#case-studies' }}
     >
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 lg:px-8 max-w-6xl">
@@ -49,7 +50,13 @@ export default function SmeKitPage() {
         </div>
       </section>
 
-      <section className="py-20 bg-gray-50">
+      <IndustryCaseStudies
+        slugs={['fizam-table-water']}
+        title="Fizam case study"
+        subtitle="The reference Commerce + Ops delivery — marketing site, Paystack orders, and staff portals."
+      />
+
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4 lg:px-8 max-w-5xl grid md:grid-cols-2 gap-10 items-center">
           <div>
             <h2 className="text-3xl text-[#1B1C1E] mb-4">Who buys this</h2>
@@ -62,7 +69,7 @@ export default function SmeKitPage() {
               ]}
             />
           </div>
-          <div className="bg-white border border-gray-200 rounded-2xl p-8">
+          <div className="bg-gray-50 border border-gray-200 rounded-2xl p-8">
             <h3 className="text-xl font-semibold mb-3">Next step</h3>
             <p className="text-gray-600 mb-6">
               Pick Presence, Commerce, or Ops on the consultation form. We send a fixed-scope quote

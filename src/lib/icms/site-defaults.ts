@@ -7,8 +7,8 @@ export const DEFAULT_PAGES: Record<string, PageContent> = {
     heroTitle: 'A home for worship, knowledge, and sincere service',
     heroSubtitle:
       "Mosque life, Da'wah, Waqf, donations, and Islamiyyah — unified under one dignified digital presence.",
-    ctaPrimaryLabel: 'Donate Now',
-    ctaSecondaryLabel: 'Prayer Times',
+    ctaPrimaryLabel: 'Prayer Times',
+    ctaSecondaryLabel: 'Donate Now',
     prayerHeading: "Today's Prayer Times",
     eventsEyebrow: 'Upcoming Events',
     eventsHeading: "What's Happening at the Centre",
@@ -28,7 +28,7 @@ export const DEFAULT_PAGES: Record<string, PageContent> = {
     articlesCtaLabel: 'All Articles →',
     findUsEyebrow: 'Find Us',
     findUsHeading: 'Our Location',
-    contactEyebrow: 'Contact',
+    contactEyebrow: 'Contact Us',
     contactHeading: 'Reach the Centre',
     supportEyebrow: 'Support the Centre',
     supportHeading: 'Donate Today',
@@ -121,6 +121,28 @@ export const DEFAULT_PAGES: Record<string, PageContent> = {
     heroTitle: 'Articles',
     heroSubtitle: 'Reflections, guidance, and community updates.',
   },
+  khutba: {
+    pageKey: 'khutba',
+    heroTitle: 'Khutba',
+    heroSubtitle: 'Friday reminders and guidance for worship, character, and community life.',
+    introHeading: 'Jumu’ah at the Centre',
+    introBody: 'Join the congregation for a weekly khutbah rooted in sound knowledge and practical service.',
+  },
+  zakah: {
+    pageKey: 'zakah',
+    heroTitle: 'Zakah',
+    heroSubtitle: 'Fulfil your obligation with care, clarity, and compassion.',
+    introHeading: 'Purify your wealth, support eligible families',
+    introBody: 'The Centre receives Zakah and distributes it to eligible recipients according to Shari’ah guidance and local need.',
+    ctaPrimaryLabel: 'Give Zakah',
+  },
+  ramadan: {
+    pageKey: 'ramadan',
+    heroTitle: 'Ramadan',
+    heroSubtitle: 'A month of Qur’an, prayer, generosity, and renewed community.',
+    introHeading: 'Ramadan at the Centre',
+    introBody: 'Follow upcoming programmes, gatherings, and reflections as the Centre prepares for and serves the blessed month.',
+  },
   waqf: {
     pageKey: 'waqf',
     heroTitle: 'Waqf',
@@ -158,7 +180,7 @@ export const DEFAULT_PAGES: Record<string, PageContent> = {
   },
   contact: {
     pageKey: 'contact',
-    heroTitle: 'Contact',
+    heroTitle: 'Contact Us',
     heroSubtitle: 'Reach the centre office — we welcome questions, visits, and collaboration.',
     formSubjects: [
       'General enquiry',

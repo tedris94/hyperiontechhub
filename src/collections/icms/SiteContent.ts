@@ -13,6 +13,9 @@ const pageKeys = [
   { label: 'Donate', value: 'donate' },
   { label: 'Contact', value: 'contact' },
   { label: 'Islamiyyah', value: 'islamiyyah' },
+  { label: 'Khutba', value: 'khutba' },
+  { label: 'Zakah', value: 'zakah' },
+  { label: 'Ramadan', value: 'ramadan' },
 ] as const
 
 function whenPage(...keys: string[]) {

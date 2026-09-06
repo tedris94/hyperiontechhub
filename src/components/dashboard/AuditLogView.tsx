@@ -46,6 +46,7 @@ const COLLECTION_OPTIONS = [
   'pages',
   'services',
   'team-members',
+  'portfolio-items',
   'jobs',
   'applications',
   'consultations',

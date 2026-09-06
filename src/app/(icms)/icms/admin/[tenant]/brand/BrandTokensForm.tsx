@@ -240,7 +240,7 @@ export default function BrandTokensForm({
             setOk(false)
           }}
           tenantSlug={tenantSlug}
-          hint="PNG, SVG, JPG, WEBP — stored under /icms/uploads/{tenant}/"
+          hint="PNG, SVG, JPG, WEBP — uploaded to durable storage (Supabase) in production"
         />
       </section>
 

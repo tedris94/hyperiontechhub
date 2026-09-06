@@ -4,6 +4,7 @@ import path from 'node:path'
 import sharp from 'sharp'
 import { getCurrentUser } from '@/lib/auth'
 import { resolveIcmsAccess, hasCapability } from '@/lib/icms/access'
+import { isSupabaseStorageConfigured, uploadPublicObject } from '@/lib/supabaseStorage'
 
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
@@ -114,39 +115,68 @@ export async function POST(req: NextRequest) {
     const base = slugifyFilename(blob.name || 'image') || 'image'
     const stamp = Date.now()
     const relDir = path.join('icms', 'uploads', tenantSlug)
-    const absDir = path.join(process.cwd(), 'public', relDir)
-    await fs.mkdir(absDir, { recursive: true })
 
     let filename: string
+    let outBuffer: Buffer
+    let contentType: string
 
     if (isSvg(mime, ext, buffer)) {
       filename = `${base}-${stamp}.svg`
-      await fs.writeFile(path.join(absDir, filename), buffer)
+      outBuffer = buffer
+      contentType = 'image/svg+xml'
     } else {
       try {
         filename = `${base}-${stamp}.avif`
-        await sharp(buffer)
+        outBuffer = await sharp(buffer)
           .rotate()
           .resize({ width: 1920, withoutEnlargement: true })
           .avif({ quality: 55, effort: 4 })
-          .toFile(path.join(absDir, filename))
+          .toBuffer()
+        contentType = 'image/avif'
       } catch (convertErr) {
         console.warn('[icms/upload] AVIF convert failed, trying PNG', convertErr)
         try {
           filename = `${base}-${stamp}.png`
-          await sharp(buffer)
+          outBuffer = await sharp(buffer)
             .rotate()
             .resize({ width: 1920, withoutEnlargement: true })
             .png({ quality: 90 })
-            .toFile(path.join(absDir, filename))
+            .toBuffer()
+          contentType = 'image/png'
         } catch {
           const keepExt = EXT_MIME[ext] ? ext : 'img'
           filename = `${base}-${stamp}.${keepExt}`
-          await fs.writeFile(path.join(absDir, filename), buffer)
+          outBuffer = buffer
+          contentType = mime || 'application/octet-stream'
         }
       }
     }
 
+    // Vercel (and any host with Supabase) — durable public object storage.
+    // Local without Supabase — write under public/ for Next static serving.
+    if (isSupabaseStorageConfigured()) {
+      const objectPath = `${relDir.replace(/\\/g, '/')}/${filename}`
+      const url = await uploadPublicObject({
+        objectPath,
+        body: outBuffer,
+        contentType,
+      })
+      return NextResponse.json({ url, filename })
+    }
+
+    if (process.env.VERCEL === '1') {
+      return NextResponse.json(
+        {
+          error:
+            'Image storage is not configured for this deployment. Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.',
+        },
+        { status: 503 },
+      )
+    }
+
+    const absDir = path.join(process.cwd(), 'public', relDir)
+    await fs.mkdir(absDir, { recursive: true })
+    await fs.writeFile(path.join(absDir, filename), outBuffer)
     const url = `/${relDir.replace(/\\/g, '/')}/${filename}`
     return NextResponse.json({ url, filename })
   } catch (e) {

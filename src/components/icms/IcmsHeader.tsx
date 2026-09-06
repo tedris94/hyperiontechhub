@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, ChevronDownIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import type { TenantConfig } from '@/lib/icms/types'
 import type { HeaderStyle } from '@/lib/icms/ui-variants'
 import { useAuth } from '@/contexts/AuthContext'
@@ -13,10 +13,16 @@ const links = [
   { label: 'Mosque', href: 'mosque' },
   { label: 'Islamiyyah', href: 'islamiyyah' },
   { label: 'Events', href: 'events' },
+  { label: 'Articles', href: 'articles' },
+  { label: 'Contact Us', href: 'contact' },
+]
+
+const moreLinks = [
+  { label: 'Khutba', href: 'khutba' },
+  { label: 'Zakah', href: 'zakah' },
+  { label: 'Ramadan', href: 'ramadan' },
   { label: 'Waqf', href: 'waqf' },
   { label: 'Shurah', href: 'committee' },
-  { label: 'Articles', href: 'articles' },
-  { label: 'Contact', href: 'contact' },
 ]
 
 function hrefJoin(base: string, path: string) {
@@ -39,6 +45,7 @@ export default function IcmsHeader({
   headerStyle?: HeaderStyle
 }) {
   const [open, setOpen] = useState(false)
+  const [moreOpen, setMoreOpen] = useState(false)
   const { isAuthenticated, loading } = useAuth()
   const base = basePath ?? `/icms/${tenant.slug}`
   const adminPath = adminHref || `/icms/admin/${tenant.slug}`
@@ -109,6 +116,30 @@ export default function IcmsHeader({
               {item.label}
             </Link>
           ))}
+          <div className="relative">
+            <button
+              type="button"
+              className={`flex items-center gap-1 ${navClass}`}
+              aria-expanded={moreOpen}
+              onClick={() => setMoreOpen((v) => !v)}
+            >
+              More <ChevronDownIcon className="h-4 w-4" />
+            </button>
+            {moreOpen ? (
+              <div className="absolute right-0 top-full mt-3 min-w-44 border border-black/10 bg-[color:var(--icms-ivory)] p-2 shadow-lg">
+                {moreLinks.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={hrefJoin(base, item.href)}
+                    className="block px-3 py-2 text-sm text-[color:var(--icms-charcoal)] hover:bg-black/5"
+                    onClick={() => setMoreOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            ) : null}
+          </div>
           {!loading &&
             (isAuthenticated ? (
               <Link
@@ -125,28 +156,45 @@ export default function IcmsHeader({
                 Login
               </Link>
             ))}
-          <Link
-            href={hrefJoin(base, 'donate')}
-            className={headerStyle === 'minimal' ? 'icms-btn-primary !px-3 !py-1.5 text-xs' : 'icms-btn-primary'}
-          >
-            Donate
-          </Link>
         </nav>
 
-        <button
-          type="button"
-          className="p-2 lg:hidden"
-          aria-label="Toggle menu"
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
-        </button>
+        <div className="flex items-center gap-2 lg:hidden">
+          {!loading ? (
+            isAuthenticated ? (
+              <Link href={adminPath} className="px-2 py-1 text-sm font-semibold text-[color:var(--icms-emerald)]">
+                Admin
+              </Link>
+            ) : (
+              <Link href={loginHref} className="px-2 py-1 text-sm font-semibold text-[color:var(--icms-emerald)]">
+                Login
+              </Link>
+            )
+          ) : null}
+          <button
+            type="button"
+            className="p-2"
+            aria-label="Toggle menu"
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
+          </button>
+        </div>
       </div>
 
       {open && (
         <div className="border-t border-black/5 bg-[color:var(--icms-ivory)] px-4 py-4 lg:hidden">
           <div className="flex flex-col gap-3">
             {links.map((item) => (
+              <Link
+                key={item.href}
+                href={hrefJoin(base, item.href)}
+                className="py-1 text-sm font-medium"
+                onClick={() => setOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
+            {moreLinks.map((item) => (
               <Link
                 key={item.href}
                 href={hrefJoin(base, item.href)}
@@ -166,13 +214,6 @@ export default function IcmsHeader({
                   Login
                 </Link>
               ))}
-            <Link
-              href={hrefJoin(base, 'donate')}
-              className="icms-btn-primary mt-2 w-full"
-              onClick={() => setOpen(false)}
-            >
-              Donate
-            </Link>
           </div>
         </div>
       )}

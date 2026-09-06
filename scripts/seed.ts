@@ -169,6 +169,9 @@ async function main() {
         results: ((item.results as string[]) || []).map((r) => ({ item: r })),
         projectUrl: (item.projectUrl as string) || '',
         technologies: ((item.technologies as string[]) || []).map((name) => ({ name })),
+        logoPath: (item.logo as string) || '',
+        previewImagePath: (item.previewImage as string) || '',
+        brandColors: ((item.brandColors as string[]) || []).map((color) => ({ color })),
         featured: Boolean(item.featured),
         sortOrder: Number(item.sortOrder) || 0,
       }

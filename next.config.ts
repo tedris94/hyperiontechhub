@@ -20,11 +20,18 @@ const nextConfig: NextConfig = {
   // Pre-existing Payload ID/Where typing friction; do not block production deploys.
   typescript: { ignoreBuildErrors: true },
   eslint: { ignoreDuringBuilds: true },
+  // Allow phone / LAN access to /_next/* in `next dev` (not just localhost).
+  allowedDevOrigins: [
+    '192.168.11.158',
+    '127.0.0.1',
+    ...(process.env.ALLOWED_DEV_ORIGINS?.split(',').map((s) => s.trim()).filter(Boolean) ?? []),
+  ],
   serverExternalPackages: ['@payloadcms/db-postgres', 'payload', 'pg'],
   images: {
     remotePatterns: [
       { protocol: 'http', hostname: 'localhost', port: '80', pathname: '/testhub.com/**' },
       { protocol: 'http', hostname: 'localhost', port: '3000', pathname: '/api/media/**' },
+      { protocol: 'http', hostname: '192.168.11.158', port: '3000', pathname: '/api/media/**' },
       { protocol: 'https', hostname: 'images.unsplash.com', pathname: '/**' },
       { protocol: 'https', hostname: '**' },
     ],

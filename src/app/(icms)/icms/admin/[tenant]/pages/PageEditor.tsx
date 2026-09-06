@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import type { PageContent } from '@/lib/icms/types'
+import type { PageContent, SchoolProgram } from '@/lib/icms/types'
 import { mergePageContent, pageContentToPayload } from '@/lib/icms/page-payload'
 import ImageUploadField from '@/components/icms/ImageUploadField'
 import { useIcmsToast } from '@/components/icms/toast'
@@ -43,6 +43,46 @@ function HeroSection({
         multiline
       />
     </Section>
+  )
+}
+
+function SchoolProgramsEditor({
+  programs,
+  onChange,
+}: {
+  programs: SchoolProgram[]
+  onChange: (programs: SchoolProgram[]) => void
+}) {
+  function update(index: number, patch: Partial<SchoolProgram>) {
+    onChange(programs.map((program, i) => (i === index ? { ...program, ...patch } : program)))
+  }
+
+  return (
+    <div className="space-y-4">
+      {programs.map((program, index) => (
+        <div key={index} className="space-y-2 border border-black/10 bg-white p-4">
+          <Field label="Programme title" value={program.title} onChange={(v) => update(index, { title: v })} />
+          <Field label="Summary" value={program.summary} onChange={(v) => update(index, { summary: v })} multiline />
+          <Field label="Schedule" value={program.schedule || ''} onChange={(v) => update(index, { schedule: v })} />
+          <Field label="Focus" value={program.focus || ''} onChange={(v) => update(index, { focus: v })} multiline />
+          <Field label="Outcomes" value={program.outcomes || ''} onChange={(v) => update(index, { outcomes: v })} multiline />
+          <button
+            type="button"
+            className="text-xs text-red-700 hover:underline"
+            onClick={() => onChange(programs.filter((_, i) => i !== index))}
+          >
+            Remove programme
+          </button>
+        </div>
+      ))}
+      <button
+        type="button"
+        className="icms-btn-secondary text-xs"
+        onClick={() => onChange([...programs, { title: '', summary: '' }])}
+      >
+        Add programme
+      </button>
+    </div>
   )
 }
 
@@ -435,6 +475,52 @@ export default function PageEditor({
         </>
       ) : null}
 
+      {pageKey === 'dawah' ? (
+        <>
+          <HeroSection
+            form={form}
+            setForm={setForm}
+            note="Edit the Da’awah Sub-Committee profile, activities, membership, and workplan."
+          />
+          <Section title="Profile">
+            <ImageUploadField
+              label="Da’awah / community image"
+              value={form.imageUrl || ''}
+              onChange={(v) => setForm((s) => ({ ...s, imageUrl: v }))}
+              tenantSlug={tenantSlug}
+            />
+            <Field
+              label="Introduction heading"
+              value={form.introHeading || ''}
+              onChange={(v) => setForm((s) => ({ ...s, introHeading: v }))}
+            />
+            <Field
+              label="Introduction body"
+              value={form.introBody || ''}
+              onChange={(v) => setForm((s) => ({ ...s, introBody: v }))}
+              multiline
+            />
+          </Section>
+          <Section title="Vision, mission, and activities">
+            <BlocksEditor blocks={form.blocks || []} onChange={setField(setForm, 'blocks')} />
+          </Section>
+          <Section title="Core values and direction">
+            <TextListEditor
+              label="Core values"
+              items={form.missionItems || []}
+              onChange={setField(setForm, 'missionItems')}
+              addLabel="Add value"
+            />
+            <TextListEditor
+              label="Vision points"
+              items={form.visionItems || []}
+              onChange={setField(setForm, 'visionItems')}
+              addLabel="Add point"
+            />
+          </Section>
+        </>
+      ) : null}
+
       {pageKey === 'waqf' ? (
         <>
           <HeroSection form={form} setForm={setForm} />
@@ -659,8 +745,48 @@ export default function PageEditor({
           <HeroSection
             form={form}
             setForm={setForm}
-            note="Classes and enrolment are managed in the Islamiyyah admin area."
+            note="Programme copy is edited here. Live class and learner records remain under Admin → Islamiyyah."
           />
+          <Section title="School introduction">
+            <ImageUploadField
+              label="School building / learning environment image"
+              value={form.imageUrl || ''}
+              onChange={(v) => setForm((s) => ({ ...s, imageUrl: v }))}
+              tenantSlug={tenantSlug}
+              hint="Upload the school's actual building photo when available."
+            />
+            <Field
+              label="Introduction heading"
+              value={form.introHeading || ''}
+              onChange={(v) => setForm((s) => ({ ...s, introHeading: v }))}
+            />
+            <Field
+              label="Introduction body"
+              value={form.introBody || ''}
+              onChange={(v) => setForm((s) => ({ ...s, introBody: v }))}
+              multiline
+            />
+          </Section>
+          <Section title="Programmes">
+            <SchoolProgramsEditor
+              programs={form.schoolPrograms || []}
+              onChange={setField(setForm, 'schoolPrograms')}
+            />
+          </Section>
+          <Section title="Key facts and goals">
+            <TextListEditor
+              label="School facts"
+              items={form.schoolFacts || []}
+              onChange={setField(setForm, 'schoolFacts')}
+              addLabel="Add fact"
+            />
+            <TextListEditor
+              label="Overall goals"
+              items={form.schoolGoals || []}
+              onChange={setField(setForm, 'schoolGoals')}
+              addLabel="Add goal"
+            />
+          </Section>
         </>
       ) : null}
 

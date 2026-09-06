@@ -54,6 +54,55 @@
       "rationale": "Existing term-subscription relationship; strongest path to a flagship EduSuite case study."
     }
   },
+  "icms": {
+    "name": "Hyperion ICMS",
+    "tagline": "Islamic Center Management System — white-label sites, prayer times, Waqf, donations, and Islamiyyah for mosques and Islamic centers",
+    "audience": "Built for mosques, Islamic centers, and faith-based community organisations across Nigeria — multi-tenant SaaS with custom domains and on-ground Abuja support.",
+    "setupFeeNgn": { "min": 400000, "max": 1800000, "note": "Depends on branding, content migration, custom domain, and Paystack donation setup" },
+    "subscription": {
+      "perMonthNgn": { "min": 45000, "max": 150000 },
+      "annualNgn": { "min": 450000, "max": 1500000 },
+      "note": "Priced by plan tier (Community / Growth / Institution); includes hosting and Hyperion Care Starter for year one when bundled"
+    },
+    "moduleGroups": [
+      {
+        "id": "public",
+        "title": "Public center site",
+        "modules": [
+          { "id": "site", "title": "White-label website", "description": "Brand-first public site with custom domain, pages, and UI variants per center." },
+          { "id": "prayer", "title": "Prayer times", "description": "Location-based daily prayer timings with method and madhab settings." },
+          { "id": "events", "title": "Events & programmes", "description": "Jum’uah, lectures, and community events on the public calendar." },
+          { "id": "articles", "title": "Articles & khutbah", "description": "Publish guidance, announcements, and knowledge content for the congregation." },
+          { "id": "facilities", "title": "Facilities", "description": "Showcase prayer halls, classrooms, and center amenities." }
+        ]
+      },
+      {
+        "id": "stewardship",
+        "title": "Stewardship & giving",
+        "modules": [
+          { "id": "donate", "title": "Donations & Paystack", "description": "Donate funds, ledger, and per-tenant Paystack keys for transparent giving." },
+          { "id": "waqf", "title": "Waqf projects", "description": "Endowment campaigns with goals, progress, and lasting-charity storytelling." },
+          { "id": "bank", "title": "Bank details", "description": "Published account details and fund labels managed from admin." }
+        ]
+      },
+      {
+        "id": "ops",
+        "title": "Center operations",
+        "modules": [
+          { "id": "islamiyyah", "title": "Islamiyyah", "description": "Classes and student records for Qur’an and Islamic learning programmes." },
+          { "id": "leadership", "title": "Leadership", "description": "Imams, directors, and public leadership profiles." },
+          { "id": "committee", "title": "Shurah / committee", "description": "Committee membership and governance roles." },
+          { "id": "team", "title": "Team & roles", "description": "Owner, imam, editor, finance, and viewer roles with capability gates." },
+          { "id": "brand", "title": "Brand tokens", "description": "Colors, typography, and logo for each tenant’s white-label identity." },
+          { "id": "inbox", "title": "Contact inbox", "description": "Messages from the public contact form in one place." }
+        ]
+      }
+    ],
+    "pilotCenter": {
+      "recommended": "Anas bn Malik Islamic Center",
+      "rationale": "Flagship tenant showcase already on the platform — strongest path to a named ICMS case study and referrals."
+    }
+  },
   "smeKit": {
     "name": "SME Digital Business Kit",
     "skus": [
@@ -123,7 +172,7 @@
         ]
       }
     ],
-    "attachRule": "Offer with every EduSuite and SME Kit delivery within 30 days of go-live."
+    "attachRule": "Offer with every EduSuite, ICMS, and SME Kit delivery within 30 days of go-live."
   },
   "training": {
     "cohortExample": {

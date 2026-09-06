@@ -39,6 +39,8 @@ export type IcmsTenantDoc = {
   address?: string | null
   phones?: { number?: string | null }[] | null
   email?: string | null
+  facebookUrl?: string | null
+  instagramUrl?: string | null
   logo?: number | string | { id?: number | string; url?: string | null } | null
   logoUrl?: string | null
   colors?: Partial<TenantColors> | null
@@ -46,6 +48,7 @@ export type IcmsTenantDoc = {
   planTier?: string | null
   domainLabel?: string | null
   uiVariant?: string | null
+  homeSectionOrder?: unknown
   customDomain?: string | null
   customDomainStatus?: string | null
   customDomainError?: string | null
@@ -92,12 +95,25 @@ function toLocalImageSrc(url: string): string {
   return url
 }
 
+/** Payload disk media and local /icms/uploads are not durable on Vercel without object storage. */
+function isUndurableImagePath(url: string): boolean {
+  if (process.env.VERCEL !== '1') return false
+  if (url.startsWith('/icms/uploads/')) return true
+  if (!url.startsWith('/api/media/')) return false
+  return !(process.env.S3_BUCKET && process.env.S3_ACCESS_KEY_ID)
+}
+
 function logoUrl(doc: IcmsTenantDoc): string {
-  if (doc.logoUrl?.trim()) return toLocalImageSrc(doc.logoUrl.trim())
-  if (doc.logo && typeof doc.logo === 'object' && doc.logo.url) {
-    return toLocalImageSrc(doc.logo.url)
+  const fallback = `/tenants/${doc.slug}/logo.png`
+  if (doc.logoUrl?.trim()) {
+    const src = toLocalImageSrc(doc.logoUrl.trim())
+    return isUndurableImagePath(src) ? fallback : src
   }
-  return `/tenants/${doc.slug}/logo.png`
+  if (doc.logo && typeof doc.logo === 'object' && doc.logo.url) {
+    const src = toLocalImageSrc(doc.logo.url)
+    return isUndurableImagePath(src) ? fallback : src
+  }
+  return fallback
 }
 
 export function mapTenantDoc(doc: IcmsTenantDoc): TenantConfig {
@@ -110,10 +126,15 @@ export function mapTenantDoc(doc: IcmsTenantDoc): TenantConfig {
     address: doc.address || '',
     phones: (doc.phones || []).map((p) => p.number).filter(Boolean) as string[],
     email: doc.email || '',
+    facebookUrl: doc.facebookUrl?.trim() || undefined,
+    instagramUrl: doc.instagramUrl?.trim() || undefined,
     logo: logoUrl(doc),
     colors: { ...DEFAULT_TENANT_COLORS, ...(doc.colors || {}) },
     domainLabel: doc.domainLabel || `${doc.slug}.hyperiontechhub.com`,
     uiVariant: normalizeUiVariant(doc.uiVariant),
+    homeSectionOrder: Array.isArray(doc.homeSectionOrder)
+      ? (doc.homeSectionOrder as string[])
+      : undefined,
     customDomain: doc.customDomain?.trim() || undefined,
     customDomainStatus: (doc.customDomainStatus as CustomDomainStatus) || 'none',
     customDomainError: doc.customDomainError || undefined,

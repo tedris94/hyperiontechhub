@@ -14,7 +14,10 @@
       "Foundation for EduSuite SaaS case study and referrals"
     ],
     "technologies": ["WordPress", "School Management", "Educare", "Hosting"],
-    "projectUrl": "",
+    "projectUrl": "https://bos.hyperiontechhub.com/",
+    "previewImage": "/assets/portfolio/bright-olivelight-preview.png",
+    "logo": "/assets/clients/bright-olivelight.png",
+    "brandColors": ["#1B5E20", "#2E7D32", "#81C784"],
     "featured": true,
     "sortOrder": 1
   },
@@ -33,9 +36,56 @@
       "Named portfolio asset for EduSuite GTM"
     ],
     "technologies": ["WordPress", "Educare", "Custom plugins"],
-    "projectUrl": "",
+    "projectUrl": "https://hmis.hyperiontechhub.com/",
+    "previewImage": "/assets/portfolio/haqqul-mubeen-preview.png",
+    "logo": "/assets/clients/haqqul-mubeen-ar.png",
+    "brandColors": ["#6D1B72", "#36136D", "#CF7088"],
     "featured": true,
     "sortOrder": 2
+  },
+  {
+    "slug": "model-islamic-education-foundation",
+    "title": "School portal for an Islamic education foundation",
+    "client": "Model Islamic Education Foundation",
+    "industry": "schools",
+    "category": "EduSuite / School systems",
+    "summary": "Secure staff and parent sign-in portal for a Kubwa Islamic school foundation — another named EduSuite delivery with live authentication and account access.",
+    "challenge": "The foundation needed a professional, branded portal for teachers and parents to access school accounts without relying on ad-hoc WhatsApp or paper workflows.",
+    "solution": "Delivered a branded WordPress school portal with account sign-in, role-aware access, and Hyperion hosting — aligned with our EduSuite pattern for Islamic and private schools.",
+    "results": [
+      "Live branded school sign-in experience",
+      "Named Islamic-school portfolio proof in Abuja",
+      "Reusable EduSuite onboarding path for similar foundations"
+    ],
+    "technologies": ["WordPress", "School Portal", "Hosting"],
+    "projectUrl": "https://modelislamicedufoundation.com/",
+    "previewImage": "/assets/portfolio/model-islamic-preview.png",
+    "logo": "/assets/clients/model-islamic.png",
+    "brandColors": ["#0D1B4C", "#1A2BC2", "#C62828"],
+    "featured": true,
+    "sortOrder": 3
+  },
+  {
+    "slug": "anas-bn-malik-islamic-center",
+    "title": "Islamic Center Management System",
+    "client": "Anas bn Malik Islamic Center",
+    "industry": "mosques",
+    "category": "ICMS / Mosque systems",
+    "summary": "White-label ICMS tenant — prayer times, Waqf, donations, Islamiyyah, and a brand-first public site for a Galadimawa Islamic center.",
+    "challenge": "The center needed a dignified digital home for mosque life, Da’wah, giving, and learning — not a generic brochure site or scattered WhatsApp workflows.",
+    "solution": "Launched Hyperion ICMS as Tenant #1: custom brand tokens, prayer timings, Waqf campaigns, Paystack-ready donations, Islamiyyah records, and role-based admin for directors, imams, and finance.",
+    "results": [
+      "Live multi-tenant ICMS showcase in production use",
+      "Reusable onboarding path for the next mosque or Islamic center",
+      "Named portfolio proof for ICMS GTM and referrals"
+    ],
+    "technologies": ["Next.js", "Payload CMS", "Paystack", "Multi-tenant SaaS"],
+    "projectUrl": "https://www.hyperiontechhub.com/icms/anas-bn-malik",
+    "previewImage": "/assets/portfolio/anas-bn-malik-preview.png",
+    "logo": "/assets/clients/anas-bn-malik.png",
+    "brandColors": ["#0B3D2E", "#C9A227", "#F5F0E6"],
+    "featured": true,
+    "sortOrder": 4
   },
   {
     "slug": "fizam-table-water",
@@ -52,8 +102,11 @@
       "Repeatable quote template for Presence / Commerce / Ops SKUs"
     ],
     "technologies": ["Next.js", "Payload CMS", "Paystack", "Supabase"],
-    "projectUrl": "https://fizam.ng",
+    "projectUrl": "https://www.fizam.ng/",
+    "previewImage": "/assets/portfolio/fizam-preview.png",
+    "logo": "/assets/clients/fizam.png",
+    "brandColors": ["#0A4D8C", "#1A2BC2", "#E8F4FC"],
     "featured": true,
-    "sortOrder": 3
+    "sortOrder": 5
   }
 ]

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import type { TenantConfig } from '@/lib/icms/types'
 import type { FooterStyle } from '@/lib/icms/ui-variants'
+import { Facebook, Instagram } from 'lucide-react'
 
 function hrefJoin(base: string, path: string) {
   if (!path) return base || '/'
@@ -30,7 +31,7 @@ export default function IcmsFooter({
     ['Articles', 'articles'],
     ['Leadership', 'leadership'],
     ['Shurah', 'committee'],
-    ['Contact', 'contact'],
+    ['Contact Us', 'contact'],
   ] as const
 
   if (footerStyle === 'centered') {
@@ -46,6 +47,7 @@ export default function IcmsFooter({
           />
           <p className="icms-display mt-4 text-xl">{tenant.shortName}</p>
           <p className="mt-2 text-sm text-white/70">{tenant.motto}</p>
+          <SocialLinks tenant={tenant} />
           <div className="mx-auto mt-8 flex max-w-xl flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-white/80">
             {explore.map(([label, href]) => (
               <Link key={href} href={hrefJoin(base, href)} className="hover:text-white">
@@ -84,6 +86,7 @@ export default function IcmsFooter({
               </div>
             </div>
             <p className="text-sm text-white/75">{tenant.motto}</p>
+            <SocialLinks tenant={tenant} />
           </div>
 
           {footerStyle !== 'compact' ? (
@@ -132,5 +135,23 @@ export default function IcmsFooter({
         </div>
       </div>
     </footer>
+  )
+}
+
+function SocialLinks({ tenant }: { tenant: TenantConfig }) {
+  if (!tenant.facebookUrl && !tenant.instagramUrl) return null
+  return (
+    <div className="mt-5 flex items-center gap-3">
+      {tenant.facebookUrl ? (
+        <a href={tenant.facebookUrl} aria-label="Facebook" className="text-white/70 hover:text-white">
+          <Facebook className="h-5 w-5" />
+        </a>
+      ) : null}
+      {tenant.instagramUrl ? (
+        <a href={tenant.instagramUrl} aria-label="Instagram" className="text-white/70 hover:text-white">
+          <Instagram className="h-5 w-5" />
+        </a>
+      ) : null}
+    </div>
   )
 }

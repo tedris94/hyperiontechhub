@@ -10,6 +10,7 @@ import {
 import { prayerMethodLabel, type PrayerCalculationMethod } from '@/lib/icms/prayer-calc'
 import PageHero from '@/components/icms/PageHero'
 import PrayerStrip from '@/components/icms/PrayerStrip'
+import OverflowHint from '@/components/icms/OverflowHint'
 
 type Props = { params: Promise<{ tenant: string }> }
 
@@ -179,7 +180,7 @@ export default async function MosquePage({ params }: Props) {
             </p>
           </div>
 
-          <div className="overflow-x-auto">
+          <OverflowHint>
             <table className="w-full min-w-[640px] border-collapse text-center text-sm">
               <thead>
                 <tr>
@@ -230,7 +231,7 @@ export default async function MosquePage({ params }: Props) {
                 ))}
               </tbody>
             </table>
-          </div>
+          </OverflowHint>
         </div>
       </section>
     </>

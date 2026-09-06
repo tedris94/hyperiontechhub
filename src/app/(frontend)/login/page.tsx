@@ -12,33 +12,17 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from '@/components/ui/badge'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 
-function normalizeReturnTo(value: string | null | undefined, fallback = '/dashboard'): string {
-  const raw = typeof value === 'string' ? value.trim() : ''
-  if (!raw) return fallback
-
-  const target = raw.startsWith('/') ? raw : `/${raw}`
-  const pathOnly = target.split('?')[0]
-
-  if (target.startsWith('//') || target.includes('://') || pathOnly === '/login') {
-    return fallback
-  }
-
-  return target
-}
-
 async function resolveDestination(returnTo: string): Promise<string> {
-  const safeReturnTo = normalizeReturnTo(returnTo)
-
   try {
     const res = await fetch(
-      `/api/auth/post-login-redirect?returnTo=${encodeURIComponent(safeReturnTo)}`,
+      `/api/auth/post-login-redirect?returnTo=${encodeURIComponent(returnTo || '/dashboard')}`,
       { credentials: 'include' },
     )
-    if (!res.ok) return safeReturnTo
+    if (!res.ok) return returnTo || '/dashboard'
     const data = (await res.json()) as { path?: string }
-    return data.path || safeReturnTo
+    return data.path || returnTo || '/dashboard'
   } catch {
-    return safeReturnTo
+    return returnTo || '/dashboard'
   }
 }
 
@@ -60,7 +44,7 @@ export default function LoginPage() {
     if (typeof window === 'undefined') return
     const params = new URLSearchParams(window.location.search)
     setRedirectMessage(params.get('message') || '')
-    setReturnTo(normalizeReturnTo(params.get('returnTo'), '/dashboard'))
+    setReturnTo(params.get('returnTo') || '/dashboard')
   }, [])
 
   useEffect(() => {

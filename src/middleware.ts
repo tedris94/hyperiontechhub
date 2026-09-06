@@ -41,6 +41,11 @@ const RESERVED_VANITY_PATHS = new Set([
 ])
 
 function platformOrigin(req: NextRequest): string {
+  // Keep redirects on the same host the client used (LAN IP on phones, not localhost).
+  const requestHost = normalizeHost(req.headers.get('x-forwarded-host') || req.headers.get('host'))
+  if (requestHost === 'localhost' || requestHost === '127.0.0.1' || /^(\d{1,3}\.){3}\d{1,3}$/.test(requestHost)) {
+    return req.nextUrl.origin
+  }
   const env = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '')
   if (env) return env
   const proto = req.headers.get('x-forwarded-proto') || 'https'

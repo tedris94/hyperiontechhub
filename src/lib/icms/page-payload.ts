@@ -43,6 +43,9 @@ export function mergePageContent(p?: PageContent, pageKey = 'home'): PageContent
     storyEyebrow: p?.storyEyebrow || '',
     purposeEyebrow: p?.purposeEyebrow || '',
     mapCtaLabel: p?.mapCtaLabel || '',
+    schoolPrograms: p?.schoolPrograms?.length ? [...p.schoolPrograms] : [],
+    schoolFacts: p?.schoolFacts?.length ? [...p.schoolFacts] : [],
+    schoolGoals: p?.schoolGoals?.length ? [...p.schoolGoals] : [],
   }
 }
 
@@ -88,6 +91,15 @@ export function pageContentToPayload(form: PageContent): Record<string, unknown>
     storyEyebrow: form.storyEyebrow || undefined,
     purposeEyebrow: form.purposeEyebrow || undefined,
     mapCtaLabel: form.mapCtaLabel || undefined,
+    schoolPrograms: form.schoolPrograms?.map((program) => ({
+      title: program.title,
+      summary: program.summary,
+      schedule: program.schedule,
+      focus: program.focus,
+      outcomes: program.outcomes,
+    })),
+    schoolFacts: form.schoolFacts?.map((text) => ({ text })),
+    schoolGoals: form.schoolGoals?.map((text) => ({ text })),
   }
 
   if (form.waqfGoalAmount != null && !Number.isNaN(form.waqfGoalAmount)) {

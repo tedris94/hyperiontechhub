@@ -11,6 +11,8 @@ type Initial = {
   phone1: string
   phone2: string
   email: string
+  facebookUrl: string
+  instagramUrl: string
   domainLabel: string
   bankName: string
   accountName: string
@@ -68,6 +70,8 @@ export default function SettingsForm({
             motto: form.motto,
             address: form.address,
             email: form.email,
+            facebookUrl: form.facebookUrl.trim(),
+            instagramUrl: form.instagramUrl.trim(),
             phones,
             bank: {
               bankName: form.bankName,
@@ -172,6 +176,28 @@ export default function SettingsForm({
             onChange={(e) => setForm((s) => ({ ...s, email: e.target.value }))}
           />
         </label>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <label className="block text-sm font-medium">
+            Facebook URL
+            <input
+              className="icms-input mt-1.5"
+              type="url"
+              value={form.facebookUrl}
+              onChange={(e) => setForm((s) => ({ ...s, facebookUrl: e.target.value }))}
+              placeholder="https://facebook.com/..."
+            />
+          </label>
+          <label className="block text-sm font-medium">
+            Instagram URL
+            <input
+              className="icms-input mt-1.5"
+              type="url"
+              value={form.instagramUrl}
+              onChange={(e) => setForm((s) => ({ ...s, instagramUrl: e.target.value }))}
+              placeholder="https://instagram.com/..."
+            />
+          </label>
+        </div>
       </div>
 
       <div className="space-y-4 border-t border-black/10 pt-6">

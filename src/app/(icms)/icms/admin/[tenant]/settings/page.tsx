@@ -88,6 +88,8 @@ export default async function AdminSettingsPage({ params }: Props) {
             phone1: tenant.phones[0] || '',
             phone2: tenant.phones[1] || '',
             email: tenant.email,
+            facebookUrl: tenant.facebookUrl || '',
+            instagramUrl: tenant.instagramUrl || '',
             domainLabel: tenant.domainLabel,
             bankName: tenant.bank?.bankName || '',
             accountName: tenant.bank?.accountName || '',

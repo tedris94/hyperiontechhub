@@ -72,8 +72,8 @@ export const Users: CollectionConfig = {
           return role === 'super_admin' || role === 'admin'
         }) as FieldAccess,
       },
-      validate: (value, { req }) => {
-        const actor = (req.user as { role?: string } | null)?.role
+      validate: (value: unknown, { req }: { req: { user?: { role?: string } | null } }) => {
+        const actor = req.user?.role
         if (!value) return 'Role is required'
         if (actor && !canAssignPlatformRole(actor, String(value))) {
           return 'You cannot assign this role'

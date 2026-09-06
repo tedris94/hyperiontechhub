@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { ProductPageShell, FeatureList } from '@/components/ProductPageShell'
+import IndustryCaseStudies from '@/components/IndustryCaseStudies'
 
 export const metadata = {
   title: 'Schools | Hyperion Tech Hub',
@@ -14,7 +15,7 @@ export default function SchoolsIndustryPage() {
       title="Technology for Nigerian schools"
       tagline="Fees, results, attendance, and parent trust — for private, Islamic, and public schools anywhere in Nigeria, with strong Abuja on-ground support."
       primaryCta={{ label: 'Explore EduSuite', href: '/products/edusuite' }}
-      secondaryCta={{ label: 'School case studies', href: '/portfolio' }}
+      secondaryCta={{ label: 'Case studies', href: '#case-studies' }}
     >
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 lg:px-8 max-w-5xl grid lg:grid-cols-2 gap-12">
@@ -42,7 +43,14 @@ export default function SchoolsIndustryPage() {
           </div>
         </div>
       </section>
-      <section className="py-16 bg-gray-50 text-center">
+
+      <IndustryCaseStudies
+        industry="schools"
+        title="School case studies"
+        subtitle="Live portals we still host and support — Bright Olivelight, Haqqul Mubeen, and Model Islamic Education Foundation."
+      />
+
+      <section className="py-16 bg-white text-center">
         <div className="container mx-auto px-4">
           <Link
             href="/consultation"

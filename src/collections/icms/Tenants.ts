@@ -34,6 +34,8 @@ export const IcmsTenants: CollectionConfig = {
       fields: [{ name: 'number', type: 'text', required: true }],
     },
     { name: 'email', type: 'email' },
+    { name: 'facebookUrl', type: 'text', admin: { description: 'Optional public Facebook URL' } },
+    { name: 'instagramUrl', type: 'text', admin: { description: 'Optional public Instagram URL' } },
     {
       name: 'logo',
       type: 'upload',
@@ -128,7 +130,15 @@ export const IcmsTenants: CollectionConfig = {
       ],
       admin: {
         description:
-          'Public site layout pack (nav/hero/section order). Brand colors still apply on top.',
+          'Public site layout pack (nav/hero). Homepage section order can be overridden below.',
+      },
+    },
+    {
+      name: 'homeSectionOrder',
+      type: 'json',
+      admin: {
+        description:
+          'Homepage section order for this tenant. Edit by drag-and-drop in tenant admin → Brand tokens. Example: ["hero","prayer","events","articles","waqf","findUs"]',
       },
     },
     {

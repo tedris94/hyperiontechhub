@@ -11,6 +11,7 @@ import {
   Wrench, 
   Palette, 
   Shield,
+  Building2,
   ArrowRight,
 } from 'lucide-react';
 import { useSiteContent } from '@/contexts/SiteContentContext';
@@ -55,6 +56,7 @@ export default function Services({ services }: ServicesProps) {
     Wrench,
     Palette,
     Shield,
+    Building2,
   };
 
   const fallbackServices: ServiceDisplayItem[] = servicesContent.fallbackItems.map((item, index) => ({

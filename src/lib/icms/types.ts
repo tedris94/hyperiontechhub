@@ -29,12 +29,16 @@ export type TenantConfig = {
   address: string
   phones: string[]
   email: string
+  facebookUrl?: string
+  instagramUrl?: string
   logo: string
   colors: TenantColors
   /** Primary public host display string */
   domainLabel: string
   /** Public layout pack */
   uiVariant: IcmsUiVariant
+  /** Custom homepage section order; empty/undefined uses the layout-pack default */
+  homeSectionOrder?: string[]
   /** Connected custom hostname (normalized), if any */
   customDomain?: string
   customDomainStatus?: CustomDomainStatus

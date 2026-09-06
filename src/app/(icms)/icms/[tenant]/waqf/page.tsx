@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getTenantBySlug, mapTenantDoc } from '@/lib/icms/tenants'
-import { formatNaira, getWaqfProjects } from '@/lib/icms/content'
+import { formatNaira, getPageContent, getWaqfProjects } from '@/lib/icms/content'
 import { getPublicBaseFromHeaders } from '@/lib/icms/public-base-server'
 import PageHero from '@/components/icms/PageHero'
 
@@ -56,6 +56,14 @@ const WAQF_STEPS = [
   },
 ]
 
+const WAQF_REASONS = [
+  'Maintaining the physical structures of the Centre’s Masjid.',
+  'Expanding the structures as needed.',
+  'Paying salaries and allowances of the Masjid Chief Imam and assistants, Muezzins, and support staff.',
+  'Supporting Da’awah activities of the Centre.',
+  'Investment in Shariah-compliant ventures for growth and sustainability of the Fund.',
+]
+
 function GoldRule({ className = '' }: { className?: string }) {
   return (
     <div
@@ -92,7 +100,10 @@ export default async function WaqfPage({ params }: Props) {
   const doc = await getTenantBySlug(slug)
   if (!doc) notFound()
   const tenant = mapTenantDoc(doc)
-  const waqfProjects = await getWaqfProjects(doc.id)
+  const [waqfProjects, page] = await Promise.all([
+    getWaqfProjects(doc.id),
+    getPageContent(doc.id, 'waqf'),
+  ])
   const base = await getPublicBaseFromHeaders(tenant.slug)
 
   const projects = waqfProjects.map((project, index) => {
@@ -117,8 +128,8 @@ export default async function WaqfPage({ params }: Props) {
       <PageHero
         tenant={tenant}
         patterned
-        title="Waqf & Endowments"
-        subtitle="Leave a legacy that serves the community long after your lifetime — through the Islamic tradition of permanent endowment."
+        title={page.heroTitle || 'Waqf Fund'}
+        subtitle={page.heroSubtitle || 'A lasting endowment supporting worship, education, and service to the Ummah.'}
       />
 
       {/* Understanding Waqf */}
@@ -130,7 +141,7 @@ export default async function WaqfPage({ params }: Props) {
             </p>
             <GoldRule />
             <h2 className="icms-display mt-3 text-3xl uppercase leading-snug text-[color:var(--icms-forest)] md:text-4xl">
-              An Institution as Old as Islam Itself
+              {page.introHeading || 'Reasons for the Waqf Fund'}
             </h2>
 
             <p
@@ -144,21 +155,13 @@ export default async function WaqfPage({ params }: Props) {
               charity…&rdquo; — Sahih Muslim
             </p>
             <p className="mb-4 text-[0.88rem] leading-[1.85] text-[color:var(--icms-charcoal)]/85">
-              A Waqf (pl. Awqaf) is an Islamic endowment — a portion of wealth set aside
-              permanently in the name of Allah, whose benefit flows continuously to the
-              community. The principal is preserved; only its returns are spent.
+              {page.introBody || 'A Waqf is an Islamic endowment whose benefit flows continuously to the community while its principal is preserved.'}
             </p>
             <p className="mb-4 text-[0.88rem] leading-[1.85] text-[color:var(--icms-charcoal)]/85">
-              Historically, Awqaf funded universities (including al-Azhar), hospitals,
-              libraries, and public infrastructure across the Muslim world. The institution
-              ensured that critical services were never held hostage to political cycles or
-              donor fatigue.
             </p>
-            <p className="text-[0.88rem] leading-[1.85] text-[color:var(--icms-charcoal)]/85">
-              At {tenant.shortName}, we are rebuilding this tradition in Abuja — starting
-              with our mosque and school, with the intention of expanding as the endowment
-              grows.
-            </p>
+            <ul className="mt-7 space-y-3 text-[0.88rem] leading-[1.85] text-[color:var(--icms-charcoal)]/85">
+              {WAQF_REASONS.map((reason) => <li key={reason} className="flex gap-3"><span className="text-[color:var(--icms-gold)]">—</span><span>{reason}</span></li>)}
+            </ul>
           </div>
 
           <div>
@@ -189,6 +192,37 @@ export default async function WaqfPage({ params }: Props) {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="icms-section bg-white">
+        <div className="icms-container grid gap-12 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--icms-gold)]">Why support the Waqf Fund</p>
+            <h2 className="icms-display mt-3 text-3xl uppercase text-[color:var(--icms-forest)]">Sadaqatul Jariyah with community impact</h2>
+            <p className="mt-6 text-sm leading-relaxed text-[color:var(--icms-warm-gray)] md:text-base">Supporting the Waqf Fund aligns with the Islamic doctrine of Sadaqatul Jariyah, offering continuous reward in this life and the hereafter. Your support also directly benefits the community, improving quality of life and helping foster a strong, united Ummah.</p>
+          </div>
+          <div className="border-l border-[color:var(--icms-gold)]/45 pl-8 lg:pl-12">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--icms-gold)]">Management</p>
+            <h2 className="icms-display mt-3 text-3xl uppercase text-[color:var(--icms-forest)]">Transparency and accountability</h2>
+            <p className="mt-6 text-sm leading-relaxed text-[color:var(--icms-warm-gray)] md:text-base">The Waqf Fund will be managed by a Board of Trustees (Mutawallis), guided by renowned Shariah Advisers to ensure that all supported activities comply with Islamic principles. Regular financial and audit reports will be provided to contributors.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="icms-section bg-[color:var(--icms-ivory)]">
+        <div className="icms-container">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--icms-gold)]">How to contribute</p>
+          <GoldRule />
+          <h2 className="icms-display mt-3 text-3xl uppercase text-[color:var(--icms-forest)] md:text-4xl">Several ways to leave a legacy</h2>
+          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            {[
+              ['Bank transfers', 'Direct transfers can be made to the Waqf Fund account. Account details are available upon request.'],
+              ['In-person contributions', 'Visit the office of the Chief Imam at Anas Bn Malik Islamic Centre Masjid, AMSSCO Platinum City Estate, Galadimawa, Abuja.'],
+              ['In-kind contributions', 'Support the Waqf Fund through donations of real estate.'],
+              ['Legacy giving', 'Consider leaving the Waqf Fund in your will.'],
+            ].map(([title, body]) => <article key={title} className="border-t border-[color:var(--icms-gold)]/45 pt-5"><h3 className="icms-display text-lg uppercase text-[color:var(--icms-forest)]">{title}</h3><p className="mt-3 text-sm leading-relaxed text-[color:var(--icms-warm-gray)]">{body}</p></article>)}
           </div>
         </div>
       </section>

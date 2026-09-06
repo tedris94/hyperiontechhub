@@ -13,9 +13,6 @@ export const metadata: Metadata = {
 export default function IcmsRootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async />
-      </head>
       <body suppressHydrationWarning>
         <AuthProvider>
           <IcmsToastProvider>{children}</IcmsToastProvider>
