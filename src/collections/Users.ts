@@ -24,7 +24,7 @@ export const Users: CollectionConfig = {
   hooks: {
     afterLogin: [
       async ({ req, user }) => {
-        await recordAuthEvent(req, 'login', user as { id?: unknown; email?: string; role?: string })
+        void recordAuthEvent(req, 'login', user as { id?: unknown; email?: string; role?: string })
       },
     ],
     afterLogout: [
