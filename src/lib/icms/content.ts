@@ -68,8 +68,13 @@ export async function getPrayerLocationForTenant(
 }
 
 /** Live Adhan calculation for today (Al-Moazin-style) */
-export async function getPrayerTimesToday(tenantIdValue: string | number): Promise<PrayerTime[]> {
-  const loc = await getPrayerLocationForTenant(tenantIdValue)
+export async function getPrayerTimesToday(
+  tenantOrLocation: string | number | PrayerLocationConfig,
+): Promise<PrayerTime[]> {
+  const loc =
+    typeof tenantOrLocation === 'object'
+      ? tenantOrLocation
+      : await getPrayerLocationForTenant(tenantOrLocation)
   return calculatePrayerTimesForDate(loc, new Date())
 }
 
@@ -154,7 +159,10 @@ export async function getPublicCommitteeMembers(
   return all.filter((m) => m.status === 'active' && m.showOnPublic !== false)
 }
 
-export async function getEvents(tenantIdValue: string | number): Promise<EventItem[]> {
+export async function getEvents(
+  tenantIdValue: string | number,
+  limit = 50,
+): Promise<EventItem[]> {
   if (!isPayloadEnabled() || String(tenantIdValue).startsWith('fallback')) {
     return fallbackEvents
   }
@@ -163,7 +171,7 @@ export async function getEvents(tenantIdValue: string | number): Promise<EventIt
     collection: 'icms-events',
     where: { tenant: { equals: tenantId(tenantIdValue) } },
     sort: 'eventDate',
-    limit: 50,
+    limit,
     overrideAccess: true,
   })
   return result.docs.map((d) => ({
@@ -178,7 +186,10 @@ export async function getEvents(tenantIdValue: string | number): Promise<EventIt
   }))
 }
 
-export async function getPublishedArticles(tenantIdValue: string | number): Promise<Article[]> {
+export async function getPublishedArticles(
+  tenantIdValue: string | number,
+  limit = 50,
+): Promise<Article[]> {
   if (!isPayloadEnabled() || String(tenantIdValue).startsWith('fallback')) {
     return fallbackPublished()
   }
@@ -192,7 +203,7 @@ export async function getPublishedArticles(tenantIdValue: string | number): Prom
       ],
     },
     sort: '-publishedAt',
-    limit: 50,
+    limit,
     overrideAccess: true,
   })
   return result.docs.map(mapArticle)

@@ -1,4 +1,5 @@
 import { getPayloadSingleton, isPayloadEnabled } from '@/lib/payload'
+import { cache } from 'react'
 import type { IcmsRole } from './roles'
 import type {
   CustomDomainStatus,
@@ -185,7 +186,7 @@ export function resolvePrayerLocation(doc?: IcmsTenantDoc | null): PrayerLocatio
   return { ...ABUJA_PRAYER_LOCATION }
 }
 
-export async function getTenantBySlug(slug: string): Promise<IcmsTenantDoc | null> {
+export const getTenantBySlug = cache(async (slug: string): Promise<IcmsTenantDoc | null> => {
   if (!isPayloadEnabled()) {
     if (slug === ANAS_TENANT.slug) {
       return {
@@ -221,11 +222,11 @@ export async function getTenantBySlug(slug: string): Promise<IcmsTenantDoc | nul
       ],
     },
     limit: 1,
-    depth: 1,
+    depth: 0,
     overrideAccess: true,
   })
   return (result.docs[0] as IcmsTenantDoc | undefined) || null
-}
+})
 
 export async function getTenantConfig(slug: string): Promise<TenantConfig | null> {
   const doc = await getTenantBySlug(slug)
@@ -242,7 +243,7 @@ export async function listTenants(): Promise<TenantConfig[]> {
       collection: 'icms-tenants',
       where: { status: { not_equals: 'suspended' } },
       limit: 100,
-      depth: 1,
+      depth: 0,
       sort: 'name',
       overrideAccess: true,
     })
@@ -258,7 +259,7 @@ export async function listTenantDocs(): Promise<IcmsTenantDoc[]> {
   const result = await payload.find({
     collection: 'icms-tenants',
     limit: 100,
-    depth: 1,
+    depth: 0,
     sort: 'name',
     overrideAccess: true,
   })

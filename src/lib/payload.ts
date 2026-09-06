@@ -24,7 +24,9 @@ export async function getPayloadSingleton() {
     cachedPromise = (async () => {
       const { getPayload } = await import('payload')
       const { default: payloadConfig } = await import('@payload-config')
-      return getPayload({ config: payloadConfig, cron: true })
+      // Cron jobs do not belong in a request-scoped Vercel function. Starting
+      // them here adds cold-start work and can keep free-plan invocations open.
+      return getPayload({ config: payloadConfig, cron: false })
     })().catch((error) => {
       cachedPromise = null
       throw error

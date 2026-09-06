@@ -9,6 +9,7 @@ import {
 } from '@/lib/icms/content'
 import { getUiVariant, resolveHomeSectionOrder } from '@/lib/icms/ui-variants'
 import { getPublicBaseFromHeaders } from '@/lib/icms/public-base-server'
+import { resolvePrayerLocation } from '@/lib/icms/tenants'
 import HomePageSections from '@/components/icms/HomePageSections'
 
 type Props = { params: Promise<{ tenant: string }> }
@@ -22,11 +23,11 @@ export default async function TenantHomePage({ params }: Props) {
   const base = await getPublicBaseFromHeaders(tenant.slug)
 
   const [events, prayerTimesToday, waqfProjects, page, articles] = await Promise.all([
-    getEvents(doc.id),
-    getPrayerTimesToday(doc.id),
+    getEvents(doc.id, 3),
+    getPrayerTimesToday(resolvePrayerLocation(doc)),
     getWaqfProjects(doc.id),
     getPageContent(doc.id, 'home'),
-    getPublishedArticles(doc.id),
+    getPublishedArticles(doc.id, 3),
   ])
 
   const upcoming = events.slice(0, 3)
