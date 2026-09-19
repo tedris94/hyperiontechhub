@@ -12,7 +12,7 @@ const pageKeys = [
   { label: 'Waqf', value: 'waqf' },
   { label: 'Donate', value: 'donate' },
   { label: 'Contact', value: 'contact' },
-  { label: 'Islamiyyah', value: 'islamiyyah' },
+  { label: 'Islamiya', value: 'islamiyyah' },
   { label: 'Khutba', value: 'khutba' },
   { label: 'Zakah', value: 'zakah' },
   { label: 'Ramadan', value: 'ramadan' },

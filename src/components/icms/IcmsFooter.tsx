@@ -30,9 +30,9 @@ export default function IcmsFooter({
     ['Waqf', 'waqf'],
     ['Articles', 'articles'],
     ['Leadership', 'leadership'],
-    ['Shurah', 'committee'],
+    ...(tenant.slug === 'anas-bn-malik' ? [] : ([['Shurah', 'committee']] as const)),
     ['Contact Us', 'contact'],
-  ] as const
+  ] as [string, string][]
 
   if (footerStyle === 'centered') {
     return (

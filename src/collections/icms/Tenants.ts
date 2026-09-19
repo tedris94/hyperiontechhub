@@ -150,6 +150,15 @@ export const IcmsTenants: CollectionConfig = {
       },
     },
     {
+      name: 'showPublicLogin',
+      type: 'checkbox',
+      defaultValue: true,
+      admin: {
+        description:
+          'Show Login on the public header. Super admin can toggle this in tenant admin → Public navigation.',
+      },
+    },
+    {
       name: 'domainLabel',
       type: 'text',
       admin: {

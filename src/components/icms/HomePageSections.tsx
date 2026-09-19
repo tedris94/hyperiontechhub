@@ -71,7 +71,7 @@ function HeroSection({
   const title = page.heroTitle || 'A home for worship, knowledge, and sincere service'
   const subtitle =
     page.heroSubtitle ||
-    "Mosque life, Da'wah, Waqf, donations, and Islamiyyah — unified under one dignified digital presence."
+    "Mosque life, Da'wah, Waqf, donations, and Islamiya — unified under one dignified digital presence."
 
   if (heroStyle === 'split') {
     return (

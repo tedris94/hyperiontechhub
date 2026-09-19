@@ -40,6 +40,8 @@ export type TenantConfig = {
   /** Custom homepage section order; empty/undefined uses the layout-pack default */
   homeSectionOrder?: string[]
   navigation: IcmsNavItem[]
+  /** When false, public header hides the Login link (Admin still shows when signed in) */
+  showPublicLogin?: boolean
   /** Connected custom hostname (normalized), if any */
   customDomain?: string
   customDomainStatus?: CustomDomainStatus

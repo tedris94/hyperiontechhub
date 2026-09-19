@@ -37,6 +37,7 @@ export default function IcmsHeader({
   const loginHref = `/login?returnTo=${encodeURIComponent(adminPath)}&message=${encodeURIComponent(
     `Sign in to manage ${tenant.shortName}.`,
   )}`
+  const showLoginLink = tenant.showPublicLogin !== false
 
   const height =
     headerStyle === 'slim' || headerStyle === 'minimal'
@@ -139,14 +140,14 @@ export default function IcmsHeader({
               >
                 Admin
               </Link>
-            ) : (
+            ) : showLoginLink ? (
               <Link
                 href={loginHref}
                 className="text-sm font-semibold text-[color:var(--icms-emerald)] hover:underline"
               >
                 Login
               </Link>
-            ))}
+            ) : null)}
         </nav>
 
         <div className="flex items-center gap-2 lg:hidden">
@@ -155,11 +156,11 @@ export default function IcmsHeader({
               <Link href={adminPath} className="px-2 py-1 text-sm font-semibold text-[color:var(--icms-emerald)]">
                 Admin
               </Link>
-            ) : (
+            ) : showLoginLink ? (
               <Link href={loginHref} className="px-2 py-1 text-sm font-semibold text-[color:var(--icms-emerald)]">
                 Login
               </Link>
-            )
+            ) : null
           ) : null}
           <button
             type="button"
@@ -200,11 +201,11 @@ export default function IcmsHeader({
                 <Link href={adminPath} className="py-1 text-sm font-semibold" onClick={() => setOpen(false)}>
                   Admin
                 </Link>
-              ) : (
+              ) : showLoginLink ? (
                 <Link href={loginHref} className="py-1 text-sm font-semibold" onClick={() => setOpen(false)}>
                   Login
                 </Link>
-              ))}
+              ) : null)}
           </div>
         </div>
       )}

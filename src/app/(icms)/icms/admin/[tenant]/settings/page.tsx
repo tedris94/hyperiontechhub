@@ -60,14 +60,25 @@ export default async function AdminSettingsPage({ params }: Props) {
               Home
             </a>
             <span> · </span>
-            <a
-              className="text-[color:var(--icms-emerald)] hover:underline"
-              href={`/icms/${tenant.slug}/committee`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Shurah / Committee
-            </a>
+            {tenant.slug === 'anas-bn-malik' ? (
+              <a
+                className="text-[color:var(--icms-emerald)] hover:underline"
+                href={`/icms/${tenant.slug}/about#administrative-structure`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                About / governance
+              </a>
+            ) : (
+              <a
+                className="text-[color:var(--icms-emerald)] hover:underline"
+                href={`/icms/${tenant.slug}/committee`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Shurah / Committee
+              </a>
+            )}
           </p>
           <p className="mt-2 text-xs">
             Connecting a custom domain requires the <strong>Custom domains</strong> capability

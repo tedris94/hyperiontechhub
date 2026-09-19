@@ -153,12 +153,21 @@ export default function AdminShell({
         >
           View public site →
         </Link>
-        <Link
-          href={`${publicBase}/committee`}
-          className="mt-1 inline-block text-[color:var(--icms-gold)] hover:underline"
-        >
-          Public Shurah page →
-        </Link>
+        {tenant.slug !== 'anas-bn-malik' ? (
+          <Link
+            href={`${publicBase}/committee`}
+            className="mt-1 inline-block text-[color:var(--icms-gold)] hover:underline"
+          >
+            Public Shurah page →
+          </Link>
+        ) : (
+          <Link
+            href={`${publicBase}/about#administrative-structure`}
+            className="mt-1 inline-block text-[color:var(--icms-gold)] hover:underline"
+          >
+            Public About / governance →
+          </Link>
+        )}
         <button
           type="button"
           onClick={() => logout(base)}

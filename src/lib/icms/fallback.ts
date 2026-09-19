@@ -1,5 +1,6 @@
 import type { TenantConfig } from './types'
 import { DEFAULT_TENANT_COLORS } from './brand-tokens'
+import { ANAS_ICMS_NAVIGATION } from './nav'
 
 /** Static fallback when Payload/DB is unavailable (local without DATABASE_URI). */
 export const ANAS_TENANT: TenantConfig = {
@@ -15,6 +16,8 @@ export const ANAS_TENANT: TenantConfig = {
   domainLabel: 'anas-bn-malik.hyperiontechhub.com',
   uiVariant: 'classic',
   homeSectionOrder: ['hero', 'prayer', 'events', 'articles', 'waqf', 'findUs'],
+  navigation: ANAS_ICMS_NAVIGATION,
+  showPublicLogin: false,
   customDomainStatus: 'none',
   prayer: {
     latitude: 9.0145,

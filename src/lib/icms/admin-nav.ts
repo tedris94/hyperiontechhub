@@ -12,7 +12,7 @@ export const ADMIN_NAV: AdminNavItem[] = [
   { label: 'Site pages', href: 'pages', capability: 'pages' },
   { label: 'Articles', href: 'articles', capability: 'content' },
   { label: 'Events', href: 'events', capability: 'content' },
-  { label: 'Islamiyyah', href: 'islamiyyah', capability: 'content' },
+  { label: 'Islamiya', href: 'islamiyyah', capability: 'content' },
   { label: 'Leadership', href: 'leadership', capability: 'leadership' },
   { label: 'Shurah / Committee', href: 'committee', capability: 'committee' },
   { label: 'Waqf', href: 'waqf', capability: 'waqf' },

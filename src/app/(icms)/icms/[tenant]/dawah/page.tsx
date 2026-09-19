@@ -5,7 +5,9 @@ import { getTenantBySlug, mapTenantDoc } from '@/lib/icms/tenants'
 import { getPageContent } from '@/lib/icms/content'
 import { getPublicBaseFromHeaders } from '@/lib/icms/public-base-server'
 import { ICMS_MEDIA } from '@/lib/icms/media-assets'
+import { ANAS_DAWAH_MEMBERS } from '@/lib/icms/anas-governance'
 import PageHero from '@/components/icms/PageHero'
+import CommitteeRoster from '@/components/icms/CommitteeRoster'
 
 type Props = { params: Promise<{ tenant: string }> }
 
@@ -89,7 +91,21 @@ export default async function DawahPage({ params }: Props) {
         </div>
       </section>
 
-      {peopleBlock ? (
+      {slug === 'anas-bn-malik' ? (
+        <section className="icms-section bg-white">
+          <div className="icms-container">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--icms-gold)]">
+              People who serve
+            </p>
+            <h2 className="icms-display mt-3 text-3xl uppercase text-[color:var(--icms-forest)]">
+              {peopleBlock?.title || 'Membership of DSC'}
+            </h2>
+            <div className="mt-10">
+              <CommitteeRoster people={ANAS_DAWAH_MEMBERS} />
+            </div>
+          </div>
+        </section>
+      ) : peopleBlock ? (
         <section className="icms-section bg-white">
           <div className="icms-container grid gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
             <div>

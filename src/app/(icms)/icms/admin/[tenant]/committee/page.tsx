@@ -95,12 +95,18 @@ export default async function AdminCommitteePage({ params }: Props) {
           </p>
         </div>
         <Link
-          href={`/icms/${tenant.slug}/committee`}
+          href={
+            tenant.slug === 'anas-bn-malik'
+              ? `/icms/${tenant.slug}/about#administrative-structure`
+              : `/icms/${tenant.slug}/committee`
+          }
           className="text-sm font-medium text-[color:var(--icms-emerald)] hover:underline"
           target="_blank"
           rel="noreferrer"
         >
-          View public Shurah page →
+          {tenant.slug === 'anas-bn-malik'
+            ? 'View public About / governance →'
+            : 'View public Shurah page →'}
         </Link>
       </div>
 

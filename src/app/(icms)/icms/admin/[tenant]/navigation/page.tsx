@@ -19,10 +19,15 @@ export default async function AdminNavigationPage({ params }: Props) {
       <div>
         <h1 className="icms-display text-3xl text-[color:var(--icms-forest)]">Public navigation</h1>
         <p className="mt-1 max-w-2xl text-sm text-[color:var(--icms-warm-gray)]">
-          Manage the links shown on this centre&apos;s public header. Reorder items and choose whether each belongs in the primary bar or More dropdown.
+          Manage the links shown on this centre&apos;s public header, including whether Login is visible. Reorder items and choose whether each belongs in the primary bar or More dropdown.
         </p>
       </div>
-      <NavigationEditor tenantId={String(doc.id)} tenantSlug={tenant.slug} initial={tenant.navigation} />
+      <NavigationEditor
+        tenantId={String(doc.id)}
+        tenantSlug={tenant.slug}
+        initial={tenant.navigation}
+        initialShowPublicLogin={tenant.showPublicLogin !== false}
+      />
     </div>
   )
 }

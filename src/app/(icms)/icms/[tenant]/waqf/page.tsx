@@ -19,7 +19,7 @@ const MOSQUE_ENRICHMENT = {
 
 const ISLAMIYYAH_ENRICHMENT = {
   description:
-    'Endowment to fund teacher salaries, learning materials, and building maintenance for the Islamiyyah school — ensuring education continues regardless of enrolment fluctuations. Includes a scholarship sub-fund for students from low-income households.',
+    'Endowment to fund teacher salaries, learning materials, and building maintenance for the Islamiya school — ensuring education continues regardless of enrolment fluctuations. Includes a scholarship sub-fund for students from low-income households.',
   updates: [
     'Four new classrooms furnished with desks and whiteboards — January 2026',
     'Twelve scholarship awards issued for the 2025–2026 academic year',

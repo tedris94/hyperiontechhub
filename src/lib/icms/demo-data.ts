@@ -45,7 +45,7 @@ export const leaders: Leader[] = [
     id: '4',
     name: 'Hajia Amina Lawal',
     role: 'Director of Education',
-    bio: 'Guides Islamiyyah curriculum, teacher development, and family learning initiatives.',
+    bio: 'Guides Islamiya curriculum, teacher development, and family learning initiatives.',
     category: 'director',
   },
   {
@@ -147,7 +147,7 @@ export const committeeMembers: CommitteeMember[] = [
     committeeType: 'education',
     status: 'active',
     termStart: '2024-09-01',
-    bio: 'Supports Islamiyyah quality assurance and teacher development reviews.',
+    bio: 'Supports Islamiya quality assurance and teacher development reviews.',
     sortOrder: 6,
     showOnPublic: true,
   },
@@ -181,7 +181,7 @@ export const events: EventItem[] = [
     title: 'Qur’an Circle for Youth',
     date: '2026-08-09',
     time: '4:30 PM',
-    venue: 'Islamiyyah Hall',
+    venue: 'Islamiya Hall',
     blurb: 'Tajweed practice, memorization support, and character lessons for ages 10–17.',
   },
   {
@@ -223,7 +223,7 @@ export const articles: Article[] = [
     body: [
       'Anas bn Malik Islamic Center exists to serve Allah through sincere worship, sound knowledge, and compassionate community work.',
       'Our motto — Striving in the Cause of Allah — is not a slogan. It is a daily standard for how we pray, teach, give, and welcome every visitor.',
-      'In the coming months we will continue expanding Islamiyyah support, transparent Waqf reporting, and programs that strengthen families across Abuja.',
+      'In the coming months we will continue expanding Islamiya support, transparent Waqf reporting, and programs that strengthen families across Abuja.',
     ],
     status: 'published',
   },
@@ -238,7 +238,7 @@ export const articles: Article[] = [
       'A brief introduction to the center’s location, prayer schedule, and how to get involved.',
     body: [
       'We are located at AMSSCO Platinum City Estate, Plot 312 Galadimawa District, Abuja FCT.',
-      'Whether you are joining for Salah, Islamiyyah, volunteering, or supporting a Waqf project, you are welcome.',
+      'Whether you are joining for Salah, Islamiya, volunteering, or supporting a Waqf project, you are welcome.',
       'Call 08062252510 or 08034416661 to speak with the administration office.',
     ],
     status: 'published',
@@ -254,7 +254,7 @@ export const articles: Article[] = [
       'How endowment projects protect worship spaces, education, and community services over time.',
     body: [
       'Waqf is a means of continuous charity — preserving benefit beyond a single donation.',
-      'Our current priorities include facility stewardship and Islamiyyah support so knowledge and worship remain accessible.',
+      'Our current priorities include facility stewardship and Islamiya support so knowledge and worship remain accessible.',
       'Transparent updates will be published regularly so donors and members can follow progress with confidence.',
     ],
     status: 'published',
@@ -286,7 +286,7 @@ export const waqfProjects: WaqfProject[] = [
   },
   {
     id: '2',
-    title: 'Islamiyyah Learning Support',
+    title: 'Islamiya Learning Support',
     summary:
       'Books, teaching materials, and classroom support for children and adults seeking grounded Islamic education.',
     status: 'Active',

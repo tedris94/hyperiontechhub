@@ -7,6 +7,7 @@ import * as migration_20260810_213000_portfolio_brand_assets from './20260810_21
 import * as migration_20260822_093000_icms_home_section_order from './20260822_093000_icms_home_section_order';
 import * as migration_20260827_221300_icms_tenant_social_urls from './20260827_221300_icms_tenant_social_urls';
 import * as migration_20260906_230000_icms_tenant_navigation from './20260906_230000_icms_tenant_navigation';
+import * as migration_20260919_193500_icms_show_public_login from './20260919_193500_icms_show_public_login';
 
 export const migrations = [
   {
@@ -53,5 +54,10 @@ export const migrations = [
     up: migration_20260906_230000_icms_tenant_navigation.up,
     down: migration_20260906_230000_icms_tenant_navigation.down,
     name: '20260906_230000_icms_tenant_navigation',
+  },
+  {
+    up: migration_20260919_193500_icms_show_public_login.up,
+    down: migration_20260919_193500_icms_show_public_login.down,
+    name: '20260919_193500_icms_show_public_login',
   },
 ];

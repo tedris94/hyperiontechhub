@@ -7,12 +7,19 @@ type Props = {
   tenantId: string
   tenantSlug: string
   initial: IcmsNavItem[]
+  initialShowPublicLogin: boolean
 }
 
 const emptyItem: IcmsNavItem = { label: '', href: '', placement: 'primary' }
 
-export default function NavigationEditor({ tenantId, tenantSlug, initial }: Props) {
+export default function NavigationEditor({
+  tenantId,
+  tenantSlug,
+  initial,
+  initialShowPublicLogin,
+}: Props) {
   const [items, setItems] = useState<IcmsNavItem[]>(initial)
+  const [showPublicLogin, setShowPublicLogin] = useState(initialShowPublicLogin)
   const [status, setStatus] = useState('')
   const [saving, setSaving] = useState(false)
 
@@ -60,7 +67,7 @@ export default function NavigationEditor({ tenantId, tenantSlug, initial }: Prop
           collection: 'icms-tenants',
           id: tenantId,
           tenantSlug,
-          data: { navigation },
+          data: { navigation, showPublicLogin },
         }),
       })
       const result = (await response.json()) as { error?: string }
@@ -76,6 +83,21 @@ export default function NavigationEditor({ tenantId, tenantSlug, initial }: Prop
 
   return (
     <div className="space-y-4">
+      <label className="flex items-start gap-3 border border-black/10 bg-white p-4 text-sm">
+        <input
+          type="checkbox"
+          checked={showPublicLogin}
+          onChange={(event) => setShowPublicLogin(event.target.checked)}
+          className="mt-0.5"
+        />
+        <span>
+          <span className="font-medium text-[color:var(--icms-forest)]">Show Login on public header</span>
+          <span className="mt-1 block text-[color:var(--icms-warm-gray)]">
+            When off, visitors do not see a Login link. Staff can still sign in via the admin URL, and signed-in users still see Admin.
+          </span>
+        </span>
+      </label>
+
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p className="text-sm text-[color:var(--icms-warm-gray)]">
           Items are shown in order. Choose More to place an item in the hover dropdown.

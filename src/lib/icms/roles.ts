@@ -72,7 +72,7 @@ export const CAPABILITY_LABELS: Record<IcmsCapability, string> = {
 
 /** Nav / dashboard sections tied to capabilities (for the grants UI). */
 export const NAV_CAPABILITY_HINTS: Partial<Record<IcmsCapability, string>> = {
-  content: 'Articles, Events, Islamiyyah',
+  content: 'Articles, Events, Islamiya',
   pages: 'Site pages',
   leadership: 'Leadership',
   committee: 'Shurah / Committee',

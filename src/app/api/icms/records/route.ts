@@ -334,13 +334,22 @@ export async function PATCH(req: NextRequest) {
         )
       }
 
+      if ('showPublicLogin' in data && !isSuperAdmin(user)) {
+        return NextResponse.json(
+          { error: 'Only Hyperion super admin can toggle the public Login link' },
+          { status: 403 },
+        )
+      }
+
       const canSettings = accessHasCapability(access, 'settings')
       const canBank = accessHasCapability(access, 'bank')
       const canPrayer = accessHasCapability(access, 'prayer')
       const canDomains = accessHasCapability(access, 'domains')
       const editingOverrides = isSuperAdmin(user) && 'roleCapabilityOverrides' in data
+      const editingNav =
+        isSuperAdmin(user) && ('navigation' in data || 'showPublicLogin' in data)
 
-      if (!canSettings && !canBank && !canPrayer && !canDomains && !editingOverrides) {
+      if (!canSettings && !canBank && !canPrayer && !canDomains && !editingOverrides && !editingNav) {
         return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
       }
 
@@ -361,6 +370,10 @@ export async function PATCH(req: NextRequest) {
         }
         if (editingOverrides) {
           allowed.roleCapabilityOverrides = data.roleCapabilityOverrides
+        }
+        if (editingNav) {
+          if ('navigation' in data) allowed.navigation = data.navigation
+          if ('showPublicLogin' in data) allowed.showPublicLogin = data.showPublicLogin
         }
         Object.keys(data).forEach((k) => delete data[k])
         Object.assign(data, allowed)

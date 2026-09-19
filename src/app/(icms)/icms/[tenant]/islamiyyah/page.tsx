@@ -31,7 +31,7 @@ export default async function IslamiyyahPage({ params }: Props) {
       <PageHero
         tenant={tenant}
         patterned
-        title={page.heroTitle || 'Islamiyyah'}
+        title={page.heroTitle || 'Islamiya'}
         subtitle={page.heroSubtitle || 'Qur’an, Arabic, and grounded Islamic learning for children and adults.'}
       />
 
@@ -48,7 +48,7 @@ export default async function IslamiyyahPage({ params }: Props) {
             />
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[color:var(--icms-forest)]/90 to-transparent p-6 pt-20">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--icms-gold)]">
-                Anas Bin Malik Islamia Establishment
+                Anas Bin Malik Islamiya Establishment
               </p>
             </div>
           </div>

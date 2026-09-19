@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 
 type Named = { id?: string | number; title?: string; name?: string }
+type ClassRow = Named & { subjects?: Array<{ name?: string }> }
 type SchoolDoc = {
   id: string | number
   examTerms?: Array<{ id?: string; name: string }>
@@ -24,13 +25,15 @@ export default function ManagementPage() {
   const schoolSlug = String(params.schoolSlug || '')
   const [tab, setTab] = useState<'class' | 'group' | 'exam' | 'year' | 'grading' | 'ratings' | 'principal'>('class')
   const [school, setSchool] = useState<SchoolDoc | null>(null)
-  const [classes, setClasses] = useState<Named[]>([])
+  const [classes, setClasses] = useState<ClassRow[]>([])
   const [groups, setGroups] = useState<Named[]>([])
   const [classTeachers, setClassTeachers] = useState<Named[]>([])
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
   const [newName, setNewName] = useState('')
   const [classSubjects, setClassSubjects] = useState('')
+  const [editingClassId, setEditingClassId] = useState<string | number | null>(null)
+  const [editingClassSubjects, setEditingClassSubjects] = useState('')
   const [gradingText, setGradingText] = useState('')
   const [principal, setPrincipal] = useState({ name: '', signatureUrl: '', autoRemark: '', passMark: '40' })
 
@@ -124,6 +127,35 @@ export default function ManagementPage() {
     await load()
   }
 
+  async function updateClassSubjects(id: string | number) {
+    setError('')
+    const res = await fetch('/api/edusuite/records', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        collection: 'edu-classes',
+        id,
+        schoolSlug,
+        data: {
+          subjects: editingClassSubjects
+            .split(',')
+            .map((subject) => subject.trim())
+            .filter(Boolean)
+            .map((name) => ({ name })),
+        },
+      }),
+    })
+    const data = await res.json()
+    if (!res.ok) {
+      setError(data.error || 'Update failed')
+      return
+    }
+    setEditingClassId(null)
+    setEditingClassSubjects('')
+    setMessage('Class subjects updated.')
+    await load()
+  }
+
   function parseGrading() {
     return gradingText
       .split('\n')
@@ -210,11 +242,56 @@ export default function ManagementPage() {
             </button>
             <ul className="divide-y text-sm">
               {classes.map((c) => (
-                <li key={String(c.id)} className="py-2 flex justify-between">
-                  <span>{c.title}</span>
-                  <button type="button" className="text-red-600" onClick={() => void removeNamed('edu-classes', c.id!)}>
-                    Delete
-                  </button>
+                <li key={String(c.id)} className="py-3 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                  <div className="min-w-0">
+                    <div className="font-medium">{c.title}</div>
+                    {editingClassId === c.id ? (
+                      <input
+                        className="border rounded-lg px-3 py-1.5 mt-1 w-full md:w-96"
+                        aria-label={`Subjects for ${c.title || 'class'}`}
+                        placeholder="Subjects (comma-separated)"
+                        value={editingClassSubjects}
+                        onChange={(e) => setEditingClassSubjects(e.target.value)}
+                      />
+                    ) : (
+                      <div className="text-gray-600 mt-1">
+                        Subjects: {c.subjects?.map((subject) => subject.name).filter(Boolean).join(', ') || 'None assigned'}
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-3 shrink-0">
+                    {editingClassId === c.id ? (
+                      <>
+                        <button type="button" className="text-[#1A2BC2]" onClick={() => void updateClassSubjects(c.id!)}>
+                          Save
+                        </button>
+                        <button
+                          type="button"
+                          className="text-gray-600"
+                          onClick={() => {
+                            setEditingClassId(null)
+                            setEditingClassSubjects('')
+                          }}
+                        >
+                          Cancel
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        type="button"
+                        className="text-[#1A2BC2]"
+                        onClick={() => {
+                          setEditingClassId(c.id ?? null)
+                          setEditingClassSubjects((c.subjects || []).map((subject) => subject.name || '').filter(Boolean).join(', '))
+                        }}
+                      >
+                        Edit subjects
+                      </button>
+                    )}
+                    <button type="button" className="text-red-600" onClick={() => void removeNamed('edu-classes', c.id!)}>
+                      Delete
+                    </button>
+                  </div>
                 </li>
               ))}
             </ul>

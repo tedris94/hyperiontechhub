@@ -1,7 +1,8 @@
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import { getTenantBySlug, mapTenantDoc } from '@/lib/icms/tenants'
 import { getPageContent, getPublicCommitteeMembers } from '@/lib/icms/content'
 import type { CommitteeType } from '@/lib/icms/types'
+import { getPublicBaseFromHeaders } from '@/lib/icms/public-base-server'
 import PageHero from '@/components/icms/PageHero'
 import LeaderPhoto from '../leadership/LeaderPhoto'
 
@@ -38,6 +39,13 @@ export default async function CommitteePage({ params }: Props) {
   const { tenant: slug } = await params
   const doc = await getTenantBySlug(slug)
   if (!doc) notFound()
+
+  // Anas bn Malik has no Shurah — send visitors to About / governance hub.
+  if (slug === 'anas-bn-malik') {
+    const base = await getPublicBaseFromHeaders(slug)
+    redirect(`${base}/about#administrative-structure`)
+  }
+
   const tenant = mapTenantDoc(doc)
   const [members, page] = await Promise.all([
     getPublicCommitteeMembers(doc.id),

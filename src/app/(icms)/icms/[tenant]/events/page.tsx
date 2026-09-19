@@ -62,11 +62,11 @@ const FIGMA_EVENTS: EventsViewItem[] = [
     day: '12',
     month: 'Jul',
     year: '2026',
-    title: 'Islamiyyah End-of-Term Prize Giving',
+    title: 'Islamiya End-of-Term Prize Giving',
     category: 'Education',
     venue: 'Main Prayer Hall',
     blurb:
-      "Celebration of the Islamiyyah school's second term results. Awards presented by the Director of Education. Parents and community members welcome.",
+      "Celebration of the Islamiya school's second term results. Awards presented by the Director of Education. Parents and community members welcome.",
     status: 'past',
   },
 ]

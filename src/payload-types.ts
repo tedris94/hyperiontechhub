@@ -1799,6 +1799,10 @@ export interface IcmsTenant {
     | boolean
     | null;
   /**
+   * Show Login on the public header. Super admin can toggle this in tenant admin → Public navigation.
+   */
+  showPublicLogin?: boolean | null;
+  /**
    * Primary public host display (usually {slug}.hyperiontechhub.com). Updated when custom domain activates.
    */
   domainLabel?: string | null;
@@ -3806,6 +3810,7 @@ export interface IcmsTenantsSelect<T extends boolean = true> {
   uiVariant?: T;
   homeSectionOrder?: T;
   navigation?: T;
+  showPublicLogin?: T;
   domainLabel?: T;
   customDomain?: T;
   customDomainStatus?: T;

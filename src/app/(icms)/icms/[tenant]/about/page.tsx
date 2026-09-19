@@ -5,6 +5,7 @@ import { getTenantBySlug, mapTenantDoc } from '@/lib/icms/tenants'
 import { getPageContent } from '@/lib/icms/content'
 import { getPublicBaseFromHeaders } from '@/lib/icms/public-base-server'
 import { ICMS_MEDIA } from '@/lib/icms/media-assets'
+import { ANAS_ADMIN_STRUCTURE_INTRO } from '@/lib/icms/anas-governance'
 import PageHero from '@/components/icms/PageHero'
 
 type Props = { params: Promise<{ tenant: string }> }
@@ -141,6 +142,108 @@ export default async function AboutPage({ params }: Props) {
         </section>
       )}
 
+      {slug === 'anas-bn-malik' ? (
+        <section id="administrative-structure" className="icms-section bg-white scroll-mt-24">
+          <div className="icms-container">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--icms-gold)]">
+              Governance
+            </p>
+            <h2 className="icms-display mt-3 text-3xl uppercase text-[color:var(--icms-forest)] md:text-4xl">
+              Administrative structure
+            </h2>
+            <p className="mt-5 max-w-3xl text-sm leading-relaxed text-[color:var(--icms-warm-gray)] md:text-base">
+              {ANAS_ADMIN_STRUCTURE_INTRO}
+            </p>
+
+            <div className="mt-12 grid gap-4 sm:grid-cols-2">
+              <Link
+                href={`${base}/governance/board`}
+                className="group border-t border-[color:var(--icms-gold)]/50 pt-5 transition-colors hover:border-[color:var(--icms-gold)]"
+              >
+                <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[color:var(--icms-gold)]">
+                  Board
+                </p>
+                <h3 className="icms-display mt-2 text-xl uppercase text-[color:var(--icms-forest)] group-hover:text-[color:var(--icms-emerald)]">
+                  Board of Trustees
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-[color:var(--icms-warm-gray)]">
+                  Highest governing body — oversight, assets, budget, and audited accounts.
+                </p>
+              </Link>
+              <Link
+                href={`${base}/governance/management`}
+                className="group border-t border-[color:var(--icms-gold)]/50 pt-5 transition-colors hover:border-[color:var(--icms-gold)]"
+              >
+                <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[color:var(--icms-gold)]">
+                  Administration
+                </p>
+                <h3 className="icms-display mt-2 text-xl uppercase text-[color:var(--icms-forest)] group-hover:text-[color:var(--icms-emerald)]">
+                  Management Committee
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-[color:var(--icms-warm-gray)]">
+                  Day-to-day running of the Centre under the guidance of the Board.
+                </p>
+              </Link>
+            </div>
+
+            <p className="mt-14 text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--icms-gold)]">
+              Sub-committees
+            </p>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                {
+                  href: 'dawah',
+                  label: 'Da’awah Sub-Committee',
+                  blurb: 'Outreach, education, and humanitarian service.',
+                },
+                {
+                  href: 'ramadan',
+                  label: 'Ramadan Sub-Committee',
+                  blurb: 'Iftar, Tafsir, Taraweeh, and Tahajjud programmes.',
+                },
+                {
+                  href: 'zakah',
+                  label: 'Zakah Sub-Committee',
+                  blurb: 'Zakah collection and distribution (full details forthcoming).',
+                },
+                {
+                  href: 'islamiyyah',
+                  label: 'Islamiya Governing Board',
+                  blurb: 'Education and curriculum oversight for Islamiya.',
+                },
+              ].map((item) => (
+                <Link
+                  key={item.href}
+                  href={`${base}/${item.href}`}
+                  className="group border border-[color:var(--icms-gold)]/25 p-5 transition-colors hover:border-[color:var(--icms-gold)]/55"
+                >
+                  <h3 className="icms-display text-lg uppercase text-[color:var(--icms-forest)] group-hover:text-[color:var(--icms-emerald)]">
+                    {item.label}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-[color:var(--icms-warm-gray)]">
+                    {item.blurb}
+                  </p>
+                </Link>
+              ))}
+              <div
+                className="border border-dashed border-[color:var(--icms-gold)]/30 bg-[color:var(--icms-ivory)]/60 p-5 opacity-80"
+                aria-disabled
+              >
+                <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[color:var(--icms-warm-gray)]">
+                  Coming soon
+                </p>
+                <h3 className="icms-display mt-2 text-lg uppercase text-[color:var(--icms-forest)]">
+                  Finance Sub-Committee
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-[color:var(--icms-warm-gray)]">
+                  Mobilising financial resources to support the Centre’s activities.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
       <section className="bg-[color:var(--icms-forest)] text-white">
         <div className="icms-container grid gap-8 px-4 py-12 md:grid-cols-3 md:gap-0 md:px-8 md:divide-x md:divide-white/15">
           <div className="md:px-8 md:first:pl-0">
@@ -220,8 +323,13 @@ export default async function AboutPage({ params }: Props) {
 
       <section className="border-t border-black/5 bg-[color:var(--icms-ivory)] py-10">
         <div className="icms-container flex flex-wrap items-center justify-center gap-4 px-4">
-          <Link href={`${base}/leadership`} className="icms-btn-secondary">
-            {page.ctaSecondaryLabel || 'Leadership'}
+          <Link
+            href={
+              slug === 'anas-bn-malik' ? `${base}/governance/management` : `${base}/leadership`
+            }
+            className="icms-btn-secondary"
+          >
+            {page.ctaSecondaryLabel || (slug === 'anas-bn-malik' ? 'Management' : 'Leadership')}
           </Link>
           <Link href={`${base}/contact`} className="icms-btn-primary">
             {page.ctaPrimaryLabel || 'Contact'}

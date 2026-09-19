@@ -228,7 +228,7 @@ export const IcmsWaqfProjects: CollectionConfig = makeTenantScopedCollection(
 
 export const IcmsIslamiyyahClasses: CollectionConfig = makeTenantScopedCollection(
   'icms-islamiyyah-classes',
-  'ICMS Islamiyyah Class',
+  'ICMS Islamiya Class',
   [
     { name: 'title', type: 'text', required: true },
     { name: 'schedule', type: 'text', admin: { description: 'e.g. Sat & Sun · 9:00–11:30 AM' } },
@@ -253,7 +253,7 @@ export const IcmsIslamiyyahClasses: CollectionConfig = makeTenantScopedCollectio
 
 export const IcmsIslamiyyahStudents: CollectionConfig = makeTenantScopedCollection(
   'icms-islamiyyah-students',
-  'ICMS Islamiyyah Student',
+  'ICMS Islamiya Student',
   [
     { name: 'name', type: 'text', required: true },
     { name: 'guardian', type: 'text' },

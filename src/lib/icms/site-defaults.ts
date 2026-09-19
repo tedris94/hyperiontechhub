@@ -6,7 +6,7 @@ export const DEFAULT_PAGES: Record<string, PageContent> = {
     pageKey: 'home',
     heroTitle: 'A home for worship, knowledge, and sincere service',
     heroSubtitle:
-      "Mosque life, Da'wah, Waqf, donations, and Islamiyyah — unified under one dignified digital presence.",
+      "Mosque life, Da'wah, Waqf, donations, and Islamiya — unified under one dignified digital presence.",
     ctaPrimaryLabel: 'Prayer Times',
     ctaSecondaryLabel: 'Donate Now',
     prayerHeading: "Today's Prayer Times",
@@ -58,7 +58,7 @@ export const DEFAULT_PAGES: Record<string, PageContent> = {
       },
       {
         title: 'The four pillars',
-        body: 'Worship, knowledge, charity, and community stewardship guide every program — mosque life, Islamiyyah learning, Waqf projects, and transparent giving.',
+        body: 'Worship, knowledge, charity, and community stewardship guide every program — mosque life, Islamiya learning, Waqf projects, and transparent giving.',
       },
       {
         title: 'Looking forward',
@@ -138,10 +138,12 @@ export const DEFAULT_PAGES: Record<string, PageContent> = {
   },
   ramadan: {
     pageKey: 'ramadan',
-    heroTitle: 'Ramadan',
-    heroSubtitle: 'A month of Qur’an, prayer, generosity, and renewed community.',
-    introHeading: 'Ramadan at the Centre',
-    introBody: 'Follow upcoming programmes, gatherings, and reflections as the Centre prepares for and serves the blessed month.',
+    heroTitle: 'Ramadan Sub-Committee',
+    heroSubtitle:
+      'Iftar, Tafsir, Taraweeh, and Tahajjud — serving the Ummah through the blessed month.',
+    introHeading: 'Organising Ramadan at the Centre',
+    introBody:
+      'The Ramadan sub-committee is responsible for the organisation of the Ramadan programs and activities of the Center. These include Ramadan feeding (Iftar), Tafsirs, Taraweeh and Tahajjud prayers.',
   },
   waqf: {
     pageKey: 'waqf',
@@ -217,7 +219,7 @@ export const DEFAULT_FACILITIES: FacilityItem[] = [
   },
   {
     id: 'f4',
-    title: 'Islamiyyah classrooms',
+    title: 'Islamiya classrooms',
     description: 'Rooms for Qur’an and Islamic studies for children and adults.',
   },
 ]
@@ -260,11 +262,11 @@ export const DEFAULT_DONATE_FUNDS: DonateFund[] = [
     key: 'Education',
     label: 'Education',
     description:
-      'Islamiyyah school operations, teacher salaries, student scholarships, and learning materials.',
+      'Islamiya school operations, teacher salaries, student scholarships, and learning materials.',
     impactLines: [
       {
         amountLabel: '₦5,000',
-        effect: 'provides one month of learning materials for a Islamiyyah student',
+        effect: 'provides one month of learning materials for an Islamiya student',
       },
       {
         amountLabel: '₦25,000',

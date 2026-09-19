@@ -18,7 +18,7 @@ export default async function AdminIslamiyyahPage({ params }: Props) {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="icms-display text-3xl text-[color:var(--icms-forest)]">Islamiyyah</h1>
+        <h1 className="icms-display text-3xl text-[color:var(--icms-forest)]">Islamiya</h1>
         <p className="mt-1 text-sm text-[color:var(--icms-warm-gray)]">
           Classes and learners for {tenant.shortName}
         </p>

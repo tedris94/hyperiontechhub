@@ -745,7 +745,7 @@ export default function PageEditor({
           <HeroSection
             form={form}
             setForm={setForm}
-            note="Programme copy is edited here. Live class and learner records remain under Admin → Islamiyyah."
+            note="Programme copy is edited here. Live class and learner records remain under Admin → Islamiya."
           />
           <Section title="School introduction">
             <ImageUploadField
