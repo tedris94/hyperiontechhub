@@ -1,6 +1,7 @@
 /**
- * Anas bn Malik Centre — governance copy from client Attachment 1
- * (Website Information.docx). Used when slug is anas-bn-malik.
+ * Anas bn Malik Centre — governance & About copy from client Word docs
+ * (Website Information.docx + MANAGEMENT COMMITTEE … 2.docx).
+ * Used when slug is anas-bn-malik.
  */
 
 export type RosterPerson = {
@@ -12,6 +13,79 @@ export type RosterPerson = {
 export type FunctionGroup = {
   title: string
   items: string[]
+}
+
+export type CoreValue = {
+  arabic: string
+  title: string
+  body: string
+}
+
+/** About Us — history, mission, vision, core values (doc 2). */
+export const ANAS_ABOUT = {
+  heroTitle: 'About the Centre',
+  heroSubtitle:
+    'A centre for the worship of Allah, Da’awah, and service to the Muslim Ummah — established 2012.',
+  storyEyebrow: 'Our History',
+  introHeading: 'Anas Bn Malik Islamic Centre',
+  history: [
+    'Anas Bn Malik Islamic Centre (ABMIC), located at AMSSCO Platinum City, Galadimawa, Abuja, was established in the year 2012 as a centre for the worship of Allah (SWT), propagation of the Deen (Da’awah), and service to the Muslim Ummah.',
+    'Over the years, the Centre has developed beyond being a place of five daily prayers and Jumu’ah congregation into a vibrant Islamic community where Muslims come together for worship, Qur’anic and Islamic education, spiritual development, and charitable activities.',
+  ],
+  /** Namesake and narration — complements the Centre history; does not repeat it. */
+  companion: [
+    {
+      title: 'A name that carries weight',
+      body: 'The Centre is named after the noble Companion Anas ibn Malik (RA), remembered as Khadim Rasulillah — the servant of the Messenger of Allah ﷺ. His long companionship and humble service remain the measure of sincerity the Centre seeks in worship, knowledge, and care for the Ummah.',
+    },
+  ],
+  hadith: {
+    text: '“I served the Messenger of Allah ﷺ for ten years. By Allah, he never said to me ‘Uff’, and he never said about something I had done, ‘Why did you do that?’ nor about something I had left undone, ‘Why did you not do that?’”',
+    source: 'Anas ibn Malik (RA) — Sahih al-Bukhari and Sahih Muslim',
+  },
+  vision:
+    'To be a leading Islamic Centre dedicated to the worship of Allah, the advancement of authentic Islamic knowledge, and service to humanity.',
+  mission:
+    'To provide a spiritually enriching and organised Islamic institution that promotes worship, authentic Islamic knowledge, Da’awah, unity, charitable service, and the moral development of the Muslim Ummah.',
+  coreValuesIntro:
+    'The activities and administration of ABMIC are guided by the following fundamental Islamic values that define how we worship, serve, and relate with one another (brotherhood).',
+  coreValues: [
+    {
+      arabic: 'Taqwa',
+      title: 'Consciousness of Allah',
+      body: 'We strive to make the consciousness and fear of Allah the foundation of our actions, decisions, and service to the Ummah.',
+    },
+    {
+      arabic: 'Ilm',
+      title: 'Knowledge',
+      body: 'We promote the acquisition, teaching, and application of authentic Islamic knowledge based on the Qur’an and Sunnah.',
+    },
+    {
+      arabic: 'Amanah',
+      title: 'Trust',
+      body: 'We regard every responsibility, position, and resource entrusted to us as an Amanah that must be managed faithfully, responsibly, and transparently.',
+    },
+    {
+      arabic: 'Shura',
+      title: 'Consultation',
+      body: 'We encourage consultation, collective responsibility, and constructive engagement in matters concerning the administration and development of the Centre.',
+    },
+    {
+      arabic: 'Ukhuwwah',
+      title: 'Unity',
+      body: 'We promote Islamic brotherhood, mutual respect, tolerance, and cooperation, recognising the importance of unity within the Muslim Ummah.',
+    },
+    {
+      arabic: 'Rahmah',
+      title: 'Compassion',
+      body: 'We seek to demonstrate mercy, kindness, and concern for others, particularly the poor, vulnerable, and those experiencing hardship.',
+    },
+    {
+      arabic: 'Khidmah',
+      title: 'Service',
+      body: 'We believe that serving the Ummah and humanity is a noble responsibility and an important expression of our Islamic values.',
+    },
+  ] satisfies CoreValue[],
 }
 
 export const ANAS_BOARD = {
@@ -39,98 +113,36 @@ export const ANAS_MANAGEMENT = {
     'Day-to-day administration of Anas Bn Malik Islamic Centre under the guidance of the Board of Trustees.',
   purposeHeading: 'Purpose and objectives',
   purposeBody:
-    'The Management Committee of Anas Bn Malik Islamic Centre (ABMIC) is entrusted with the effective administration, coordination, and day-to-day management of the Centre in accordance with the Constitution of the Centre and under the overall guidance of the Board of Trustees (BoT).\n\nIts primary objective is to ensure that the Centre remains a well-organized, vibrant, and sustainable institution dedicated to worship, Da’awah, Islamic education, and charitable activities. The Committee strives to uphold the values of integrity, transparency, and service to the Ummah, while fostering unity and spiritual growth.',
+    'The Management Committee of Anas Bn Malik Islamic Centre (ABMIC) is responsible for the effective administration, coordination, and day-to-day management of the Centre in accordance with the Constitution of the Centre and under the overall guidance of the Board of Trustees (BoT).\n\nThe Committee seeks to ensure that the Centre remains a well-organized and vibrant institution for worship, Da’awah, and charitable activities.',
   functionsHeading: 'Functions of the Management Committee',
-  functionGroups: [
-    {
-      title: 'Administration & operations',
-      items: [
-        'Overseeing the daily running of the Centre, ensuring smooth operations of facilities and services.',
-        'Maintaining cleanliness, safety, and accessibility of the Masjid and its premises.',
-      ],
-    },
-    {
-      title: 'Policy implementation',
-      items: [
-        'Executing policies, programmes, and guidelines approved by the BoT.',
-        'Ensuring compliance with constitutional provisions and Islamic principles.',
-      ],
-    },
-    {
-      title: 'Religious programmes',
-      items: [
-        'Coordinating religious activities in consultation with the Chief Imam.',
-        'Organizing Jumu’ah prayers, Tafsir sessions, Qur’an classes, and special programmes during Ramadan and other Islamic occasions.',
-      ],
-    },
-    {
-      title: 'Education & Da’awah',
-      items: [
-        'Promoting Islamic education through Islamiya schools, seminars, and workshops.',
-        'Supporting Da’awah initiatives that spread the message of Islam and strengthen faith within the community.',
-      ],
-    },
-    {
-      title: 'Resource & personnel management',
-      items: [
-        'Supervising staff, volunteers, and personnel engaged in the Centre’s activities.',
-        'Managing assets, equipment, and other resources effectively.',
-      ],
-    },
-    {
-      title: 'Financial oversight',
-      items: [
-        'Preparing annual budgets and monitoring income and expenditure.',
-        'Ensuring transparency, accountability, and prudent financial management.',
-        'Exploring WAQF and sustainable funding initiatives.',
-      ],
-    },
-    {
-      title: 'Sub-committees',
-      items: [
-        'Ramadan Sub-Committee (for fasting, Iftar, and Taraweeh arrangements)',
-        'Finance Sub-Committee (to mobilise financial resources to support the Center’s activities)',
-        'Islamiya Governing Board (for education and curriculum oversight)',
-        'Da’awah Sub-Committee (for outreach and missionary activities)',
-        'Zakah Sub-Committee (for Zakah collection and distribution)',
-      ],
-    },
-    {
-      title: 'Community development',
-      items: [
-        'Mobilising resources for charitable and welfare projects.',
-        'Supporting initiatives such as healthcare drives, youth empowerment, and poverty alleviation.',
-      ],
-    },
-    {
-      title: 'Reporting & accountability',
-      items: [
-        'Submitting periodic reports to the BoT on activities, finances, achievements, and challenges.',
-        'Maintaining proper documentation and records for institutional memory.',
-      ],
-    },
-  ] satisfies FunctionGroup[],
-  compositionHeading: 'Composition',
+  /** Flat function list from client Management Committee doc 2. */
+  functions: [
+    'Overseeing the day-to-day administration and smooth operation of the Centre and its facilities.',
+    'Implementing policies, programmes, and guidelines approved by the BoT.',
+    'Coordinating religious programmes and activities of the Masjid in consultation with the Chief Imam.',
+    'Promoting Islamic education, Da’awah, community service, and programmes that strengthen unity among members of the Ummah.',
+    'Managing and supervising the Centre’s personnel, assets, and other resources.',
+    'Preparing and overseeing the Centre’s programmes, budgets, income and expenditure, while ensuring transparency and prudent financial management.',
+    'Establishing and supervising sub-committees or ad-hoc committees such as Ramadan Sub-Committee, Finance/Waqf Sub-Committee, Islamiya Governing Board, and Da’awah Sub-Committee that manage specific programmes and responsibilities.',
+    'Mobilising resources and supporting charitable, welfare, and community development initiatives undertaken by the Centre.',
+    'Reporting periodically to the Board of Trustees on the activities, finances, achievements, and challenges of the Centre.',
+  ],
+  /** Kept for older layout helpers; derived grouping is unused when `functions` is shown. */
+  functionGroups: [] as FunctionGroup[],
+  compositionHeading: 'Membership',
   compositionIntro:
-    'The Management Committee is composed of responsible and committed members of the Ummah appointed in accordance with the Constitution of the Centre.',
+    'The Management Committee is composed of responsible and committed members of the Ummah appointed in accordance with the Constitution of the Centre. The Committee is constituted to provide the range of experience, competence, and dedication required for effective management of the Centre.',
   compositionRoles: [
     'Chairman',
-    'Chairmen of sub-committees',
-    'Chairman of the Islamiya School Board',
-    'Amira of the sisters in the Estate',
     'Secretary',
     'Financial Secretary',
     'Chief Imam',
     'Internal Auditor',
-    'Other members assigned to key areas of the Centre’s activities',
+    'Other members assigned responsibilities in key areas of the Centre’s activities',
   ],
-  qualities: [
-    'Strong Islamic values and moral integrity',
-    'Proven competence and dedication to service',
-    'Ability to work collectively and harmoniously with others',
-  ],
+  qualities: [] as string[],
   closing:
-    'Through collective responsibility and cooperation with the BoT, the Management Committee advances the mission of Anas Bn Malik Islamic Centre as a hub of worship, knowledge, Da’awah, and service to humanity.',
+    'Through collective responsibility and cooperation with the BoT, the Management Committee strives to advance the mission of Anas Bn Malik Islamic Centre as a Centre of worship, knowledge, Da’awah, and service to humanity.',
 }
 
 export const ANAS_RAMADAN = {

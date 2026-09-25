@@ -5,7 +5,7 @@ import { getTenantBySlug, mapTenantDoc } from '@/lib/icms/tenants'
 import { getPageContent } from '@/lib/icms/content'
 import { getPublicBaseFromHeaders } from '@/lib/icms/public-base-server'
 import { ICMS_MEDIA } from '@/lib/icms/media-assets'
-import { ANAS_ADMIN_STRUCTURE_INTRO } from '@/lib/icms/anas-governance'
+import { ANAS_ABOUT, ANAS_ADMIN_STRUCTURE_INTRO } from '@/lib/icms/anas-governance'
 import PageHero from '@/components/icms/PageHero'
 
 type Props = { params: Promise<{ tenant: string }> }
@@ -17,6 +17,7 @@ export default async function AboutPage({ params }: Props) {
   const tenant = mapTenantDoc(doc)
   const page = await getPageContent(doc.id, 'about')
   const base = await getPublicBaseFromHeaders(tenant.slug)
+  const isAnas = slug === 'anas-bn-malik'
 
   const mapsQuery = encodeURIComponent(tenant.address)
   const mapsEmbed = `https://maps.google.com/maps?q=${mapsQuery}&z=15&output=embed`
@@ -32,10 +33,14 @@ export default async function AboutPage({ params }: Props) {
       <PageHero
         tenant={tenant}
         patterned
-        title={page.heroTitle || 'About the Centre'}
+        title={
+          page.heroTitle || (isAnas ? ANAS_ABOUT.heroTitle : 'About the Centre')
+        }
         subtitle={
           page.heroSubtitle ||
-          'Established to serve, educate, and uplift the Muslim community.'
+          (isAnas
+            ? ANAS_ABOUT.heroSubtitle
+            : 'Established to serve, educate, and uplift the Muslim community.')
         }
       />
 
@@ -43,10 +48,14 @@ export default async function AboutPage({ params }: Props) {
         <div className="icms-container grid gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--icms-gold)]">
-              {page.storyEyebrow || 'Our Story'}
+              {isAnas
+                ? ANAS_ABOUT.storyEyebrow
+                : page.storyEyebrow || 'Our Story'}
             </p>
             <h2 className="icms-display mt-3 text-3xl uppercase leading-snug text-[color:var(--icms-forest)] md:text-4xl">
-              {page.introHeading || 'Rooted in tradition'}
+              {isAnas
+                ? ANAS_ABOUT.introHeading
+                : page.introHeading || 'Rooted in tradition'}
             </h2>
             <div className="my-6 h-16 w-px bg-[color:var(--icms-gold)]" />
 
@@ -75,26 +84,88 @@ export default async function AboutPage({ params }: Props) {
           </div>
 
           <div className="space-y-10">
-            {page.introBody ? (
-              <p className="text-sm leading-relaxed text-[color:var(--icms-warm-gray)] md:text-base">
-                {page.introBody}
-              </p>
-            ) : null}
-            {storyBlocks.map((block) => (
-              <div key={block.title}>
-                <h3 className="icms-display text-xl uppercase tracking-wide text-[color:var(--icms-forest)]">
-                  {block.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-[color:var(--icms-warm-gray)] md:text-base">
-                  {block.body}
-                </p>
-              </div>
-            ))}
+            {isAnas ? (
+              <>
+                {ANAS_ABOUT.history.map((paragraph) => (
+                  <p
+                    key={paragraph.slice(0, 48)}
+                    className="text-sm leading-relaxed text-[color:var(--icms-warm-gray)] md:text-base"
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+                {ANAS_ABOUT.companion.map((block) => (
+                  <div key={block.title}>
+                    <h3 className="icms-display text-xl uppercase tracking-wide text-[color:var(--icms-forest)]">
+                      {block.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-relaxed text-[color:var(--icms-warm-gray)] md:text-base">
+                      {block.body}
+                    </p>
+                  </div>
+                ))}
+                <blockquote className="border-l-2 border-[color:var(--icms-gold)] pl-5">
+                  <p className="text-sm leading-relaxed text-[color:var(--icms-forest)] md:text-base">
+                    {ANAS_ABOUT.hadith.text}
+                  </p>
+                  <footer className="mt-3 text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--icms-gold)]">
+                    {ANAS_ABOUT.hadith.source}
+                  </footer>
+                </blockquote>
+              </>
+            ) : (
+              <>
+                {page.introBody ? (
+                  <p className="text-sm leading-relaxed text-[color:var(--icms-warm-gray)] md:text-base">
+                    {page.introBody}
+                  </p>
+                ) : null}
+                {storyBlocks.map((block) => (
+                  <div key={block.title}>
+                    <h3 className="icms-display text-xl uppercase tracking-wide text-[color:var(--icms-forest)]">
+                      {block.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-relaxed text-[color:var(--icms-warm-gray)] md:text-base">
+                      {block.body}
+                    </p>
+                  </div>
+                ))}
+              </>
+            )}
           </div>
         </div>
       </section>
 
-      {(missionPoints.length > 0 || visionPoints.length > 0) && (
+      {isAnas ? (
+        <section className="icms-section">
+          <div className="icms-container">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--icms-gold)]">
+              Purpose
+            </p>
+            <h2 className="icms-display mt-3 text-3xl uppercase text-[color:var(--icms-forest)] md:text-4xl">
+              Mission & Vision
+            </h2>
+            <div className="mt-12 grid gap-12 lg:grid-cols-2 lg:gap-16">
+              <div>
+                <h3 className="icms-display text-2xl uppercase text-[color:var(--icms-forest)]">
+                  Mission
+                </h3>
+                <p className="mt-6 text-sm leading-relaxed text-[color:var(--icms-warm-gray)] md:text-base">
+                  {ANAS_ABOUT.mission}
+                </p>
+              </div>
+              <div>
+                <h3 className="icms-display text-2xl uppercase text-[color:var(--icms-forest)]">
+                  Vision
+                </h3>
+                <p className="mt-6 text-sm leading-relaxed text-[color:var(--icms-warm-gray)] md:text-base">
+                  {ANAS_ABOUT.vision}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      ) : missionPoints.length > 0 || visionPoints.length > 0 ? (
         <section className="icms-section">
           <div className="icms-container">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--icms-gold)]">
@@ -140,10 +211,44 @@ export default async function AboutPage({ params }: Props) {
             </div>
           </div>
         </section>
-      )}
+      ) : null}
 
-      {slug === 'anas-bn-malik' ? (
-        <section id="administrative-structure" className="icms-section bg-white scroll-mt-24">
+      {isAnas ? (
+        <section className="icms-section bg-white">
+          <div className="icms-container">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--icms-gold)]">
+              Our Core Values
+            </p>
+            <h2 className="icms-display mt-3 text-3xl uppercase text-[color:var(--icms-forest)] md:text-4xl">
+              How we worship, serve, and relate
+            </h2>
+            <p className="mt-5 max-w-3xl text-sm leading-relaxed text-[color:var(--icms-warm-gray)] md:text-base">
+              {ANAS_ABOUT.coreValuesIntro}
+            </p>
+            <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {ANAS_ABOUT.coreValues.map((value) => (
+                <article
+                  key={value.arabic}
+                  className="border-t border-[color:var(--icms-gold)]/45 pt-5"
+                >
+                  <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[color:var(--icms-gold)]">
+                    {value.arabic}
+                  </p>
+                  <h3 className="icms-display mt-2 text-xl uppercase text-[color:var(--icms-forest)]">
+                    {value.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-[color:var(--icms-warm-gray)]">
+                    {value.body}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      {isAnas ? (
+        <section id="administrative-structure" className="icms-section bg-[color:var(--icms-ivory)] scroll-mt-24">
           <div className="icms-container">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--icms-gold)]">
               Governance
@@ -181,7 +286,7 @@ export default async function AboutPage({ params }: Props) {
                   Management Committee
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-[color:var(--icms-warm-gray)]">
-                  Day-to-day running of the Centre under the guidance of the Board.
+                  Day-to-day running of the Centre under the guidance of the Board — purpose, functions, and membership.
                 </p>
               </Link>
             </div>
@@ -215,7 +320,7 @@ export default async function AboutPage({ params }: Props) {
                 <Link
                   key={item.href}
                   href={`${base}/${item.href}`}
-                  className="group border border-[color:var(--icms-gold)]/25 p-5 transition-colors hover:border-[color:var(--icms-gold)]/55"
+                  className="group border border-[color:var(--icms-gold)]/25 bg-white p-5 transition-colors hover:border-[color:var(--icms-gold)]/55"
                 >
                   <h3 className="icms-display text-lg uppercase text-[color:var(--icms-forest)] group-hover:text-[color:var(--icms-emerald)]">
                     {item.label}
@@ -226,7 +331,7 @@ export default async function AboutPage({ params }: Props) {
                 </Link>
               ))}
               <div
-                className="border border-dashed border-[color:var(--icms-gold)]/30 bg-[color:var(--icms-ivory)]/60 p-5 opacity-80"
+                className="border border-dashed border-[color:var(--icms-gold)]/30 bg-white/60 p-5 opacity-80"
                 aria-disabled
               >
                 <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[color:var(--icms-warm-gray)]">
@@ -325,11 +430,11 @@ export default async function AboutPage({ params }: Props) {
         <div className="icms-container flex flex-wrap items-center justify-center gap-4 px-4">
           <Link
             href={
-              slug === 'anas-bn-malik' ? `${base}/governance/management` : `${base}/leadership`
+              isAnas ? `${base}/governance/management` : `${base}/leadership`
             }
             className="icms-btn-secondary"
           >
-            {page.ctaSecondaryLabel || (slug === 'anas-bn-malik' ? 'Management' : 'Leadership')}
+            {page.ctaSecondaryLabel || (isAnas ? 'Management' : 'Leadership')}
           </Link>
           <Link href={`${base}/contact`} className="icms-btn-primary">
             {page.ctaPrimaryLabel || 'Contact'}
